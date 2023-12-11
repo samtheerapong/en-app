@@ -57,7 +57,7 @@ class EnTechnician extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEnWos()
+    public function getRechecker0()
     {
         return $this->hasMany(EnWo::class, ['rechecker' => 'technician_id']);
     }
@@ -67,7 +67,7 @@ class EnTechnician extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEnWos0()
+    public function getChecker0()
     {
         return $this->hasMany(EnWo::class, ['checker' => 'technician_id']);
     }

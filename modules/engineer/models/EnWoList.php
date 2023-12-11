@@ -49,7 +49,7 @@ class EnWoList extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getWorkorder()
+    public function getWorkorder0()
     {
         return $this->hasOne(EnWo::class, ['workorder_id' => 'workorder_id']);
     }

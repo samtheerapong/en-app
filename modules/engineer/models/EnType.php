@@ -60,7 +60,7 @@ class EnType extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEnWos()
+    public function getType0()
     {
         return $this->hasMany(EnWo::class, ['work_type_id' => 'type_id']);
     }

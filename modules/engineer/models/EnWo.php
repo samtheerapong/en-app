@@ -97,7 +97,7 @@ class EnWo extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getCategory()
+    public function getCategory0()
     {
         return $this->hasOne(EnCategory::class, ['category_id' => 'category_id']);
     }
@@ -117,7 +117,7 @@ class EnWo extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEnWoLists()
+    public function getList0()
     {
         return $this->hasMany(EnWoList::class, ['workorder_id' => 'workorder_id']);
     }
@@ -137,7 +137,7 @@ class EnWo extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getWorkType()
+    public function getType0()
     {
         return $this->hasOne(EnType::class, ['type_id' => 'work_type_id']);
     }

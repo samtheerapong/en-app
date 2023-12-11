@@ -2,6 +2,7 @@
 
 namespace app\modules\engineer\models;
 
+use app\modules\nfc\models\Location;
 use Yii;
 
 /**
