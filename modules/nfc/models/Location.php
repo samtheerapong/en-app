@@ -2,6 +2,7 @@
 
 namespace app\modules\nfc\models;
 
+use app\modules\engineer\models\EnRpList;
 use Yii;
 
 /**
