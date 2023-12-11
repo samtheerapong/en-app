@@ -12,7 +12,7 @@ use Yii;
  * @property string $name สถานะ
  * @property string|null $detail รายละเอียด
  * @property string|null $color สี
- * @property int|null $avtive สถานะ
+ * @property int|null $active สถานะ
  */
 class EnStatus extends \yii\db\ActiveRecord
 {
@@ -32,7 +32,7 @@ class EnStatus extends \yii\db\ActiveRecord
         return [
             [['code', 'name'], 'required'],
             [['detail'], 'string'],
-            [['avtive'], 'integer'],
+            [['active'], 'integer'],
             [['code', 'name', 'color'], 'string', 'max' => 255],
             [['code'], 'unique'],
         ];
@@ -49,7 +49,7 @@ class EnStatus extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'สถานะ'),
             'detail' => Yii::t('app', 'รายละเอียด'),
             'color' => Yii::t('app', 'สี'),
-            'avtive' => Yii::t('app', 'สถานะ'),
+            'active' => Yii::t('app', 'สถานะ'),
         ];
     }
 }

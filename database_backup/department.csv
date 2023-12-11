@@ -1,0 +1,15 @@
+department_id,code,name,detail,department_head,color,active
+1,GR,ทั่วไป,NULL,11,#379237,1
+2,AC,แผนกบัญชี (Account ),NULL,22,#425F57,1
+3,HR,แผนกบุคคล (Human Resources),NULL,20,#379237,1
+4,PD,ฝ่ายผลิต (Production),NULL,29,#C21010,1
+5,PC,แผนกจัดซื้อ (Purchasing),NULL,27,#FF8787,1
+6,EN,แผนกวิศวกรรม (Engineer),NULL,24,#872341,1
+7,PN,ฝ่ายวางแผนและควบคุมการผลิต (Planning),NULL,15,#ED5AB3,1
+8,QC,แผนกควบคุมคุณภาพ (Quality Control),NULL,4,#EC8F5E,1
+9,QA,แผนกประกันคุณภาพ (Quality Assurance),NULL,4,#F3B664,1
+10,RD,แผนกวิจัยและพัฒนาผลิตภัณฑ์ (R&D),NULL,26,#2E97A7,1
+11,WH,แผนกคลังสินค้า (Ware House),NULL,15,#B0578D,1
+12,IT,แผนกไอที (IT),NULL,12,#186F65,1
+13,SA,ฝ่ายขาย (Sale),NULL,6,#C70039,1
+14,SP,สนับสนุน (Support),NULL,9,#219C90,1
