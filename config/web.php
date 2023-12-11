@@ -27,6 +27,10 @@ $config = [
         'engineer' => [
             'class' => 'app\modules\engineer\Module',
         ],
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module',
+            // 'i18n' => []
+        ],
     ],
     'components' => [
         'view' => [
