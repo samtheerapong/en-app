@@ -1,29 +1,30 @@
 <?php
 
-namespace app\modules\nfc\models;
+namespace app\modules\engineer\models;
 
+use app\modules\nfc\models\Department;
 use Yii;
 
 /**
- * This is the model class for table "location".
+ * This is the model class for table "en_warehouse".
  *
  * @property int $id
- * @property string $code รหัส
- * @property string $name ชื่อ
- * @property string|null $detail รายละเอียด
+ * @property string|null $code รหัส
+ * @property string|null $name ชื่อ
+ * @property int|null $lot ล็อต
  * @property string|null $color สี
  * @property int|null $active สถานะ
  *
- * @property EnRpList[] $enRpLists
+ * @property Department[] $departments
  */
-class Location extends \yii\db\ActiveRecord
+class Warehouse extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'location';
+        return 'en_warehouse';
     }
 
     /**
@@ -32,11 +33,9 @@ class Location extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['code', 'name'], 'required'],
-            [['detail'], 'string'],
-            [['active'], 'integer'],
-            [['code', 'name', 'color'], 'string', 'max' => 255],
-            [['code'], 'unique'],
+            [['lot', 'active'], 'integer'],
+            [['code', 'color'], 'string', 'max' => 45],
+            [['name'], 'string', 'max' => 255],
         ];
     }
 
@@ -49,19 +48,19 @@ class Location extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'code' => Yii::t('app', 'รหัส'),
             'name' => Yii::t('app', 'ชื่อ'),
-            'detail' => Yii::t('app', 'รายละเอียด'),
+            'lot' => Yii::t('app', 'ล็อต'),
             'color' => Yii::t('app', 'สี'),
             'active' => Yii::t('app', 'สถานะ'),
         ];
     }
 
     /**
-     * Gets query for [[EnRpLists]].
+     * Gets query for [[Departments]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEnRpLists()
+    public function getDepartments()
     {
-        return $this->hasMany(EnRpList::class, ['location' => 'id']);
+        return $this->hasMany(Department::class, ['warehouse_id' => 'id']);
     }
 }

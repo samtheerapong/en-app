@@ -8,7 +8,7 @@ use Yii;
 /**
  * This is the model class for table "en_rp_list".
  *
- * @property int $list_id
+ * @property int $id
  * @property int|null $request_id ใบแจ้งซ่อม
  * @property string|null $detail_list รายการ
  * @property string|null $request_date วันที่ต้องการ
@@ -19,8 +19,9 @@ use Yii;
  * @property string|null $remask หมายเหตุ
  *
  * @property Location $location0
+ * @property Rp $request
  */
-class EnRpList extends \yii\db\ActiveRecord
+class RpList extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -40,7 +41,8 @@ class EnRpList extends \yii\db\ActiveRecord
             [['request_date', 'broken_date'], 'safe'],
             [['image', 'remask'], 'string'],
             [['detail_list'], 'string', 'max' => 255],
-            [['location'], 'exist', 'skipOnError' => true, 'targetClass' => Location::class, 'targetAttribute' => ['location' => 'location_id']],
+            [['location'], 'exist', 'skipOnError' => true, 'targetClass' => Location::class, 'targetAttribute' => ['location' => 'id']],
+            [['request_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rp::class, 'targetAttribute' => ['request_id' => 'id']],
         ];
     }
 
@@ -50,7 +52,7 @@ class EnRpList extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'list_id' => Yii::t('app', 'List ID'),
+            'id' => Yii::t('app', 'ID'),
             'request_id' => Yii::t('app', 'ใบแจ้งซ่อม'),
             'detail_list' => Yii::t('app', 'รายการ'),
             'request_date' => Yii::t('app', 'วันที่ต้องการ'),
@@ -69,6 +71,16 @@ class EnRpList extends \yii\db\ActiveRecord
      */
     public function getLocation0()
     {
-        return $this->hasOne(Location::class, ['location_id' => 'location']);
+        return $this->hasOne(Location::class, ['id' => 'location']);
+    }
+
+    /**
+     * Gets query for [[Request]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRequest()
+    {
+        return $this->hasOne(Rp::class, ['id' => 'request_id']);
     }
 }

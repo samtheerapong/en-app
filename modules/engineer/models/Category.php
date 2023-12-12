@@ -7,16 +7,16 @@ use Yii;
 /**
  * This is the model class for table "en_category".
  *
- * @property int $category_id
+ * @property int $id
  * @property string $code รหัส
  * @property string $name ชื่อ
  * @property string|null $detail รายละเอียด
  * @property string|null $color สี
  * @property int|null $avtive สถานะ
  *
- * @property EnWo[] $enWos
+ * @property Wo[] $enWos
  */
-class EnCategory extends \yii\db\ActiveRecord
+class Category extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -46,7 +46,7 @@ class EnCategory extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'category_id' => Yii::t('app', 'Category ID'),
+            'id' => Yii::t('app', 'ID'),
             'code' => Yii::t('app', 'รหัส'),
             'name' => Yii::t('app', 'ชื่อ'),
             'detail' => Yii::t('app', 'รายละเอียด'),
@@ -62,6 +62,6 @@ class EnCategory extends \yii\db\ActiveRecord
      */
     public function getEnWos()
     {
-        return $this->hasMany(EnWo::class, ['category_id' => 'category_id']);
+        return $this->hasMany(Wo::class, ['category_id' => 'id']);
     }
 }

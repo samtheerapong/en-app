@@ -7,16 +7,16 @@ use Yii;
 /**
  * This is the model class for table "en_technician".
  *
- * @property int $technician_id
- * @property string|null $name ชื่อ-สกุล
+ * @property int $id
  * @property string|null $photo รูปภาพ
  * @property string|null $tel เบอร์ติดต่อ
  * @property int|null $active สถานะ
+ * @property string|null $name ชื่อ-สกุล
+ * @property int|null $head หัวหน้า
  *
- * @property EnWo[] $enWos
- * @property EnWo[] $enWos0
+ * @property Actor[] $enActors
  */
-class EnTechnician extends \yii\db\ActiveRecord
+class Technician extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -32,8 +32,8 @@ class EnTechnician extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['active'], 'integer'],
-            [['name', 'photo'], 'string', 'max' => 255],
+            [['active', 'head'], 'integer'],
+            [['photo', 'name'], 'string', 'max' => 255],
             [['tel'], 'string', 'max' => 45],
         ];
     }
@@ -44,31 +44,22 @@ class EnTechnician extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'technician_id' => Yii::t('app', 'Technician ID'),
-            'name' => Yii::t('app', 'ชื่อ-สกุล'),
+            'id' => Yii::t('app', 'ID'),
             'photo' => Yii::t('app', 'รูปภาพ'),
             'tel' => Yii::t('app', 'เบอร์ติดต่อ'),
             'active' => Yii::t('app', 'สถานะ'),
+            'name' => Yii::t('app', 'ชื่อ-สกุล'),
+            'head' => Yii::t('app', 'หัวหน้า'),
         ];
     }
 
     /**
-     * Gets query for [[EnWos]].
+     * Gets query for [[EnActors]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getRechecker0()
+    public function getEnActors()
     {
-        return $this->hasMany(EnWo::class, ['rechecker' => 'technician_id']);
-    }
-
-    /**
-     * Gets query for [[EnWos0]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getChecker0()
-    {
-        return $this->hasMany(EnWo::class, ['checker' => 'technician_id']);
+        return $this->hasMany(Actor::class, ['technician_id' => 'id']);
     }
 }

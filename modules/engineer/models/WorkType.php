@@ -1,29 +1,29 @@
 <?php
 
-namespace app\modules\nfc\models;
+namespace app\modules\engineer\models;
 
 use Yii;
 
 /**
- * This is the model class for table "location".
+ * This is the model class for table "en_work_type".
  *
  * @property int $id
  * @property string $code รหัส
  * @property string $name ชื่อ
  * @property string|null $detail รายละเอียด
  * @property string|null $color สี
- * @property int|null $active สถานะ
+ * @property int|null $avtive สถานะ
  *
- * @property EnRpList[] $enRpLists
+ * @property Wo[] $enWos
  */
-class Location extends \yii\db\ActiveRecord
+class WorkType extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'location';
+        return 'en_work_type';
     }
 
     /**
@@ -34,7 +34,7 @@ class Location extends \yii\db\ActiveRecord
         return [
             [['code', 'name'], 'required'],
             [['detail'], 'string'],
-            [['active'], 'integer'],
+            [['avtive'], 'integer'],
             [['code', 'name', 'color'], 'string', 'max' => 255],
             [['code'], 'unique'],
         ];
@@ -51,17 +51,17 @@ class Location extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'ชื่อ'),
             'detail' => Yii::t('app', 'รายละเอียด'),
             'color' => Yii::t('app', 'สี'),
-            'active' => Yii::t('app', 'สถานะ'),
+            'avtive' => Yii::t('app', 'สถานะ'),
         ];
     }
 
     /**
-     * Gets query for [[EnRpLists]].
+     * Gets query for [[EnWos]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEnRpLists()
+    public function getEnWos()
     {
-        return $this->hasMany(EnRpList::class, ['location' => 'id']);
+        return $this->hasMany(Wo::class, ['work_type_id' => 'id']);
     }
 }

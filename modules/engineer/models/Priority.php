@@ -7,14 +7,16 @@ use Yii;
 /**
  * This is the model class for table "en_priority".
  *
- * @property int $priority_id
+ * @property int $id
  * @property string $code รหัส
  * @property string $name ชื่อ
  * @property string|null $detail รายละเอียด
  * @property string|null $color สี
  * @property int|null $avtive สถานะ
+ *
+ * @property Rp[] $enRps
  */
-class EnPriority extends \yii\db\ActiveRecord
+class Priority extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -44,12 +46,22 @@ class EnPriority extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'priority_id' => Yii::t('app', 'Priority ID'),
+            'id' => Yii::t('app', 'ID'),
             'code' => Yii::t('app', 'รหัส'),
             'name' => Yii::t('app', 'ชื่อ'),
             'detail' => Yii::t('app', 'รายละเอียด'),
             'color' => Yii::t('app', 'สี'),
             'avtive' => Yii::t('app', 'สถานะ'),
         ];
+    }
+
+    /**
+     * Gets query for [[EnRps]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEnRps()
+    {
+        return $this->hasMany(Rp::class, ['priority' => 'id']);
     }
 }
