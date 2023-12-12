@@ -83,7 +83,7 @@ use yii\helpers\Url;
                             ['label' => Yii::t('app', 'work-type'), 'url' => ['/engineer/work-type/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
                             ['label' => Yii::t('app', 'team'), 'url' => ['/engineer/team/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
                             ['label' => Yii::t('app', 'upload'), 'url' => ['/engineer/upload/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
-                           
+
                         ]
                     ],
 
