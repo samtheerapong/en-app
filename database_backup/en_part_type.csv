@@ -1,0 +1,148 @@
+id,code,name,department_id,active
+1,MO,มอเตอร์,10,1
+3,PT,อะไหล่เครื่องจักร,10,1
+4,TL,เครื่องมือ,10,1
+5,WG,ค่าแรง,10,1
+6,SA,อุปกรณ์สุขภัณฑ์,10,1
+7,PI,อุปกรณ์ประปา,10,1
+8,ET,อุปกรณ์ไฟฟ้า,10,1
+9,PDA,RAW  MATERIAL RECEIVING AND DISCHARGING EQUIPMENT,10,1
+10,BD,อุปกรณ์ก่อสร้าง,10,1
+11,B,SCREW  OIL  PRESS  MACHINE,10,1
+22,SN,หมวดอุปกรณ์เครื่องเขียน,5,1
+23,RL,Raw Material Liquid,8,1
+24,RS,Raw Material Solid,8,1
+25,PBC,Packaging Box Craft Paper,8,1
+26,PBO,Packaging Box Other,8,1
+27,PCC,Pakaging Container Can,8,1
+28,PCG,Pakaging Container Glass,8,1
+29,PCP,Pakaging Container Plastic or PET,8,1
+30,PCS,Pakaging Container Sachet,8,1
+31,PLP,Pakaging Label Paper,8,1
+32,PLS,Pakaging Label Sticker,8,1
+33,PSF,Pakaging Seal Foil,8,1
+34,PSM,Pakaging Seal Metal Cap,8,1
+35,PSO,Pakaging Seal Other,8,1
+36,PSP,Pakaging Seal Plastic Cap,8,1
+37,PSS,Pakaging Seal Shrink Film,8,1
+38,QC-01,สารเคมีlab,3,1
+39,FJ,Japanese Soy Sauce,8,1
+40,FB,Barley Coffee ot Tea,8,1
+41,FC,Chinese Soy Sauce,8,1
+42,FS,Seasoning Sauce,8,1
+43,FF,Fairtrade Product,8,1
+44,FM,Miso,8,1
+45,FV,Vinegar,8,1
+46,SFO,Supply,8,1
+47,QC-02,อุปกรณ์lab,3,1
+48,QC-03,วิเคราะห์คุณภาพ  External  Lab,3,1
+49,WIP,Work In Process,8,1
+50,RE,อุปกรณ์ซ่อมแซม (Repair eguipment),2,1
+51,RD-01,งานทดลอง,9,1
+52,RD-02,ค่าส่งตัวอย่าง,9,1
+53,QR-04,เชื้อจุลินทรีย์,3,1
+54,RD-03,อุปกรณ์ บรรจุภัณฑ์,9,1
+55,CE,หมวดอุปกรณ์ทำความสะอาด,5,1
+56,NOTEBOOK,โน้ตบุ๊ค,11,1
+57,DESKTOP PC,คอมพิวเตอร์,11,1
+58,HARDWARE,อุปกรณ์คอมพิวเตอร์,11,1
+59,STORAGE,อุปกรณ์จัดเก็บข้อมูล,11,1
+60,ACCESSORIES,อุปกรณ์เสริมคอมพิวเตอร์,11,1
+61,PERIPHERALS,อุปกรณ์ต่อพ่วง,11,1
+62,PRINTER,อุปกรณ์การพิมพ์,11,1
+63,SOFTWARE,โปรแกรม,11,1
+64,NETWORK,อุปกรณ์เน็ตเวิร์ค,11,1
+65,CCTV,กล้องวงจรปิด,11,1
+66,FT,ฟิตติ้ง,10,1
+67,PS,แรงดัน,10,1
+68,FO,Oill,8,1
+69,OT,Others,8,1
+70,UP,UPVC,10,1
+71,PV,PVC,10,1
+72,KA,กาวาไนท์,10,1
+73,ST,สตรีม,10,1
+74,RB,สายยาง,10,1
+75,OT,อื่นๆ,10,1
+76,SL,สแตนเลส,10,1
+77,IR,เหล็ก,10,1
+78,WI,สายไฟ,10,1
+79,PD,เครื่องจักรผลิต,10,1
+80,FL,กรอง Filter,10,1
+81,EQ,"อุปกรณ์,ท่อร้อยสาย",10,1
+82,BR,ทองเหลือง,10,1
+83,CA,"สอบเทียบ , ใบรับรอง",10,1
+84,TM,Transmission (ระบบส่งกำลัง),10,1
+85,PM,งานซ่อมบำรุง,10,1
+86,CT,อุปกรณ์ควบคุม,10,1
+87,UT,utility,10,1
+88,OL,"น้ำมัน,สารหล่อลื่น,น้ำยา",10,1
+89,NS,"น๊อต,สกรู",10,1
+90,BE,"ลูกปืน,แบริ่ง",10,1
+91,CS,ของใช้สิ้นเปลือง (ใบตัด แก็ส),10,1
+92,SO,ซีล โอริง ปะเก็น,10,1
+93,TE,อุณหภูมิ,10,1
+94,C,RAW  MATERIAL TREATMENT EQUIPMENT,10,1
+95,D,HEAPING EQUIPMENT,10,1
+96,E,KOJI MAKING EQUIPMENT AND DE-KOJI,10,1
+97,PJ,งานโครงการ,10,1
+98,LI,หลอดไฟ,10,1
+99,SV,วาล์วสตีม,10,1
+100,PA,สี,10,1
+101,EL,เครื่องใช้ไฟฟ้า,10,1
+102,PU,ปั๊ม,10,1
+103,KO,Koicuchi,8,1
+104,TA,Tamari,8,1
+105,KOR,Koikuchi - Rice,8,1
+106,OR,FT or Organic,8,1
+107,PN,Pneumatic,10,1
+108,F,FERMENTATION TANK,10,1
+109,G,SALT DISSOLVING EQUIPMENT,10,1
+110,WR,WRENCH (ประแจ),10,1
+111,WE,Weight น้ำหนัก,10,1
+112,H,MOROMI PREESS EQUIPMENT,10,1
+113,I,CAKE TREATMENT EQUIPMENT,10,1
+114,J,RAW SOY SAUCE STORAGE EQUIPMENT,10,1
+115,K,CLARIFYING EQUIPMENT,10,1
+116,L,ELCETROMAGNETIC FLOW METER,10,1
+117,M,MAINTENANCE,10,1
+118,N,STEAM   SYSTEM,10,1
+119,O,WATER  TOWER,10,1
+120,P,WASTE WATER SYSTEM,10,1
+121,Q,CCTV SYSTEM,10,1
+122,R, VINEGAR EQUIPMENT,10,1
+123,S,WARE HOUSE EQUIPMENT,10,1
+124,T,"FORKLIFT  TRUCK , X-LIFT",10,1
+125,U,PACKING  MACHINE,10,1
+126,V,AIR  CONDITIONER (SPLIT TYPE),10,1
+127,W,WEIGHT,10,1
+128,A,RAW  MATERIAL RECEIVING AND DISCHARGING EQUIPMENT,10,1
+129,B,SCREW  OIL  PRESS  MACHINE,10,1
+130, EQ,อุปกรณ์เครื่องใช้,10,1
+131,PPE,หมวดอุปกรณ์ความปลอดภัย,5,1
+132,FC,หมวดสิ่งอำนวยความสะดวก,5,1
+133,SV,หมวดค่าบริการต่างๆ,5,1
+134,UN,หมวดเครื่องแต่งกาย,5,1
+135,OT,อื่นๆ,2,1
+136,Delivery Cost,ค่าขนส่ง,2,1
+137,OT,หมวดอื่นๆ,5,1
+138,RD-04,อุปกรณ์ทั่วไป,9,1
+139,PE,HDPE,10,1
+140,HY,Hydraulics,10,1
+141,X,MAGNETIC,10,1
+142,Y,THERMOMETER,10,1
+143,Z,PRESSURE GUAGE,10,1
+144,FR,Rice Sauce,8,1
+145,FD,Dipping Sauce,8,1
+146,PPR,PPR,10,1
+147,FN,Coconut amino,8,1
+148,PC,หมวดแมลงและสัตว์พาหะ (Pest Control),5,1
+149,OT,ทั่วไป,1,1
+150,CE,อุปกรณ์ทำความสะอาด,1,1
+151,SV,ค่าบริการ,1,1
+152,CM,สารเคมี,1,1
+153,SP,ของใช้สิ้นเปลือง,1,1
+154,IT,อุปกรณ์ไอที,1,1
+155,TOOLS,เครื่องมือ,11,1
+156,BL,บอลวาว์ล,10,1
+157,BU,บัตเตอร์ฟลาย,10,1
+158,GB,โกล์บวาว์ล,10,1
