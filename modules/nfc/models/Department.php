@@ -2,6 +2,10 @@
 
 namespace app\modules\nfc\models;
 
+use app\modules\engineer\models\PartGroup;
+use app\modules\engineer\models\PartType;
+use app\modules\engineer\models\Rp;
+use app\modules\engineer\models\Warehouse;
 use Yii;
 
 /**
@@ -16,10 +20,10 @@ use Yii;
  * @property string|null $color สี
  * @property int|null $active สถานะ
  *
- * @property EnPartGroup[] $enPartGroups
- * @property EnPartType[] $enPartTypes
- * @property EnRp[] $enRps
- * @property EnWarehouse $warehouse
+ * @property PartGroup[] $PartGroups
+ * @property PartType[] $PartTypes
+ * @property Rp[] $Rps
+ * @property Warehouse $warehouse
  */
 class Department extends \yii\db\ActiveRecord
 {
@@ -40,7 +44,7 @@ class Department extends \yii\db\ActiveRecord
             [['detail'], 'string'],
             [['department_head', 'warehouse_id', 'active'], 'integer'],
             [['code', 'name', 'color'], 'string', 'max' => 255],
-            [['warehouse_id'], 'exist', 'skipOnError' => true, 'targetClass' => EnWarehouse::class, 'targetAttribute' => ['warehouse_id' => 'id']],
+            [['warehouse_id'], 'exist', 'skipOnError' => true, 'targetClass' => Warehouse::class, 'targetAttribute' => ['warehouse_id' => 'id']],
         ];
     }
 
@@ -68,7 +72,7 @@ class Department extends \yii\db\ActiveRecord
      */
     public function getEnPartGroups()
     {
-        return $this->hasMany(EnPartGroup::class, ['department_id' => 'id']);
+        return $this->hasMany(PartGroup::class, ['department_id' => 'id']);
     }
 
     /**
@@ -78,7 +82,7 @@ class Department extends \yii\db\ActiveRecord
      */
     public function getEnPartTypes()
     {
-        return $this->hasMany(EnPartType::class, ['department_id' => 'id']);
+        return $this->hasMany(PartType::class, ['department_id' => 'id']);
     }
 
     /**
@@ -88,7 +92,7 @@ class Department extends \yii\db\ActiveRecord
      */
     public function getEnRps()
     {
-        return $this->hasMany(EnRp::class, ['department' => 'id']);
+        return $this->hasMany(Rp::class, ['department' => 'id']);
     }
 
     /**
@@ -98,6 +102,6 @@ class Department extends \yii\db\ActiveRecord
      */
     public function getWarehouse()
     {
-        return $this->hasOne(EnWarehouse::class, ['id' => 'warehouse_id']);
+        return $this->hasOne(Warehouse::class, ['id' => 'warehouse_id']);
     }
 }
