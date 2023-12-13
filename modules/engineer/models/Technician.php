@@ -2,6 +2,7 @@
 
 namespace app\modules\engineer\models;
 
+use app\models\User;
 use Yii;
 
 /**
@@ -58,8 +59,13 @@ class Technician extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEnActors()
+    public function getActors0()
     {
         return $this->hasMany(Actor::class, ['technician_id' => 'id']);
+    }
+
+    public function getHead0()
+    {
+        return $this->hasOne(User::class, ['id' => 'head']);
     }
 }

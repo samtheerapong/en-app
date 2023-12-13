@@ -43,13 +43,13 @@ return [
         'Update Status: {name}' => 'แก้ไข: {name}',
 
         // Part Docs
-        'Part Docs' => 'รหัสผลิตภัณฑ์',
-        'Create Part Doc' => 'เพิ่มรหัสผลิตภัณฑ์',
+        'Part Docs' => 'รหัสอะไหล่',
+        'Create Part Doc' => 'เพิ่มรหัสอะไหล่',
         'Update Part Doc: {name}' => 'แก้ไข: {name}',
 
         // Part Groups
-        'Part Groups' => 'กลุ่มผลิตภัณฑ์',
-        'Create Part Group' => 'เพิ่มกลุ่มผลิตภัณฑ์',
+        'Part Groups' => 'กลุ่มอะไหล่',
+        'Create Part Group' => 'เพิ่มกลุ่มอะไหล่',
         'Update Part Group: {name}' => 'แก้ไข: {name}',
 
         // Work Types
@@ -62,4 +62,34 @@ return [
         'Create Urgency' => 'เพิ่มความเร่งด่วน',
         'Update Urgency: {name}' => 'แก้ไข: {name}',
 
+        //  Actors
+        'Actors' => 'ผู้ปฏิบัติงาน',
+        'Create Actor' => 'เพิ่มผู้ปฏิบัติงาน',
+        'Update Actor: {name}' => 'แก้ไข: {name}',
+
+        //  Warehouses
+        'Warehouses' => 'คลัง',
+        'Create Warehous' => 'เพิ่มคลัง',
+        'Update Warehous: {name}' => 'แก้ไข: {name}',
+
+        //  Technicians
+        'Technicians' => 'ช่างซ่อม',
+        'Create Technician' => 'เพิ่มช่างซ่อม',
+        'Update Technician: {name}' => 'แก้ไข: {name}',
+        'No boss' => 'ไม่มีหัวหน้างาน',
+
+        //  Parts
+        'Machines' => 'เครื่องจักร',
+        'Create Machine' => 'เพิ่มเครื่องจักร',
+        'Update Machine: {name}' => 'แก้ไข: {name}',
+
+        //  Machines
+        'Parts' => 'อะไหล่',
+        'Create Part' => 'เพิ่มอะไหล่',
+        'Update Part: {name}' => 'แก้ไข: {name}',
+
+        //  Part Types
+        'Part Types' => 'ประเภทอะไหล่',
+        'Create Part Type' => 'เพิ่มประเภทอะไหล่',
+        'Update Part Type: {name}' => 'แก้ไข: {name}',
 ];

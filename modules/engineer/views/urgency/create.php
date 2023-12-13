@@ -10,9 +10,9 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Urgencies'), 'url' =
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="urgency-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
+    <p>
+        <?= Html::a('<i class="fas fa-circle-left"></i> ' . Yii::t('app', 'Go Back'), ['index'], ['class' => 'btn btn-primary']) ?>
+    </p>
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
