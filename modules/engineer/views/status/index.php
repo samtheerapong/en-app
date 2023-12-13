@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'code',
                         'format' => 'html',
-                        'contentOptions' => ['class' => 'text-center', 'style' => 'width:80px;'],
+                        'contentOptions' => ['class' => 'text-center', 'style' => 'width:120px;'],
                         'value' => function ($model) {
                             $text = '<span class="badge" style="background-color:' . $model->color . ';"><b>' . $model->code . '</b></span>';
                             return Html::a($text, ['view', 'id' => $model->id]);
@@ -76,14 +76,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             return $model->detail;
                         },
                     ],
-                    [
-                        'attribute' => 'color',
-                        'format' => 'html',
-                        'contentOptions' => ['style' => 'width:150px;'],
-                        'value' => function ($model) {
-                            return '<span class="badge" style="background-color:' . $model->color . ';"><b>' . $model->color . '</b></span>';
-                        },
-                    ],
+                    // [
+                    //     'attribute' => 'color',
+                    //     'format' => 'html',
+                    //     'contentOptions' => ['style' => 'width:150px;'],
+                    //     'value' => function ($model) {
+                    //         return '<span class="badge" style="background-color:' . $model->color . ';"><b>' . $model->color . '</b></span>';
+                    //     },
+                    // ],
                     [
                         'attribute' => 'active',
                         'format' => 'html',
