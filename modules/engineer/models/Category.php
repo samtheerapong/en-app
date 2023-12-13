@@ -34,7 +34,7 @@ class Category extends \yii\db\ActiveRecord
         return [
             [['code', 'name'], 'required'],
             [['detail'], 'string'],
-            [['avtive'], 'integer'],
+            [['active'], 'integer'],
             [['code', 'name', 'color'], 'string', 'max' => 255],
             [['code'], 'unique'],
         ];
@@ -51,7 +51,7 @@ class Category extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'ชื่อ'),
             'detail' => Yii::t('app', 'รายละเอียด'),
             'color' => Yii::t('app', 'สี'),
-            'avtive' => Yii::t('app', 'สถานะ'),
+            'active' => Yii::t('app', 'สถานะ'),
         ];
     }
 

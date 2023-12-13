@@ -16,5 +16,24 @@ return [
         //Categories
         'Categories' => 'หมวดหมู่',
         'Create Category' => 'เพิ่มหมวดหมู่',
-        'Update Category: {name}' => 'แก้ไขหมวดหมู่: {name}',
+        'Update Category: {name}' => 'แก้ไข: {name}',
+
+
+        // Priorities
+        'Priorities' => 'ความสำคัญ',
+        'Create Priority' => 'เพิ่มความสำคัญ',
+        'Update Priority: {name}' => 'แก้ไข: {name}',
+        
+        
+        // Statuses
+        'Statuses' => 'สถานะ',
+        'Create Status' => 'เพิ่มสถานะ',
+        'Update Status: {name}' => 'แก้ไข: {name}',
+
+        // Part Docs
+        'Part Docs' => 'รหัสเอกสาร',
+        'Create Part Doc' => 'เพิ่มรหัสเอกสาร',
+        'Update Part Doc: {name}' => 'แก้ไข: {name}',
+
 ];
+
