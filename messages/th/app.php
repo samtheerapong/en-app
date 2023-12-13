@@ -74,9 +74,12 @@ return [
 
         //  Technicians
         'Technicians' => 'ช่างซ่อม',
+        'Index' => 'สารบัญ',
+        'Card List' => 'รายการการ์ด',
         'Create Technician' => 'เพิ่มช่างซ่อม',
         'Update Technician: {name}' => 'แก้ไข: {name}',
-        'No boss' => 'ไม่มีหัวหน้างาน',
+        'N/A' => 'ไม่ระบุ',
+        'Total : {count} User' => 'ทั้งหมด : {count} คน',
 
         //  Parts
         'Machines' => 'เครื่องจักร',

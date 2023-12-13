@@ -131,4 +131,15 @@ class TechnicianController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
+    public function actionCard()
+    {
+        $searchModel = new TechnicianSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->render('card', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 }

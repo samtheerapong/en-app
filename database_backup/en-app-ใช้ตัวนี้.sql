@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 13, 2023 at 09:37 AM
+-- Generation Time: Dec 13, 2023 at 03:32 PM
 -- Server version: 5.7.39
--- PHP Version: 7.4.9
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -555,7 +555,8 @@ CREATE TABLE `en_technician` (
 --
 
 INSERT INTO `en_technician` (`id`, `photo`, `tel`, `active`, `name`, `head`) VALUES
-(1, '3_F-JSvmG78ysSHpV_dayLc0kn4QfYjc0-.jpg', '087-087-3830', 0, 'ธีรพงศ์ ขันตา', 11);
+(1, 'sam.png', '31', 0, 'ธีรพงศ์ ขันตา', 11),
+(2, '', '16', 1, 'ทดสอบ', NULL);
 
 -- --------------------------------------------------------
 
@@ -1195,7 +1196,7 @@ ALTER TABLE `en_team`
 -- AUTO_INCREMENT for table `en_technician`
 --
 ALTER TABLE `en_technician`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `en_upload`

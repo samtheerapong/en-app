@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
 
         <p style="text-align: right;">
+            <?= Html::a('<i class="fa-solid fa-retweet"></i> ' . Yii::t('app', 'Card List'), ['card'], ['class' => 'btn btn-primary']) ?>
             <?= Html::a('<i class="fa fa-screwdriver-wrench"></i> ' . Yii::t('app', 'Configs'), ['/engineer/default/setings-menu'], ['class' => 'btn btn-warning']) ?>
         </p>
     </div>
@@ -48,19 +49,28 @@ $this->params['breadcrumbs'][] = $this->title;
                     'linkOptions' => ['class' => 'page-link'],
                 ],
                 'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
+                    [
+                        'class' => 'yii\grid\SerialColumn',
+                        'contentOptions' => ['style' => 'width:40px;'],
+                    ],
 
                     // 'id',
                     // 'photo',
                     [
                         'attribute' => 'photo',
-                        'contentOptions' => ['style' => 'width:50px;'], //กำหนด ความกว้างของ #
-                        'format' => ['image', ['height' => '50']],
+                        'contentOptions' => ['style' => 'width:120px;'], // Set the width of the column
+                        'format' => 'raw',
                         'value' => function ($model) {
-                            return ('@web/uploads/technician/' . $model->photo);
+                            $imageUrl = '@web/uploads/technician/' . $model->photo;
+                            $noAvatar = '@web/images/avatar.png';
+                            return $model->photo
+                                ? Html::a(Html::img($imageUrl, ['height' => '100px']), ['view', 'id' => $model->id])
+                                : Html::a(Html::img($noAvatar, ['height' => '100px']), ['view', 'id' => $model->id]);
                         },
-                        'filter' => false
+                        'filter' => false,
                     ],
+
+
                     [
                         'attribute' => 'name',
                         'format' => 'html',
@@ -81,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'head',
                         'format' => 'html',
                         'value' => function ($model) {
-                            return $model->head ? $model->head0->thai_name : Yii::t('app', 'No boss');
+                            return $model->head ? $model->head0->thai_name : Yii::t('app', 'N/A');
                         },
                     ],
                     // 'active',

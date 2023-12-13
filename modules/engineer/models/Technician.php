@@ -4,6 +4,7 @@ namespace app\modules\engineer\models;
 
 use app\models\User;
 use Yii;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "en_technician".
@@ -46,10 +47,10 @@ class Technician extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
+            'name' => Yii::t('app', 'ชื่อ-สกุล'),
             'photo' => Yii::t('app', 'รูปภาพ'),
             'tel' => Yii::t('app', 'เบอร์ติดต่อ'),
             'active' => Yii::t('app', 'สถานะ'),
-            'name' => Yii::t('app', 'ชื่อ-สกุล'),
             'head' => Yii::t('app', 'หัวหน้า'),
         ];
     }
@@ -67,5 +68,22 @@ class Technician extends \yii\db\ActiveRecord
     public function getHead0()
     {
         return $this->hasOne(User::class, ['id' => 'head']);
+    }
+
+    public function getPhotoUrl()
+    {
+        if (!empty($this->photo)) {
+            return Yii::getAlias('@web/uploads/technician/') . Html::encode($this->photo);
+        } else {
+            return Yii::getAlias('@web/images/avatar.png');
+        }
+    }
+
+    public function getActiveStatus()
+    {
+        $color = $this->active === 1 ? '#1A5D1A' : '#FE0000';
+        $statusText = $this->active === 1 ? Yii::t('app', 'Yes') : Yii::t('app', 'No');
+
+        return [$color, $statusText];
     }
 }
