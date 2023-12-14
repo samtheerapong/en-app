@@ -48,12 +48,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     'linkOptions' => ['class' => 'page-link'],
                 ],
                 'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
+                    [
+                        'class' => 'yii\grid\SerialColumn',
+                        'contentOptions' => ['style' => 'width:40px;'],
+                    ],
 
                     [
                         'attribute' => 'code',
                         'format' => 'html',
-                        'contentOptions' => ['class' => 'text-center', 'style' => 'width:150px;'],
+                        'contentOptions' => ['class' => 'text-center', 'style' => 'width:200px;'],
                         'value' => function ($model) {
                             return Html::a($model->code, ['view', 'id' => $model->id]);
                         },

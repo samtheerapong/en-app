@@ -2,10 +2,8 @@
 
 namespace app\modules\nfc\models;
 
-use app\modules\engineer\models\PartGroup;
-use app\modules\engineer\models\PartType;
+use app\models\User;
 use app\modules\engineer\models\Rp;
-use app\modules\engineer\models\Warehouse;
 use Yii;
 
 /**
@@ -70,7 +68,7 @@ class Department extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEnPartGroups()
+    public function getPartGroups()
     {
         return $this->hasMany(PartGroup::class, ['department_id' => 'id']);
     }
@@ -80,7 +78,7 @@ class Department extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEnPartTypes()
+    public function getPartTypes()
     {
         return $this->hasMany(PartType::class, ['department_id' => 'id']);
     }
@@ -90,7 +88,7 @@ class Department extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEnRps()
+    public function getRp()
     {
         return $this->hasMany(Rp::class, ['department' => 'id']);
     }
@@ -103,5 +101,10 @@ class Department extends \yii\db\ActiveRecord
     public function getWarehouse()
     {
         return $this->hasOne(Warehouse::class, ['id' => 'warehouse_id']);
+    }
+
+    public function getHead0()
+    {
+        return $this->hasOne(User::class, ['id' => 'department_head']);
     }
 }

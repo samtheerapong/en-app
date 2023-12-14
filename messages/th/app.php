@@ -104,4 +104,14 @@ return [
         'Unit Small' => 'หน่วยเล็ก',
         'Unit Large' => 'หน่วยใหญ่',
         'Update Unit: {name}' => 'แก้ไข: {name}',
+
+         //  Locations
+         'Locations' => 'สถานที่',
+         'Create Location' => 'เพิ่มสถานที่',
+         'Update Location: {name}' => 'แก้ไข: {name}',
+
+          //  Departments
+        'Departments' => 'แผนก',
+        'Create Department' => 'เพิ่มแผนก',
+        'Update Department: {name}' => 'แก้ไข: {name}',
 ];

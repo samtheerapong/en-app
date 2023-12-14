@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'code',
                         'format' => 'html',
-                        'contentOptions' => ['class' => 'text-center', 'style' => 'width:80px;'],
+                        'contentOptions' => ['class' => 'text-center', 'style' => 'width:200px;'],
                         'value' => function ($model) {
                             return Html::a($model->code, ['view', 'id' => $model->id]);
                         },

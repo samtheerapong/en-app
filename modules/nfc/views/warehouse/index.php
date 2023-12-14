@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'code',
                         'format' => 'html',
-                        'contentOptions' => ['class' => 'text-center', 'style' => 'width:120px;'],
+                        'contentOptions' => ['class' => 'text-center', 'style' => 'width:200px;'],
                         'value' => function ($model) {
                             $text = '<span class="badge" style="background-color:' . $model->color . ';"><b>' . $model->code . '</b></span>';
                             return Html::a($text, ['view', 'id' => $model->id]);
