@@ -1,21 +1,20 @@
 <?php
 
-use app\modules\engineer\models\Technician;
+use app\modules\nfc\models\Department;
+use yii\helpers\Html;
+use kartik\grid\GridView;
 use kartik\widgets\Select2;
 use yii\bootstrap5\LinkPager;
-use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use kartik\grid\GridView;
+use yii\helpers\ArrayHelper;
 
 /** @var yii\web\View $this */
-/** @var app\modules\engineer\models\search\TechnicianSearch $searchModel */
+/** @var app\modules\nfc\models\search\PartGroupSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = Yii::t('app', 'Technicians');
+$this->title = Yii::t('app', 'Part Groups');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="technician-index">
+<div class="part-group-index">
 
     <div style="display: flex; justify-content: space-between;">
         <p>
@@ -23,13 +22,13 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
 
         <p style="text-align: right;">
-            <?= Html::a('<i class="fa-solid fa-retweet"></i> ' . Yii::t('app', 'Card List'), ['card'], ['class' => 'btn btn-primary']) ?>
             <?= Html::a('<i class="fa fa-screwdriver-wrench"></i> ' . Yii::t('app', 'Configs'), ['/engineer/default/setings-menu'], ['class' => 'btn btn-warning']) ?>
         </p>
     </div>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
+
     <div class="card border-secondary">
         <div class="card-header text-white bg-secondary">
             <?= Html::encode($this->title) ?>
@@ -49,27 +48,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     'linkOptions' => ['class' => 'page-link'],
                 ],
                 'columns' => [
-                    [
-                        'class' => 'yii\grid\SerialColumn',
-                        'contentOptions' => ['style' => 'width:40px;'],
-                    ],
+                    ['class' => 'yii\grid\SerialColumn'],
 
-                    // 'id',
-                    // 'photo',
                     [
-                        'attribute' => 'photo',
-                        'contentOptions' => ['class' => 'text-center','style' => 'width:50px;'], // Set the width of the column
-                        'format' => 'raw',
+                        'attribute' => 'code',
+                        'format' => 'html',
+                        'contentOptions' => ['class' => 'text-center', 'style' => 'width:150px;'],
                         'value' => function ($model) {
-                            $imageUrl = '@web/uploads/technician/' . $model->photo;
-                            $noAvatar = '@web/images/avatar.png';
-                            return $model->photo
-                                ? Html::a(Html::img($imageUrl, ['height' => '50px']), ['view', 'id' => $model->id])
-                                : Html::a(Html::img($noAvatar, ['height' => '50px']), ['view', 'id' => $model->id]);
+                            return Html::a($model->code, ['view', 'id' => $model->id]);
                         },
-                        'filter' => false,
                     ],
-
 
                     [
                         'attribute' => 'name',
@@ -78,23 +66,26 @@ $this->params['breadcrumbs'][] = $this->title;
                             return $model->name;
                         },
                     ],
-                    // 'tel',
+
                     [
-                        'attribute' => 'tel',
+                        'attribute' => 'department_id',
                         'format' => 'html',
                         'value' => function ($model) {
-                            return $model->tel;
+                            return 
+                                $model->department->name;
                         },
+                        'filter' => Select2::widget([
+                            'model' => $searchModel,
+                            'attribute' => 'department_id',
+                            'data' => ArrayHelper::map(Department::find()->all(), 'id', 'name'),
+                            'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                            'language' => 'th',
+                            'pluginOptions' => [
+                                'allowClear' => true
+                            ],
+                        ]),
                     ],
-                    // 'head',
-                    [
-                        'attribute' => 'head',
-                        'format' => 'html',
-                        'value' => function ($model) {
-                            return $model->head ? $model->head0->thai_name : Yii::t('app', 'N/A');
-                        },
-                    ],
-                    // 'active',
+
                     [
                         'attribute' => 'active',
                         'format' => 'html',
@@ -112,6 +103,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                         ])
                     ],
+
                     [
                         'class' => 'kartik\grid\ActionColumn',
                         'headerOptions' => ['style' => 'width:250px;'],

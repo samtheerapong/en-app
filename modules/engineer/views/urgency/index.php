@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="urgency-index">
 
-<div style="display: flex; justify-content: space-between;">
+    <div style="display: flex; justify-content: space-between;">
         <p>
             <?= Html::a('<i class="fa fa-circle-plus"></i> ' . Yii::t('app', 'Create New'), ['create'], ['class' => 'btn btn-success']) ?>
         </p>
@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return $model->detail;
                         },
                     ],
-                  
+
                     [
                         'attribute' => 'active',
                         'format' => 'html',

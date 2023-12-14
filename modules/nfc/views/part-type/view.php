@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var app\modules\engineer\models\Machine $model */
+/** @var app\modules\nfc\models\PartType $model */
 
-$this->title = $model->machine_code;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Machines'), 'url' => ['index']];
+$this->title = $model->name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Part Types'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="machine-view">
+<div class="part-type-view">
 
     <div style="display: flex; justify-content: space-between;">
         <p>
@@ -43,10 +43,39 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '<tr><th style="width: 200px;">{label}</th><td> {value}</td></tr>',
                 'attributes' => [
                     // 'id',
-                    'machine_code',
-                    'machine_name',
-                    'last_repair:date',
+                    [
+                        'attribute' => 'code',
+                        'format' => 'html',
+                        'contentOptions' => ['class' => 'text-center', 'style' => 'width:120px;'],
+                        'value' => function ($model) {
+                            return $model->code;
+                        },
+                    ],
 
+                    [
+                        'attribute' => 'name',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            return $model->name;
+                        },
+                    ],
+                    // 'department_id',
+                    [
+                        'attribute' => 'department_id',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            return $model->department_id ? $model->department->name : Yii::t('app', 'N/A');
+                        },
+
+                    ],
+
+                    [
+                        'attribute' => 'active',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            return $model->active === 1 ? '<span class="badge" style="background-color:#1A5D1A">Yes</span>' : '<span class="badge" style="background-color:#FE0000">No</span>';
+                        },
+                    ],
                 ],
             ]) ?>
 

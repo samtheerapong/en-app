@@ -1,29 +1,27 @@
 <?php
 
-use app\modules\engineer\models\Technician;
+use app\modules\nfc\models\Warehouse;
 use kartik\widgets\Select2;
-use yii\bootstrap5\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use kartik\grid\GridView;
+use yii\bootstrap5\LinkPager;
 
 /** @var yii\web\View $this */
-/** @var app\modules\engineer\models\search\TechnicianSearch $searchModel */
+/** @var app\modules\nfc\models\search\WarehouseSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = Yii::t('app', 'Technicians');
+$this->title = Yii::t('app', 'Warehouses');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="technician-index">
-
+<div class="warehouse-index">
     <div style="display: flex; justify-content: space-between;">
         <p>
             <?= Html::a('<i class="fa fa-circle-plus"></i> ' . Yii::t('app', 'Create New'), ['create'], ['class' => 'btn btn-success']) ?>
         </p>
 
         <p style="text-align: right;">
-            <?= Html::a('<i class="fa-solid fa-retweet"></i> ' . Yii::t('app', 'Card List'), ['card'], ['class' => 'btn btn-primary']) ?>
             <?= Html::a('<i class="fa fa-screwdriver-wrench"></i> ' . Yii::t('app', 'Configs'), ['/engineer/default/setings-menu'], ['class' => 'btn btn-warning']) ?>
         </p>
     </div>
@@ -54,23 +52,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         'contentOptions' => ['style' => 'width:40px;'],
                     ],
 
-                    // 'id',
-                    // 'photo',
                     [
-                        'attribute' => 'photo',
-                        'contentOptions' => ['class' => 'text-center','style' => 'width:50px;'], // Set the width of the column
-                        'format' => 'raw',
+                        'attribute' => 'code',
+                        'format' => 'html',
+                        'contentOptions' => ['class' => 'text-center', 'style' => 'width:120px;'],
                         'value' => function ($model) {
-                            $imageUrl = '@web/uploads/technician/' . $model->photo;
-                            $noAvatar = '@web/images/avatar.png';
-                            return $model->photo
-                                ? Html::a(Html::img($imageUrl, ['height' => '50px']), ['view', 'id' => $model->id])
-                                : Html::a(Html::img($noAvatar, ['height' => '50px']), ['view', 'id' => $model->id]);
+                            $text = '<span class="badge" style="background-color:' . $model->color . ';"><b>' . $model->code . '</b></span>';
+                            return Html::a($text, ['view', 'id' => $model->id]);
                         },
-                        'filter' => false,
                     ],
-
-
                     [
                         'attribute' => 'name',
                         'format' => 'html',
@@ -78,23 +68,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             return $model->name;
                         },
                     ],
-                    // 'tel',
-                    [
-                        'attribute' => 'tel',
-                        'format' => 'html',
-                        'value' => function ($model) {
-                            return $model->tel;
-                        },
-                    ],
-                    // 'head',
-                    [
-                        'attribute' => 'head',
-                        'format' => 'html',
-                        'value' => function ($model) {
-                            return $model->head ? $model->head0->thai_name : Yii::t('app', 'N/A');
-                        },
-                    ],
-                    // 'active',
+                    // [
+                    //     'attribute' => 'lot',
+                    //     'format' => 'ntext',
+                    //     'value' => function ($model) {
+                    //         return $model->lot;
+                    //     },
+                    // ],
+                    // 'color',
                     [
                         'attribute' => 'active',
                         'format' => 'html',

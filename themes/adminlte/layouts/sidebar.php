@@ -60,50 +60,43 @@ use yii\helpers\Url;
 
                     ],
 
-                    // Configs
+                    // Systems
                     [
-                        'label' => Yii::t('app', 'Configs'),
+                        'label' => Yii::t('app', 'Data Files'),
                         'header' => true
                     ],
-
-                    ['label' => Yii::t('app', 'Setting Menu'), 'url' => ['/engineer/default/setings-menu'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-list text-red'],
+                   
                     [
-                        'label' => Yii::t('app', 'General Settings'),
-                        'iconStyle' => 'fa', 'iconStyle' => 'fa', 'icon' => 'fa-solid fa-cog text-danger',
+                        'label' => Yii::t('app', 'Product Settings'),
+                        'iconStyle' => 'fa', 'iconStyle' => 'fa', 'icon' => 'fa-solid fa-cog text-yellow',
                         'items' => [
+                            ['label' => Yii::t('app', 'Units'), 'url' => ['/nfc/unit/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
+                            ['label' => Yii::t('app', 'Parts'), 'url' => ['/nfc/part/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
+                            ['label' => Yii::t('app', 'Part Docs'), 'url' => ['/nfc/part-doc/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
+                            ['label' => Yii::t('app', 'Part Groups'), 'url' => ['/nfc/part-group/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
+                            ['label' => Yii::t('app', 'Part Types'), 'url' => ['/nfc/part-type/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
+                            ['label' => Yii::t('app', 'Warehouses'), 'url' => ['/nfc/warehouse/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
+                        ],
+                    ],
+                    [
+                        'label' => Yii::t('app', 'Engineer Settings'),
+                        'iconStyle' => 'fa', 'iconStyle' => 'fa', 'icon' => 'fa-solid fa-cog text-yellow',
+                        'items' => [
+                            ['label' => Yii::t('app', 'Technicians'), 'url' => ['/engineer/technician/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
                             ['label' => Yii::t('app', 'Priorities'), 'url' => ['/engineer/priority/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
                             ['label' => Yii::t('app', 'Urgencies'), 'url' => ['/engineer/urgency/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
                             ['label' => Yii::t('app', 'Categories'), 'url' => ['/engineer/category/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
                             ['label' => Yii::t('app', 'Statuses'), 'url' => ['/engineer/status/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
+                            ['label' => Yii::t('app', 'Machines'), 'url' => ['/engineer/machine/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
                             ['label' => Yii::t('app', 'Work Types'), 'url' => ['/engineer/work-type/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
-                            ['label' => Yii::t('app', 'Technicians'), 'url' => ['/engineer/technician/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
-                            ['label' => Yii::t('app', 'Warehouses'), 'url' => ['/engineer/warehouse/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
                             // ['label' => Yii::t('app', 'team'), 'url' => ['/engineer/team/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
                             // ['label' => Yii::t('app', 'upload'), 'url' => ['/engineer/upload/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
                         ]
                     ],
-                    [
-                        'label' => Yii::t('app', 'Part Settings'),
-                        'iconStyle' => 'fa', 'iconStyle' => 'fa', 'icon' => 'fa-solid fa-cog text-danger',
-                        'items' => [
-                            ['label' => Yii::t('app', 'Machines'), 'url' => ['/engineer/machine/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
-                            ['label' => Yii::t('app', 'Parts'), 'url' => ['/engineer/part/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
-                            ['label' => Yii::t('app', 'Part Docs'), 'url' => ['/engineer/part-doc/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
-                            ['label' => Yii::t('app', 'Part Groups'), 'url' => ['/engineer/part-group/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
-                            ['label' => Yii::t('app', 'Part Types'), 'url' => ['/engineer/part-type/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-circle-chevron-right'],
 
-
-                        ]
-                    ],
-
-                    // Systems
                     [
-                        'label' => Yii::t('app', 'Systems'),
-                        'header' => true
-                    ],
-                    [
-                        'label' => Yii::t('app', 'Users'),
-                        'iconStyle' => 'fa', 'iconStyle' => 'fa', 'icon' => 'fa-solid fa-user text-green',
+                        'label' => Yii::t('app', 'Companies Settings'),
+                        'iconStyle' => 'fa', 'iconStyle' => 'fa', 'icon' => 'fa-solid fa-cog text-yellow',
                         'items' => [
                             ['label' => Yii::t('app', 'User'), 'url' => ['/user/index'], 'iconStyle' => 'fa', 'icon' => 'fa-regular fa-user-plus'],
                             ['label' => Yii::t('app', 'Profile'), 'url' => ['/user/profile'], 'iconStyle' => 'fa', 'icon' => 'fa-solid fa-user-edit'],
@@ -117,7 +110,6 @@ use yii\helpers\Url;
                             // ],
                         ]
                     ],
-
                 ],
             ]);
             ?>

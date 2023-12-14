@@ -13,8 +13,9 @@ return [
         'First' => 'แรก',
         'Last' => 'ท้าย',
         'List' => 'รายการ',
-        'General Settings' => 'การตั้งค่าทั่วไป',
-        'Part Settings' => 'การตั้งค่าอะไหล่',
+        'Product Settings' => 'ผลิตภัณฑ์',
+        'Engineer Settings' => 'วิศวกรรม',
+        'Companies Settings' => 'บริษัท',
         'Approval' => 'การอนุมัติ',
         'Request' => 'แจ้งซ่อม',
         'Requester' => 'ใบแจ้งซ่อม',
@@ -26,6 +27,7 @@ return [
         'Engineering' => 'วิศวกรรม',
         'Systems' => 'ระบบอื่นๆ',
         'Users' => 'ผู้ใช้',
+        'Data Files' => 'แฟ้มข้อมูล',
 
         //Categories
         'Categories' => 'หมวดหมู่',
@@ -69,8 +71,8 @@ return [
 
         //  Warehouses
         'Warehouses' => 'คลัง',
-        'Create Warehous' => 'เพิ่มคลัง',
-        'Update Warehous: {name}' => 'แก้ไข: {name}',
+        'Create Warehouse' => 'เพิ่มคลัง',
+        'Update Warehouse: {name}' => 'แก้ไข: {name}',
 
         //  Technicians
         'Technicians' => 'ช่างซ่อม',
@@ -95,4 +97,11 @@ return [
         'Part Types' => 'ประเภทอะไหล่',
         'Create Part Type' => 'เพิ่มประเภทอะไหล่',
         'Update Part Type: {name}' => 'แก้ไข: {name}',
+
+        //  Units
+        'Units' => 'หน่วยนับ',
+        'Create Unit' => 'เพิ่มหน่วยนับ',
+        'Unit Small' => 'หน่วยเล็ก',
+        'Unit Large' => 'หน่วยใหญ่',
+        'Update Unit: {name}' => 'แก้ไข: {name}',
 ];

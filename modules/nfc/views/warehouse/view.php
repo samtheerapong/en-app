@@ -4,20 +4,17 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var app\modules\engineer\models\Machine $model */
+/** @var app\modules\nfc\models\Warehouse $model */
 
-$this->title = $model->machine_code;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Machines'), 'url' => ['index']];
+$this->title = $model->name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Warehouses'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="machine-view">
-
-    <div style="display: flex; justify-content: space-between;">
+<div class="warehouse-view">
+<div style="display: flex; justify-content: space-between;">
         <p>
             <?= Html::a('<i class="fas fa-chevron-left"></i> ' . Yii::t('app', 'Go Back'), ['index'], ['class' => 'btn btn-primary']) ?>
-            <?php //echo Html::a('<i class="fas fa-calendar"></i> ' . Yii::t('app', 'Moromi Record Card'), ['card'], ['class' => 'btn btn-secondary btn-lg']) 
-            ?>
         </p>
 
         <p style="text-align: right;">
@@ -30,7 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'method' => 'post',
                 ],
             ]) ?>
-
         </p>
     </div>
     <div class="card border-secondary">
@@ -43,10 +39,24 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '<tr><th style="width: 200px;">{label}</th><td> {value}</td></tr>',
                 'attributes' => [
                     // 'id',
-                    'machine_code',
-                    'machine_name',
-                    'last_repair:date',
-
+                    'code',
+                    'name',
+                    'lot',
+                    [
+                        'attribute' => 'color',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            return
+                                '<span class="badge" style="background-color:' . $model->color . '; color: #FFFFFF;">' . $model->color . '</span>';
+                        },
+                    ],
+                    [
+                        'attribute' => 'active',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            return $model->active === 1 ? '<span class="badge" style="background-color:#1A5D1A">Yes</span>' : '<span class="badge" style="background-color:#FE0000">No</span>';
+                        },
+                    ],
                 ],
             ]) ?>
 
