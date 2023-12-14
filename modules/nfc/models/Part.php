@@ -22,16 +22,17 @@ use Yii;
  * @property string|null $serial_no ซีเรียวนัมเบอร์
  * @property string|null $price
  * @property int|null $cost ราคา
- * @property int|null $status สถานะ
+ * @property int|null $active เปิดใช้งาน
  * @property string|null $last_date วันที่ล่าสุด
  * @property string|null $remask
  * @property int|null $imported
+ * @property int|null $status สถานะ
  *
- * @property EnPartDoc $enPartDoc
- * @property EnPartGroup $enPartGroup
- * @property EnPartType $enPartType
- * @property EnUnit $unitLg
- * @property EnUnit $unitSm
+ * @property PartDoc $enPartDoc
+ * @property PartGroup $enPartGroup
+ * @property PartType $enPartType
+ * @property Unit $unitLg
+ * @property Unit $unitSm
  */
 class Part extends \yii\db\ActiveRecord
 {
@@ -51,15 +52,15 @@ class Part extends \yii\db\ActiveRecord
         return [
             [['photo', 'description', 'remask'], 'string'],
             [['en_part_doc_id'], 'required'],
-            [['en_part_doc_id', 'en_part_group_id', 'en_part_type_id', 'unit_lg', 'unit_sm', 'cost', 'status', 'imported'], 'integer'],
+            [['en_part_doc_id', 'en_part_group_id', 'en_part_type_id', 'unit_lg', 'unit_sm', 'cost', 'active', 'imported', 'status'], 'integer'],
             [['last_date'], 'safe'],
             [['code', 'old_code', 'serial_no', 'price'], 'string', 'max' => 45],
             [['name', 'name_en'], 'string', 'max' => 255],
-            [['en_part_doc_id'], 'exist', 'skipOnError' => true, 'targetClass' => EnPartDoc::class, 'targetAttribute' => ['en_part_doc_id' => 'id']],
-            [['en_part_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => EnPartGroup::class, 'targetAttribute' => ['en_part_group_id' => 'id']],
-            [['en_part_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => EnPartType::class, 'targetAttribute' => ['en_part_type_id' => 'id']],
-            [['unit_lg'], 'exist', 'skipOnError' => true, 'targetClass' => EnUnit::class, 'targetAttribute' => ['unit_lg' => 'id']],
-            [['unit_sm'], 'exist', 'skipOnError' => true, 'targetClass' => EnUnit::class, 'targetAttribute' => ['unit_sm' => 'id']],
+            [['en_part_doc_id'], 'exist', 'skipOnError' => true, 'targetClass' => PartDoc::class, 'targetAttribute' => ['en_part_doc_id' => 'id']],
+            [['en_part_group_id'], 'exist', 'skipOnError' => true, 'targetClass' => PartGroup::class, 'targetAttribute' => ['en_part_group_id' => 'id']],
+            [['en_part_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => PartType::class, 'targetAttribute' => ['en_part_type_id' => 'id']],
+            [['unit_lg'], 'exist', 'skipOnError' => true, 'targetClass' => Unit::class, 'targetAttribute' => ['unit_lg' => 'id']],
+            [['unit_sm'], 'exist', 'skipOnError' => true, 'targetClass' => Unit::class, 'targetAttribute' => ['unit_sm' => 'id']],
         ];
     }
 
@@ -84,10 +85,11 @@ class Part extends \yii\db\ActiveRecord
             'serial_no' => Yii::t('app', 'ซีเรียวนัมเบอร์'),
             'price' => Yii::t('app', 'Price'),
             'cost' => Yii::t('app', 'ราคา'),
-            'status' => Yii::t('app', 'สถานะ'),
+            'active' => Yii::t('app', 'เปิดใช้งาน'),
             'last_date' => Yii::t('app', 'วันที่ล่าสุด'),
             'remask' => Yii::t('app', 'Remask'),
             'imported' => Yii::t('app', 'Imported'),
+            'status' => Yii::t('app', 'สถานะ'),
         ];
     }
 
@@ -96,9 +98,9 @@ class Part extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEnPartDoc()
+    public function getPartDoc()
     {
-        return $this->hasOne(EnPartDoc::class, ['id' => 'en_part_doc_id']);
+        return $this->hasOne(PartDoc::class, ['id' => 'en_part_doc_id']);
     }
 
     /**
@@ -106,9 +108,9 @@ class Part extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEnPartGroup()
+    public function getPartGroup()
     {
-        return $this->hasOne(EnPartGroup::class, ['id' => 'en_part_group_id']);
+        return $this->hasOne(PartGroup::class, ['id' => 'en_part_group_id']);
     }
 
     /**
@@ -116,9 +118,9 @@ class Part extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEnPartType()
+    public function getPartType()
     {
-        return $this->hasOne(EnPartType::class, ['id' => 'en_part_type_id']);
+        return $this->hasOne(PartType::class, ['id' => 'en_part_type_id']);
     }
 
     /**
@@ -128,7 +130,7 @@ class Part extends \yii\db\ActiveRecord
      */
     public function getUnitLg()
     {
-        return $this->hasOne(EnUnit::class, ['id' => 'unit_lg']);
+        return $this->hasOne(Unit::class, ['id' => 'unit_lg']);
     }
 
     /**
@@ -138,6 +140,6 @@ class Part extends \yii\db\ActiveRecord
      */
     public function getUnitSm()
     {
-        return $this->hasOne(EnUnit::class, ['id' => 'unit_sm']);
+        return $this->hasOne(Unit::class, ['id' => 'unit_sm']);
     }
 }

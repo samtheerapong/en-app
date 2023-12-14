@@ -40,13 +40,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'cost')->textInput() ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($model, 'active')->textInput() ?>
 
     <?= $form->field($model, 'last_date')->textInput() ?>
 
     <?= $form->field($model, 'remask')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'imported')->textInput() ?>
+
+    <?= $form->field($model, 'status')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

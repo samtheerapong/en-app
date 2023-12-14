@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="part-doc-index">
 
-<div style="display: flex; justify-content: space-between;">
+    <div style="display: flex; justify-content: space-between;">
         <p>
             <?= Html::a('<i class="fa fa-circle-plus"></i> ' . Yii::t('app', 'Create New'), ['create'], ['class' => 'btn btn-success']) ?>
         </p>
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
-    
+
     <div class="card border-secondary">
         <div class="card-header text-white bg-secondary">
             <?= Html::encode($this->title) ?>
@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'code',
                         'format' => 'html',
-                        'contentOptions' => ['class' => 'text-center','style' => 'width:80px;'],
+                        'contentOptions' => ['class' => 'text-center', 'style' => 'width:80px;'],
                         'value' => function ($model) {
                             return Html::a($model->code, ['view', 'id' => $model->id]);
                         },

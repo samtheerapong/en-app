@@ -17,7 +17,7 @@ class WoSearch extends Wo
     public function rules()
     {
         return [
-            [['id', 'rp_id', 'machine_id', 'work_type_id', 'category_id', 'frequency'], 'integer'],
+            [['id', 'rp_id', 'machine_id', 'work_type_id', 'category_id', 'frequency','workclass_id'], 'integer'],
             [['title', 'description', 'work_code', 'work_date', 'location', 'work_start', 'work_end', 'ref', 'work_method', 'service_date', 'remask'], 'safe'],
         ];
     }
@@ -65,6 +65,7 @@ class WoSearch extends Wo
             'work_type_id' => $this->work_type_id,
             'work_start' => $this->work_start,
             'work_end' => $this->work_end,
+            'workclass_id' => $this->workclass_id,
             'category_id' => $this->category_id,
             'service_date' => $this->service_date,
             'frequency' => $this->frequency,

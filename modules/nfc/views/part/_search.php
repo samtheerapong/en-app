@@ -45,13 +45,15 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'cost') ?>
 
-    <?php // echo $form->field($model, 'status') ?>
+    <?php // echo $form->field($model, 'active') ?>
 
     <?php // echo $form->field($model, 'last_date') ?>
 
     <?php // echo $form->field($model, 'remask') ?>
 
     <?php // echo $form->field($model, 'imported') ?>
+
+    <?php // echo $form->field($model, 'status') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

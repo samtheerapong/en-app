@@ -57,6 +57,7 @@ class Wo extends \yii\db\ActiveRecord
             [['rp_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rp::class, 'targetAttribute' => ['rp_id' => 'id']],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
             [['work_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => WorkType::class, 'targetAttribute' => ['work_type_id' => 'id']],
+            [['workclass_id'], 'exist', 'skipOnError' => true, 'targetClass' => WorkClass::class, 'targetAttribute' => ['wo_workclass_id' => 'id']],
         ];
     }
 
@@ -79,6 +80,7 @@ class Wo extends \yii\db\ActiveRecord
             'work_end' => Yii::t('app', 'วันที่กำหนดเสร็จ'),
             'ref' => Yii::t('app', 'อ้างอิง'),
             'category_id' => Yii::t('app', 'ประเภทการส่งซ่อม'),
+            'workclass_id' => Yii::t('app', 'รายละเอียดงาน'),
             'work_method' => Yii::t('app', 'วิธีการ'),
             'service_date' => Yii::t('app', 'วันที่บริการ'),
             'frequency' => Yii::t('app', 'ความถี่'),
@@ -144,5 +146,11 @@ class Wo extends \yii\db\ActiveRecord
     public function getWorkType()
     {
         return $this->hasOne(WorkType::class, ['id' => 'work_type_id']);
+    }
+
+
+    public function getWorkClass()
+    {
+        return $this->hasOne(WorkClass::class, ['id' => 'workclass_id']);
     }
 }

@@ -41,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'work_start',
             'work_end',
             'ref:ntext',
+            'workclass_id',
             'category_id',
             'work_method:ntext',
             'service_date',

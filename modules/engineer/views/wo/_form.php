@@ -28,13 +28,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'work_type_id')->textInput() ?>
 
+    <?= $form->field($model, 'category_id')->textInput() ?>
+
     <?= $form->field($model, 'work_start')->textInput() ?>
 
     <?= $form->field($model, 'work_end')->textInput() ?>
-
+    
     <?= $form->field($model, 'ref')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'category_id')->textInput() ?>
+    
+    <?= $form->field($model, 'workclass_id')->textInput() ?>
 
     <?= $form->field($model, 'work_method')->textarea(['rows' => 6]) ?>
 

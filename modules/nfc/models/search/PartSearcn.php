@@ -17,7 +17,7 @@ class PartSearcn extends Part
     public function rules()
     {
         return [
-            [['id', 'en_part_doc_id', 'en_part_group_id', 'en_part_type_id', 'unit_lg', 'unit_sm', 'cost', 'status', 'imported'], 'integer'],
+            [['id', 'en_part_doc_id', 'en_part_group_id', 'en_part_type_id', 'unit_lg', 'unit_sm', 'cost', 'active', 'imported', 'status'], 'integer'],
             [['photo', 'code', 'name', 'name_en', 'old_code', 'description', 'serial_no', 'price', 'last_date', 'remask'], 'safe'],
         ];
     }
@@ -65,9 +65,10 @@ class PartSearcn extends Part
             'unit_lg' => $this->unit_lg,
             'unit_sm' => $this->unit_sm,
             'cost' => $this->cost,
-            'status' => $this->status,
+            'active' => $this->active,
             'last_date' => $this->last_date,
             'imported' => $this->imported,
+            'status' => $this->status,
         ]);
 
         $query->andFilterWhere(['like', 'photo', $this->photo])

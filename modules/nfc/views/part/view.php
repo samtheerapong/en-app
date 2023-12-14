@@ -44,10 +44,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'serial_no',
             'price',
             'cost',
-            'status',
+            'active',
             'last_date',
             'remask:ntext',
             'imported',
+            'status',
         ],
     ]) ?>
 
