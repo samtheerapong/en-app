@@ -21,7 +21,7 @@ use yii\helpers\Url;
         </li>
 
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="<?= Url::toRoute('/engineer/rp/index') ?>" class="nav-link"> <?= Yii::t('app', 'Request') ?></a>
+            <a href="<?= Url::toRoute('/engineer/rp/create') ?>" class="nav-link"> <?= Yii::t('app', 'Request') ?></a>
         </li>
 
        
