@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 14, 2023 at 10:02 AM
+-- Generation Time: Dec 15, 2023 at 09:33 AM
 -- Server version: 5.7.39
 -- PHP Version: 7.4.9
 
@@ -142,15 +142,16 @@ CREATE TABLE `en_part` (
   `remask` text,
   `imported` int(11) DEFAULT '0',
   `status` int(11) DEFAULT '1' COMMENT 'สถานะ',
-  `active` int(11) DEFAULT '1' COMMENT 'เปิดใช้งาน'
+  `active` int(11) DEFAULT '1' COMMENT 'เปิดใช้งาน',
+  `ref` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `en_part`
 --
 
-INSERT INTO `en_part` (`id`, `photo`, `code`, `name`, `name_en`, `old_code`, `description`, `en_part_doc_id`, `en_part_group_id`, `en_part_type_id`, `unit_lg`, `unit_sm`, `serial_no`, `price`, `cost`, `last_date`, `remask`, `imported`, `status`, `active`) VALUES
-(1, '', 'IT-P-001', 'asda', 'asdas', 'asdasd', 'asd', 1, 1, 1, 1, 1, 'sss', '999', 999, NULL, '', 0, 1, 1);
+INSERT INTO `en_part` (`id`, `photo`, `code`, `name`, `name_en`, `old_code`, `description`, `en_part_doc_id`, `en_part_group_id`, `en_part_type_id`, `unit_lg`, `unit_sm`, `serial_no`, `price`, `cost`, `last_date`, `remask`, `imported`, `status`, `active`, `ref`) VALUES
+(1, '', 'IT-P-001', 'คอมพิวเตอร์', 'Computer', 'IT-COM-01', '', 2, 20, 57, 1, 2, 'A5254T6YY14', '999', 999, '2023-12-15', '', 1, 1, 1, '');
 
 -- --------------------------------------------------------
 
@@ -575,19 +576,24 @@ CREATE TABLE `en_team` (
 CREATE TABLE `en_technician` (
   `id` int(11) NOT NULL,
   `photo` varchar(255) DEFAULT NULL COMMENT 'รูปภาพ',
-  `tel` varchar(45) DEFAULT NULL COMMENT 'เบอร์ติดต่อ',
-  `active` int(11) DEFAULT NULL COMMENT 'สถานะ',
+  `code` varchar(45) DEFAULT NULL COMMENT 'รหัสพนักงาน',
   `name` varchar(255) DEFAULT NULL COMMENT 'ชื่อ-สกุล',
-  `head` int(11) DEFAULT NULL COMMENT 'หัวหน้า'
+  `email` varchar(255) DEFAULT NULL COMMENT 'อีเมล',
+  `tel` varchar(45) DEFAULT NULL COMMENT 'เบอร์ติดต่อ',
+  `line` varchar(45) DEFAULT NULL COMMENT 'ไลน์',
+  `manday` decimal(10,2) DEFAULT NULL COMMENT 'ค่าแรง',
+  `head` int(11) DEFAULT NULL COMMENT 'หัวหน้า',
+  `active` int(11) DEFAULT NULL COMMENT 'สถานะ'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ข้อมูลช่าง';
 
 --
 -- Dumping data for table `en_technician`
 --
 
-INSERT INTO `en_technician` (`id`, `photo`, `tel`, `active`, `name`, `head`) VALUES
-(1, 'sam.png', '0870873830 (31)', 0, 'ธีรพงศ์ ขันตา', 11),
-(2, '', '053673985 (26)', 1, 'ทดสอบ', NULL);
+INSERT INTO `en_technician` (`id`, `photo`, `code`, `name`, `email`, `tel`, `line`, `manday`, `head`, `active`) VALUES
+(1, 'ea8d1872dfde05875aa5e41e195030e4.png', '0268', 'ธีรพงศ์ ขันตา', 'sam47290800@gmail.com', '0870873830', 'sam-it', '888.00', 11, 0),
+(2, 'aba427ede7a841cba9447d75c4b035ce.png', '0129', 'สราวุฒิ โฆษิตเกียรติคุณ', 'en.nfc2016@gmail.com', '26', 'Line-id', '999.00', 24, 1),
+(3, '2bb3ebaf1c0608ad924010789807d470.png', '0006', 'สุพจน์ ช่างฆ้อง', 'changkhong.8777@gmail.com', '26', '', '888.00', 24, 1);
 
 -- --------------------------------------------------------
 
@@ -1172,43 +1178,57 @@ CREATE TABLE `location` (
 --
 
 INSERT INTO `location` (`id`, `code`, `name`, `detail`, `color`, `active`) VALUES
-(1, '1', 'ห้องแผนกบุคคล', NULL, '#176B87', 1),
-(2, '2', 'ห้องแผนกผลิต', NULL, '#176B87', 1),
-(3, '3', 'ห้องควบคุมคุณภาพและจัดซื้อ', NULL, '#176B87', 1),
-(4, '4', 'ห้องควบคุมคุณภาพ', NULL, '#176B87', 1),
-(5, '5', 'ห้องบัญชี', NULL, '#176B87', 1),
-(6, '6', 'ห้องประชุม', NULL, '#176B87', 1),
-(7, '7', 'ห้องน้ำสำนักงาน ชั้น 1', NULL, '#176B87', 1),
-(8, '8', 'ห้องน้ำสำนักงาน ชั้น 2', NULL, '#176B87', 1),
-(9, '9', 'ห้องเตรียมอาหารและเครื่องดื่ม', NULL, '#176B87', 1),
-(10, '10', 'ห้องผู้จัดการ', NULL, '#176B87', 1),
-(11, '11', 'ห้องประชุมใหญ่ (ห้องรับประทานอาหาร)', NULL, '#176B87', 1),
-(12, '12', 'บริเวณตู้ยาม', NULL, '#0802A3', 1),
-(13, '13', 'ห้องปฏิบัติการคอมพิวเตอร์', NULL, '#176B87', 1),
-(14, '14', 'ห้องเซิร์ฟเวอร์', NULL, '#176B87', 1),
-(15, '15', 'พื้นที่คลังสินค้า', NULL, '#6499E9', 1),
-(16, 'B2-1', 'อาคาร B2', NULL, '#713ABE', 1),
-(17, 'B3-1', 'อาคาร B3', NULL, '#26577C', 1),
-(18, 'B4-1', 'อาคาร B4 ส่วนคั้น', NULL, '#9A3B3B', 1),
-(19, 'B4-2', 'อาคาร B4 ส่วนกรอง', NULL, '#9A3B3B', 1),
-(20, '20', 'อาคาร B4 ส่วนคลังสินค้า', NULL, '#9A3B3B', 1),
-(21, 'B4-3', 'อาคาร B4 ส่วนบรรจุ', NULL, '#9A3B3B', 1),
-(22, 'B5-1', 'อาคาร B5 ส่วนผลิต', NULL, '#183D3D', 1),
-(23, '23', 'อาคาร B5 ส่วนวิจัยและพัฒนา', NULL, '#183D3D', 1),
-(24, '24', 'อาคารหม้อไอน้ำ (Boiler)', NULL, '#C70039', 1),
-(25, '25', 'อาคารน้ำดิบและน้ำซอฟท์', NULL, '#C70039', 1),
-(26, '26', 'ระบบบ่อบำบัดน้ำเสีย', NULL, NULL, 1),
-(27, '27', 'อาคารวิศวกรรม', NULL, NULL, 1),
-(28, '28', 'ห้องแต่งตัวหญิง', NULL, NULL, 1),
-(29, '29', 'ห้องแต่งตัวชาย', NULL, NULL, 1),
-(30, '30', 'โรงเก็บขยะ', NULL, NULL, 1),
-(31, '31', 'โรงรถ', NULL, NULL, 1),
-(32, '32', 'อาคารสำนักงาน', NULL, NULL, 1),
-(33, '33', 'บริเวณอาคาร', NULL, NULL, 1),
-(34, '34', 'โรงผลิตน้ำใช้', NULL, NULL, 1),
-(35, '35', 'โรงจอดรถจักรยานยนต์', NULL, NULL, 1),
-(36, '36', 'พื้นที่แปลงผัก', NULL, NULL, 1),
-(37, '37', 'ห้องซักผ้าและห้องเย็บผ้า', NULL, NULL, 1);
+(1, 'B1-1-HR', 'ห้องแผนกบุคคล', '', '#176B87', 1),
+(2, 'B1-1-PD', 'ห้องแผนกผลิต', '', '#176B87', 1),
+(3, 'B1-1-PC', 'ห้องควบคุมคุณภาพและจัดซื้อ', '', '#176B87', 1),
+(4, 'B1-1-QC', 'ห้องควบคุมคุณภาพ', '', '#176B87', 1),
+(5, 'B1-2-AC', 'ห้องบัญชี', '', '#176B87', 1),
+(6, 'B1-2-MT', 'ห้องประชุม', '', '#176B87', 1),
+(7, 'B1-1-TL', 'ห้องน้ำสำนักงาน ชั้น 1', '', '#176B87', 1),
+(8, 'B1-2-TL', 'ห้องน้ำสำนักงาน ชั้น 2', '', '#176B87', 1),
+(9, 'B1-2-KC', 'ห้องเตรียมอาหารและเครื่องดื่ม', '', '#176B87', 1),
+(10, 'B1-2-GM', 'ห้องผู้จัดการ', '', '#176B87', 1),
+(11, 'B1-2-CT', 'ห้องประชุมใหญ่ (ห้องรับประทานอาหาร)', '', '#176B87', 1),
+(12, 'C1-1-SE', 'บริเวณตู้ยาม', '', '#0802A3', 1),
+(13, 'B1-1-IT', 'ห้องปฏิบัติการคอมพิวเตอร์', '', '#176B87', 1),
+(14, 'B1-1-SV', 'ห้องเซิร์ฟเวอร์', '', '#176B87', 1),
+(15, 'B1-A-WH', 'พื้นที่คลังสินค้า', '', '#6499E9', 1),
+(16, 'B2-1-CT', 'อาคาร B2', '', '#713ABE', 1),
+(17, 'B3-1-CT', 'อาคาร B3', '', '#26577C', 1),
+(18, 'B4-1-CR', 'อาคาร B4 ส่วนคั้น', '', '#9A3B3B', 1),
+(19, 'B4-1-FT', 'อาคาร B4 ส่วนกรอง', '', '#9A3B3B', 1),
+(20, 'B4-1-WH', 'อาคาร B4 ส่วนคลังสินค้า', '', '#9A3B3B', 1),
+(21, 'B4-1-PA', 'อาคาร B4 ส่วนบรรจุ', '', '#9A3B3B', 1),
+(22, 'B5-1-PD', 'อาคาร B5 ส่วนผลิต', NULL, '#183D3D', 1),
+(23, 'B5-1-RD', 'อาคาร B5 ส่วนวิจัยและพัฒนา', NULL, '#183D3D', 1),
+(24, 'EN-1-BL', 'อาคารหม้อไอน้ำ (Boiler)', NULL, '#C70039', 1),
+(25, 'EN-1-WS', 'อาคารน้ำดิบและน้ำซอฟท์', NULL, '#C70039', 1),
+(26, 'EN-1-WR', 'ระบบบ่อบำบัดน้ำเสีย', NULL, '#607274', 1),
+(27, 'EN-2-EN', 'อาคารวิศวกรรม', NULL, '#607274', 1),
+(28, 'B2-1-DW', 'ห้องแต่งตัวหญิง', NULL, '#607274', 1),
+(29, 'B2-1-DM', 'ห้องแต่งตัวชาย', NULL, '#607274', 1),
+(30, 'C3-1-TU', 'โรงเก็บขยะ', NULL, '#607274', 1),
+(31, 'C2-1-CP', 'โรงรถ', NULL, '#607274', 1),
+(32, 'B1-1-CT', 'อาคารสำนักงาน', NULL, '#607274', 1),
+(33, 'C4-1-CT', 'บริเวณอาคาร', '', '#607274', 0),
+(34, 'EN-1-CW', 'โรงผลิตน้ำใช้', NULL, '#607274', 1),
+(35, 'C2-1-MP', 'โรงจอดรถจักรยานยนต์', NULL, '#607274', 1),
+(36, 'C5-1-PL', 'พื้นที่แปลงผัก', '', '#607274', 0),
+(37, 'C6-1-WD', 'ห้องซักผ้าและห้องเย็บผ้า', NULL, '#607274', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `uploads`
+--
+
+CREATE TABLE `uploads` (
+  `id` int(11) NOT NULL,
+  `ref` varchar(255) DEFAULT NULL,
+  `file_name` varchar(255) DEFAULT NULL,
+  `real_filename` varchar(255) DEFAULT NULL,
+  `created_at` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1541,6 +1561,12 @@ ALTER TABLE `location`
   ADD UNIQUE KEY `code_UNIQUE` (`code`);
 
 --
+-- Indexes for table `uploads`
+--
+ALTER TABLE `uploads`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -1641,7 +1667,7 @@ ALTER TABLE `en_team`
 -- AUTO_INCREMENT for table `en_technician`
 --
 ALTER TABLE `en_technician`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `en_unit`
@@ -1702,6 +1728,12 @@ ALTER TABLE `en_wo_list`
 --
 ALTER TABLE `location`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT for table `uploads`
+--
+ALTER TABLE `uploads`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`
