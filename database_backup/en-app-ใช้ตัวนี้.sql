@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 15, 2023 at 09:33 AM
+-- Generation Time: Dec 15, 2023 at 02:56 PM
 -- Server version: 5.7.39
--- PHP Version: 7.4.9
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,26 @@ SET time_zone = "+00:00";
 --
 -- Database: `en-app`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auto_number`
+--
+
+CREATE TABLE `auto_number` (
+  `group` varchar(32) NOT NULL,
+  `number` int(11) DEFAULT NULL,
+  `optimistic_lock` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `auto_number`
+--
+
+INSERT INTO `auto_number` (`group`, `number`, `optimistic_lock`, `update_time`) VALUES
+('SP-6612-????', 6, 1, 1702652085);
 
 -- --------------------------------------------------------
 
@@ -151,7 +171,11 @@ CREATE TABLE `en_part` (
 --
 
 INSERT INTO `en_part` (`id`, `photo`, `code`, `name`, `name_en`, `old_code`, `description`, `en_part_doc_id`, `en_part_group_id`, `en_part_type_id`, `unit_lg`, `unit_sm`, `serial_no`, `price`, `cost`, `last_date`, `remask`, `imported`, `status`, `active`, `ref`) VALUES
-(1, '', 'IT-P-001', 'คอมพิวเตอร์', 'Computer', 'IT-COM-01', '', 2, 20, 57, 1, 2, 'A5254T6YY14', '999', 999, '2023-12-15', '', 1, 1, 1, '');
+(1, '0448979e78972d5e0cf8c37832ad1486.jpg', 'SP-6612-0001', 'คอมพิวเตอร์', 'Computer', 'IT-COM-01', '', 2, 20, 57, 1, 2, 'A5254T6YY14', '50000', NULL, '2023-12-15', '', 1, 1, 1, ''),
+(2, 'ed71abc53ecf204186ab15901e9c2739.jpg', 'SP-6612-0002', 'โน๊ตบุ้ก', 'Notebook', '', '', 2, 24, 57, 1, 2, '', '60000', 0, '2023-12-15', '', 1, 2, 1, ''),
+(3, 'dc03fe79b4733d4de39681363fcf5c96.jpg', 'SP-6612-0003', 'จอ', 'monitor', '', '', 2, 20, 58, NULL, NULL, '', '2500', 0, '2023-12-16', '', 2, 1, 1, ''),
+(4, 'f8cc2062f6cfc66cca36d380c7a5c296.jpg', 'SP-6612-0004', 'asda', 'asdas', '', '', 1, 2, 3, NULL, NULL, '', '', 0, NULL, '', 2, 1, 1, ''),
+(6, 'b4285efe88c821f29818c9c1a7633c00.png', 'SP-6612-0006', 'โน๊ตบุ้ก', 'asdasd', '', '', 1, 3, 5, NULL, NULL, '', '', 0, NULL, '', 2, 1, 1, '');
 
 -- --------------------------------------------------------
 
@@ -1382,6 +1406,12 @@ INSERT INTO `user` (`id`, `username`, `thai_name`, `auth_key`, `password_hash`, 
 --
 
 --
+-- Indexes for table `auto_number`
+--
+ALTER TABLE `auto_number`
+  ADD PRIMARY KEY (`group`);
+
+--
 -- Indexes for table `department`
 --
 ALTER TABLE `department`
@@ -1607,7 +1637,7 @@ ALTER TABLE `en_machine`
 -- AUTO_INCREMENT for table `en_part`
 --
 ALTER TABLE `en_part`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `en_part_doc`

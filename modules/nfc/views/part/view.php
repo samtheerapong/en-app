@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'template' => '<tr><th style="width: 200px;">{label}</th><td> {value}</td></tr>',
                                 'attributes' => [
                                     // 'id',
-                                    'photo:ntext',
+                                    // 'photo:ntext',
                                     [
                                         'attribute' => 'code',
                                         'format' => 'html',
@@ -140,15 +140,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'attribute' => 'price',
                                         'format' => 'html',
                                         'value' => function ($model) {
-                                            return $model->price ? $model->price . ' บาท' : Yii::t('app', '');
+                                            return $model->price ? Yii::$app->formatter->asDecimal($model->price, 2) . ' บาท' : Yii::t('app', '');
                                         },
                                     ],
+
                                     // 'cost',
                                     [
                                         'attribute' => 'cost',
                                         'format' => 'html',
                                         'value' => function ($model) {
-                                            return $model->cost ? $model->cost . ' บาท' : Yii::t('app', '');
+                                            return $model->cost ? Yii::$app->formatter->asDecimal($model->cost, 2) . ' บาท' : Yii::t('app', '');
                                         },
                                     ],
                                     // 'last_date',

@@ -136,15 +136,30 @@ use yii\widgets\ActiveForm;
                 </div>
 
                 <div class="col-md-3">
-                    <?= $form->field($model, 'imported')->dropDownList(['1' => Yii::t('app', 'No'), '0' => Yii::t('app', 'Yes')]) ?>
+                    <?= $form->field($model, 'imported')->dropDownList(
+                        [
+                            '2' => Yii::t('app', 'NO'),
+                            '1' => Yii::t('app', 'YES')
+                        ]
+                    ) ?>
                 </div>
 
                 <div class="col-md-3">
-                    <?= $form->field($model, 'status')->dropDownList(['1' => Yii::t('app', 'Created'), '0' => Yii::t('app', 'Approved')]) ?>
+                    <?= $form->field($model, 'status')->dropDownList(
+                        [
+                            '1' => Yii::t('app', 'CREATED'),
+                            '2' => Yii::t('app', 'APPROVED')
+                        ]
+                    ) ?>
                 </div>
 
                 <div class="col-md-3">
-                    <?= $form->field($model, 'active')->dropDownList(['1' => Yii::t('app', 'Yes'), '0' => Yii::t('app', 'No')]) ?>
+                    <?= $form->field($model, 'active')->dropDownList(
+                        [
+                            '1' => Yii::t('app', 'YES'),
+                            '2' => Yii::t('app', 'NO')
+                        ]
+                    ) ?>
                 </div>
 
                 <div class="col-md-12">
@@ -152,13 +167,13 @@ use yii\widgets\ActiveForm;
                 </div>
 
                 <div class="col-md-12">
-                <?= $form->field($model, 'photo')->widget(FileInput::class, [
+                    <?= $form->field($model, 'photo')->widget(FileInput::class, [
                         'options' => [
                             'accept' => 'image/*',
                             'multiple' => false
                         ],
                         'pluginOptions' => [
-                            'initialPreview'=> Html::img($model->getPhotoViewer(), ['class' => 'file-preview-image', 'alt' => $model->id]),
+                            'initialPreview' => Html::img($model->getPhotoViewer(), ['class' => 'file-preview-image', 'alt' => $model->id]),
                             'showPreview' => true,
                             'showCaption' => true,
                             'showRemove' => false,

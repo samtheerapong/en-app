@@ -5,6 +5,7 @@ namespace app\modules\nfc\models;
 use app\modules\engineer\models\Upload;
 use Yii;
 use yii\helpers\Url;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "en_part".
@@ -39,7 +40,7 @@ use yii\helpers\Url;
 class Part extends \yii\db\ActiveRecord
 {
 
-    const UPLOAD_FOLDER = 'uploads/part';
+    public $upload_foler = 'uploads/part';
 
 
     /**
@@ -153,5 +154,32 @@ class Part extends \yii\db\ActiveRecord
 
 
     // ----------------- Uploads ----------------- //
-    
+    public function upload($model, $attribute)
+    {
+        $photo  = UploadedFile::getInstance($model, $attribute);
+        $path = $this->getUploadPath();
+        if ($this->validate() && $photo !== null) {
+
+            $fileName = md5($photo->baseName . time()) . '.' . $photo->extension;
+            if ($photo->saveAs($path . $fileName)) {
+                return $fileName;
+            }
+        }
+        return $model->isNewRecord ? false : $model->getOldAttribute($attribute);
+    }
+
+    public function getUploadPath()
+    {
+        return Yii::getAlias('@webroot') . '/' . $this->upload_foler . '/';
+    }
+
+    public function getUploadUrl()
+    {
+        return Yii::getAlias('@web') . '/' . $this->upload_foler . '/';
+    }
+
+    public function getPhotoViewer()
+    {
+        return empty($this->photo) ? Yii::getAlias('@web') . '/images/no-img.png' : $this->getUploadUrl() . $this->photo;
+    }
 }

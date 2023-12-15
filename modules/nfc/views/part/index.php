@@ -81,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'en_part_doc_id',
                             'format' => 'html',
-                            'headerOptions' => ['class' => 'text-center', 'style' => 'width:200px;'],
+                            'headerOptions' => ['style' => 'width:200px;'],
                             'value' => function ($model) {
                                 return $model->partDoc->name;
                             },
@@ -100,7 +100,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'en_part_group_id',
                             'format' => 'html',
-                            'headerOptions' => ['class' => 'text-center', 'style' => 'width:200px;'],
+                            'headerOptions' => ['style' => 'width:200px;'],
                             'value' => function ($model) {
                                 return $model->partGroup->name;
                             },
@@ -119,7 +119,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'en_part_type_id',
                             'format' => 'html',
-                            'headerOptions' => ['class' => 'text-center', 'style' => 'width:200px;'],
+                            'headerOptions' => ['style' => 'width:200px;'],
                             'value' => function ($model) {
                                 return $model->partType->name;
                             },
@@ -141,9 +141,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'price',
                             'format' => 'html',
-                            'headerOptions' => ['class' => 'text-center', 'style' => 'width:100px;'],
+                            'headerOptions' => ['style' => 'width:100px;'],
                             'value' => function ($model) {
-                                return $model->price;
+                                return Yii::$app->formatter->asDecimal($model->price, 2);
                             },
 
                         ],
@@ -156,16 +156,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'status',
                             'format' => 'html',
-                            'contentOptions' => ['style' => 'width:100px;'],
+                            'contentOptions' => ['style' => 'width:130px;'],
                             'value' => function ($model) {
-                                return $model->status === 1 ? '<span class="badge" style="background-color:#1A5D1A">Create</span>' : '<span class="badge" style="background-color:#FE0000">No</span>';
+                                return $model->status === 1 ? '<span class="badge" style="background-color:#ff6600">CREATED</span>' :
+                                 '<span class="badge" style="background-color:#1A5D1A">APPROVED</span>';
                             },
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'status',
                                 'data' => [
-                                    '1' => 'C',
-                                    '2' => 'A'
+                                    '1' => 'CREATED',
+                                    '2' => 'APPROVED'
                                 ],
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'pluginOptions' => [

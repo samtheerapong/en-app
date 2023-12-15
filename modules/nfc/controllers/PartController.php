@@ -13,6 +13,7 @@ use yii\helpers\BaseFileHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\UploadedFile;
+use mdm\autonumber\AutoNumber;
 
 /**
  * PartController implements the CRUD actions for Part model.
@@ -74,9 +75,12 @@ class PartController extends Controller
     public function actionCreate()
     {
         $model = new Part();
+        
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
+                $model->code = AutoNumber::generate('SP-' . (date('y') + 43) . date('m') . '-????'); // Auto Number
                 $model->photo = $model->upload($model, 'photo'); // Upload Photo 
+
                 $model->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -101,6 +105,7 @@ class PartController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post())) {
+            // $model->code = AutoNumber::generate('SP-' . (date('y') + 43) . date('m') . '-????'); // Auto Number
             $model->photo = $model->upload($model, 'photo');
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
@@ -121,11 +126,11 @@ class PartController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        //remove upload file & data
-        $this->removeUploadDir($model->ref);
-        Uploads::deleteAll(['ref' => $model->ref]);
+        $filename  = $model->getUploadPath() . $model->photo;
 
-        $model->delete();
+        if ($model->delete()) {
+            @unlink($filename);
+        }
 
         return $this->redirect(['index']);
     }
@@ -145,8 +150,4 @@ class PartController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
-
-
-    // ----------------- Uploads ----------------- //
-
 }
