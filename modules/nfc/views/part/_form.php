@@ -152,22 +152,18 @@ use yii\widgets\ActiveForm;
                 </div>
 
                 <div class="col-md-12">
-                    <?= $form->field($model, 'upload_ajax[]')->widget(FileInput::class, [
+                <?= $form->field($model, 'photo')->widget(FileInput::class, [
                         'options' => [
                             'accept' => 'image/*',
-                            'multiple' => true,
+                            'multiple' => false
                         ],
                         'pluginOptions' => [
-                            'language' => 'th',
+                            'initialPreview'=> Html::img($model->getPhotoViewer(), ['class' => 'file-preview-image', 'alt' => $model->id]),
+                            'showPreview' => true,
+                            'showCaption' => true,
+                            'showRemove' => false,
+                            'showUpload' => false,
                             'overwriteInitial' => false,
-                            'initialPreviewShowDelete' => true,
-                            'initialPreview' => $initialPreview,
-                            'initialPreviewConfig' => $initialPreviewConfig,
-                            'uploadUrl' => Url::to(['/engineer/part/upload-ajax']),
-                            'uploadExtraData' => [
-                                'id' => $model->id,
-                            ],
-                            'maxFileCount' => 6
                         ],
                     ]); ?>
                 </div>

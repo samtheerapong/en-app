@@ -74,11 +74,9 @@ class PartController extends Controller
     public function actionCreate()
     {
         $model = new Part();
-        $model->ref = substr(Yii::$app->getSecurity()->generateRandomString(), 10);
-
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-                $this->Uploads(false);
+                $model->photo = $model->upload($model, 'photo'); // Upload Photo 
                 $model->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -102,18 +100,14 @@ class PartController extends Controller
     {
         $model = $this->findModel($id);
 
-        list($initialPreview, $initialPreviewConfig) = $this->getInitialPreview($model->id);
-
         if ($this->request->isPost && $model->load($this->request->post())) {
-            $this->Uploads(false);
+            $model->photo = $model->upload($model, 'photo');
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
-            'initialPreview' => $initialPreview,
-            'initialPreviewConfig' => $initialPreviewConfig
         ]);
     }
 
@@ -154,5 +148,5 @@ class PartController extends Controller
 
 
     // ----------------- Uploads ----------------- //
-    
+
 }
