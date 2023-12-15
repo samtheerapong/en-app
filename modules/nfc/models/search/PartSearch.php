@@ -18,7 +18,7 @@ class PartSearch extends Part
     {
         return [
             [['id', 'en_part_doc_id', 'en_part_group_id', 'en_part_type_id', 'status'], 'integer'],
-            [['images', 'code', 'name', 'name_en', 'old_code', 'description', 'serial_no', 'unit', 'cos'], 'safe'],
+            [['images', 'code', 'name', 'name_en', 'old_code', 'description', 'serial_no', 'unit', 'cos', 'ref'], 'safe'],
         ];
     }
 
@@ -73,6 +73,7 @@ class PartSearch extends Part
             ->andFilterWhere(['like', 'description', $this->description])
             ->andFilterWhere(['like', 'serial_no', $this->serial_no])
             ->andFilterWhere(['like', 'unit', $this->unit])
+            ->andFilterWhere(['like', 'ref', $this->ref])
             ->andFilterWhere(['like', 'cos', $this->cos]);
 
         return $dataProvider;

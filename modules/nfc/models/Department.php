@@ -57,7 +57,7 @@ class Department extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'ชื่อแผนก'),
             'detail' => Yii::t('app', 'รายละเอียด'),
             'department_head' => Yii::t('app', 'หัวหน้าแผนก'),
-            'warehouse_id' => Yii::t('app', 'Warehouse ID'),
+            'warehouse_id' => Yii::t('app', 'คลัง'),
             'color' => Yii::t('app', 'สี'),
             'active' => Yii::t('app', 'สถานะ'),
         ];

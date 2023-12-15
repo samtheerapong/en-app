@@ -4,9 +4,15 @@ namespace app\modules\nfc\controllers;
 
 use app\modules\nfc\models\Part;
 use app\modules\nfc\models\search\PartSearcn;
+use app\modules\nfc\models\Uploads;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\BaseFileHelper;
+use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\web\UploadedFile;
 
 /**
  * PartController implements the CRUD actions for Part model.
@@ -68,9 +74,12 @@ class PartController extends Controller
     public function actionCreate()
     {
         $model = new Part();
+        $model->ref = substr(Yii::$app->getSecurity()->generateRandomString(), 10);
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())) {
+                $this->Uploads(false);
+                $model->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -93,12 +102,18 @@ class PartController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        list($initialPreview, $initialPreviewConfig) = $this->getInitialPreview($model->id);
+
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $this->Uploads(false);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'initialPreview' => $initialPreview,
+            'initialPreviewConfig' => $initialPreviewConfig
         ]);
     }
 
@@ -111,7 +126,12 @@ class PartController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        //remove upload file & data
+        $this->removeUploadDir($model->ref);
+        Uploads::deleteAll(['ref' => $model->ref]);
+
+        $model->delete();
 
         return $this->redirect(['index']);
     }
@@ -131,4 +151,8 @@ class PartController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
+
+    // ----------------- Uploads ----------------- //
+    
 }

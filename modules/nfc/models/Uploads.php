@@ -1,11 +1,11 @@
 <?php
 
-namespace app\modules\engineer\models;
+namespace app\modules\nfc\models;
 
 use Yii;
 
 /**
- * This is the model class for table "en_upload".
+ * This is the model class for table "uploads".
  *
  * @property int $id
  * @property int|null $ref
@@ -13,14 +13,14 @@ use Yii;
  * @property string|null $real_filename
  * @property string|null $created_at
  */
-class Upload extends \yii\db\ActiveRecord
+class Uploads extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'en_upload';
+        return 'uploads';
     }
 
     /**
@@ -29,9 +29,8 @@ class Upload extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ref'], 'integer'],
             [['created_at'], 'safe'],
-            [['file_name', 'real_filename'], 'string', 'max' => 255],
+            [['file_name', 'real_filename','ref'], 'string', 'max' => 255],
         ];
     }
 

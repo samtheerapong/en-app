@@ -1,6 +1,15 @@
 <?php
 
+use app\modules\nfc\models\PartDoc;
+use app\modules\nfc\models\PartGroup;
+use app\modules\nfc\models\PartType;
+use app\modules\nfc\models\Unit;
+use kartik\widgets\DatePicker;
+use kartik\widgets\FileInput;
+use kartik\widgets\Select2;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
@@ -10,49 +19,170 @@ use yii\widgets\ActiveForm;
 
 <div class="part-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'options' => ['enctype' => 'multipart/form-data']
+    ]); ?>
 
-    <?= $form->field($model, 'photo')->textarea(['rows' => 6]) ?>
+    <div class="card border-secondary">
+        <div class="card-header text-white bg-secondary">
+            <?= Html::encode($this->title) ?>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <?= $form->field($model, 'code')->hiddenInput()->label(false) ?>
+                <?= $form->field($model, 'ref')->hiddenInput()->label(false) ?>
 
-    <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
+                <div class="col-md-5">
+                    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+                </div>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+                <div class="col-md-5">
+                    <?= $form->field($model, 'name_en')->textInput(['maxlength' => true]) ?>
+                </div>
 
-    <?= $form->field($model, 'name_en')->textInput(['maxlength' => true]) ?>
+                <div class="col-md-2">
+                    <?= $form->field($model, 'old_code')->textInput(['maxlength' => true]) ?>
+                </div>
 
-    <?= $form->field($model, 'old_code')->textInput(['maxlength' => true]) ?>
+                <div class="col-md-8">
+                    <?= $form->field($model, 'description')->textInput() ?>
+                </div>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+                <div class="col-md-4">
+                    <?= $form->field($model, 'serial_no')->textInput(['maxlength' => true]) ?>
+                </div>
 
-    <?= $form->field($model, 'en_part_doc_id')->textInput() ?>
+                <div class="col-md-4">
+                    <?= $form->field($model, 'en_part_doc_id')->widget(Select2::class, [
+                        'language' => 'th',
+                        'data' => ArrayHelper::map(PartDoc::find()->all(), 'id', 'name'),
+                        'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ]);
+                    ?>
+                </div>
 
-    <?= $form->field($model, 'en_part_group_id')->textInput() ?>
+                <div class="col-md-4">
+                    <?= $form->field($model, 'en_part_group_id')->widget(Select2::class, [
+                        'language' => 'th',
+                        'data' => ArrayHelper::map(PartGroup::find()->all(), 'id', 'name'),
+                        'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ]);
+                    ?>
+                </div>
 
-    <?= $form->field($model, 'en_part_type_id')->textInput() ?>
+                <div class="col-md-4">
+                    <?= $form->field($model, 'en_part_type_id')->widget(Select2::class, [
+                        'language' => 'th',
+                        'data' => ArrayHelper::map(PartType::find()->all(), 'id', 'name'),
+                        'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ]);
+                    ?>
+                </div>
 
-    <?= $form->field($model, 'unit_lg')->textInput() ?>
+                <div class="col-md-4">
+                    <?= $form->field($model, 'unit_lg')->widget(Select2::class, [
+                        'language' => 'th',
+                        'data' => ArrayHelper::map(Unit::find()->all(), 'id', 'name'),
+                        'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ]);
+                    ?>
+                </div>
 
-    <?= $form->field($model, 'unit_sm')->textInput() ?>
+                <div class="col-md-4">
+                    <?= $form->field($model, 'unit_sm')->widget(Select2::class, [
+                        'language' => 'th',
+                        'data' => ArrayHelper::map(Unit::find()->all(), 'id', 'name'),
+                        'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ]);
+                    ?>
+                </div>
 
-    <?= $form->field($model, 'serial_no')->textInput(['maxlength' => true]) ?>
+                <div class="col-md-2">
+                    <?= $form->field($model, 'price')->textInput(['maxlength' => true, 'type' => 'number', 'step' => '00.01']) ?>
+                </div>
 
-    <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
+                <div class="col-md-2">
+                    <?= $form->field($model, 'cost')->textInput(['maxlength' => true, 'type' => 'number', 'step' => '00.01']) ?>
+                </div>
 
-    <?= $form->field($model, 'cost')->textInput() ?>
+                <div class="col-md-3">
+                    <?= $form->field($model, 'last_date')->widget(
+                        DatePicker::class,
+                        [
+                            'language' => 'th',
+                            'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                            'pluginOptions' => [
+                                'format' => 'yyyy-mm-dd',
+                                'todayHighlight' => true,
+                                'autoclose' => true,
+                            ]
+                        ]
+                    ); ?>
+                </div>
 
-    <?= $form->field($model, 'active')->textInput() ?>
+                <div class="col-md-3">
+                    <?= $form->field($model, 'imported')->dropDownList(['1' => Yii::t('app', 'No'), '0' => Yii::t('app', 'Yes')]) ?>
+                </div>
 
-    <?= $form->field($model, 'last_date')->textInput() ?>
+                <div class="col-md-3">
+                    <?= $form->field($model, 'status')->dropDownList(['1' => Yii::t('app', 'Created'), '0' => Yii::t('app', 'Approved')]) ?>
+                </div>
 
-    <?= $form->field($model, 'remask')->textarea(['rows' => 6]) ?>
+                <div class="col-md-3">
+                    <?= $form->field($model, 'active')->dropDownList(['1' => Yii::t('app', 'Yes'), '0' => Yii::t('app', 'No')]) ?>
+                </div>
 
-    <?= $form->field($model, 'imported')->textInput() ?>
+                <div class="col-md-12">
+                    <?= $form->field($model, 'remask')->textInput() ?>
+                </div>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+                <div class="col-md-12">
+                    <?= $form->field($model, 'upload_ajax[]')->widget(FileInput::class, [
+                        'options' => [
+                            'accept' => 'image/*',
+                            'multiple' => true,
+                        ],
+                        'pluginOptions' => [
+                            'language' => 'th',
+                            'overwriteInitial' => false,
+                            'initialPreviewShowDelete' => true,
+                            'initialPreview' => $initialPreview,
+                            'initialPreviewConfig' => $initialPreviewConfig,
+                            'uploadUrl' => Url::to(['/engineer/part/upload-ajax']),
+                            'uploadExtraData' => [
+                                'id' => $model->id,
+                            ],
+                            'maxFileCount' => 6
+                        ],
+                    ]); ?>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="form-group">
+                <div class="d-grid">
+                    <?= Html::submitButton('<i class="fas fa-save"></i> ' . Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+                </div>
+            </div>
+        </div>
 
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
+
 
     <?php ActiveForm::end(); ?>
 
