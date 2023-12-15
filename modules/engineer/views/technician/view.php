@@ -15,8 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <div style="display: flex; justify-content: space-between;">
         <p>
             <?= Html::a('<i class="fas fa-chevron-left"></i> ' . Yii::t('app', 'Go Back'), ['index'], ['class' => 'btn btn-primary']) ?>
-            <?php //echo Html::a('<i class="fas fa-calendar"></i> ' . Yii::t('app', 'Moromi Record Card'), ['card'], ['class' => 'btn btn-secondary btn-lg']) 
-            ?>
         </p>
 
         <p style="text-align: right;">
@@ -40,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card mb-3">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <?= Html::img($model->getPhotoUrl(), ['class' => 'img-fluid rounded-start', 'alt' => '...']); ?>
+                        <?= Html::img($model->getPhotoViewer(), ['class' => 'img-fluid img-thumbnail mx-auto d-block', 'alt' => '...']); ?>
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -48,16 +46,61 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'model' => $model,
                                 'template' => '<tr><th style="width: 200px;">{label}</th><td> {value}</td></tr>',
                                 'attributes' => [
-                                    'name',
-                                    'tel',
-                                    // 'head',
+                                    [
+                                        'attribute' => 'code',
+                                        'format' => 'html',
+                                        'value' => function ($model) {
+                                            return $model->code ? $model->code : Yii::t('app', '');
+                                        },
+                                    ],
+
+                                    [
+                                        'attribute' => 'name',
+                                        'format' => 'html',
+                                        'value' => function ($model) {
+                                            return $model->name ? $model->name : Yii::t('app', '');
+                                        },
+                                    ],
+
+                                    [
+                                        'attribute' => 'tel',
+                                        'format' => 'html',
+                                        'value' => function ($model) {
+                                            return $model->tel ? $model->tel : Yii::t('app', '');
+                                        },
+                                    ],
+
+                                    [
+                                        'attribute' => 'email',
+                                        'format' => 'email',
+                                        'value' => function ($model) {
+                                            return $model->email ? $model->email : Yii::t('app', '');
+                                        },
+                                    ],
+
+                                    [
+                                        'attribute' => 'line',
+                                        'format' => 'html',
+                                        'value' => function ($model) {
+                                            return $model->line ? $model->line : Yii::t('app', '');
+                                        },
+                                    ],
+                                    [
+                                        'attribute' => 'manday',
+                                        'format' => 'html',
+                                        'value' => function ($model) {
+                                            return $model->manday ? $model->manday : Yii::t('app', '');
+                                        },
+                                    ],
+
                                     [
                                         'attribute' => 'head',
                                         'format' => 'html',
                                         'value' => function ($model) {
-                                            return $model->head ? $model->head0->thai_name : Yii::t('app', 'N/A');
+                                            return $model->head ? $model->head0->thai_name : Yii::t('app', '');
                                         },
                                     ],
+
                                     [
                                         'attribute' => 'active',
                                         'format' => 'html',

@@ -28,6 +28,7 @@ return [
         'Systems' => 'ระบบอื่นๆ',
         'Users' => 'ผู้ใช้',
         'Data Files' => 'แฟ้มข้อมูล',
+        'Select...' => 'เลือก...',
 
         //Categories
         'Categories' => 'หมวดหมู่',

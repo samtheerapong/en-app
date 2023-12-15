@@ -39,14 +39,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php
                 foreach ($dataProvider->getModels() as $model) : ?>
                     <div class="col-md-3 col-sm-6">
-                        <div class="card mb-3">
+                        <div class="card mb-3 ">
                             <?= Html::a(
                                 Html::img(
-                                    $model->getPhotoUrl(),
+                                    $model->getPhotoViewer(),
                                     [
-                                        'class' => 'card-img-top',
-                                        'alt' => '...',
-                                        'style' => 'height: 350px;',
+                                        'class' => 'file-preview-image',
+                                        'alt' => $model->id,
+                                        'style' => 'height: 300px;',
                                     ]
                                 ),
                                 ['view', 'id' => $model->id],

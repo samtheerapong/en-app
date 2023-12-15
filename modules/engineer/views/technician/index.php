@@ -1,11 +1,8 @@
 <?php
 
-use app\modules\engineer\models\Technician;
 use kartik\widgets\Select2;
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\grid\ActionColumn;
 use kartik\grid\GridView;
 
 /** @var yii\web\View $this */
@@ -32,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
     <div class="card border-secondary">
         <div class="card-header text-white bg-secondary">
-            <?= Html::encode($this->title) ?>
+            <?= Yii::t('app', 'Total : {count} User', ['count' => $dataProvider->totalCount]) ?>
         </div>
         <div class="card-body table-responsive">
             <?= GridView::widget([
@@ -56,20 +53,25 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     // 'id',
                     // 'photo',
+
                     [
                         'attribute' => 'photo',
-                        'contentOptions' => ['class' => 'text-center','style' => 'width:50px;'], // Set the width of the column
-                        'format' => 'raw',
+                        'contentOptions' => ['class' => 'text-center', 'style' => 'width:50px;'],
+                        'format' => 'html',
                         'value' => function ($model) {
-                            $imageUrl = '@web/uploads/technician/' . $model->photo;
-                            $noAvatar = '@web/images/avatar.png';
-                            return $model->photo
-                                ? Html::a(Html::img($imageUrl, ['height' => '50px']), ['view', 'id' => $model->id])
-                                : Html::a(Html::img($noAvatar, ['height' => '50px']), ['view', 'id' => $model->id]);
+                            return Html::a(Html::img($model->getPhotoViewer(), ['class' => 'img', 'alt' => $model->id, 'height' => '50px']), ['view', 'id' => $model->id]);
                         },
                         'filter' => false,
                     ],
 
+                    [
+                        'attribute' => 'code',
+                        'format' => 'html',
+                        'contentOptions' => ['class' => 'text-center', 'style' => 'width:80px;'],
+                        'value' => function ($model) {
+                            return $model->code;
+                        },
+                    ],
 
                     [
                         'attribute' => 'name',
@@ -82,11 +84,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'tel',
                         'format' => 'html',
+                        'contentOptions' => ['class' => 'text-center', 'style' => 'width:80px;'],
                         'value' => function ($model) {
                             return $model->tel;
                         },
                     ],
                     // 'head',
+                    [
+                        'attribute' => 'email',
+                        'format' => 'email',
+                        'value' => function ($model) {
+                            return $model->email;
+                        },
+                    ],
+
                     [
                         'attribute' => 'head',
                         'format' => 'html',
@@ -98,7 +109,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'active',
                         'format' => 'html',
-                        'contentOptions' => ['style' => 'width:100px;'],
+                        'contentOptions' => ['class' => 'text-center', 'style' => 'width:100px;'],
                         'value' => function ($model) {
                             return $model->active === 1 ? '<span class="badge" style="background-color:#1A5D1A">Yes</span>' : '<span class="badge" style="background-color:#FE0000">No</span>';
                         },

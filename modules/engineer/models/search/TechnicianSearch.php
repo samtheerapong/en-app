@@ -18,7 +18,8 @@ class TechnicianSearch extends Technician
     {
         return [
             [['id', 'active', 'head'], 'integer'],
-            [['photo', 'tel', 'name'], 'safe'],
+            [['manday'], 'number'],
+            [['photo', 'tel', 'name', 'code', 'email', 'line'], 'safe'],
         ];
     }
 
@@ -61,10 +62,14 @@ class TechnicianSearch extends Technician
             'id' => $this->id,
             'active' => $this->active,
             'head' => $this->head,
+            'manday' => $this->manday,
         ]);
 
         $query->andFilterWhere(['like', 'photo', $this->photo])
+            ->andFilterWhere(['like', 'code', $this->code])
+            ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'tel', $this->tel])
+            ->andFilterWhere(['like', 'line', $this->line])
             ->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;

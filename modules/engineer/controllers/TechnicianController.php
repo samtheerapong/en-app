@@ -4,6 +4,7 @@ namespace app\modules\engineer\controllers;
 
 use app\modules\engineer\models\Technician;
 use app\modules\engineer\models\search\TechnicianSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -70,7 +71,9 @@ class TechnicianController extends Controller
         $model = new Technician();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())) {
+                $model->photo = $model->upload($model, 'photo'); // Upload Photo 
+                $model->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -93,7 +96,9 @@ class TechnicianController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $model->photo = $model->upload($model, 'photo');
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -111,10 +116,16 @@ class TechnicianController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $filename  = $model->getUploadPath() . $model->photo;
+
+        if ($model->delete()) {
+            @unlink($filename);
+        }
 
         return $this->redirect(['index']);
     }
+
 
     /**
      * Finds the Technician model based on its primary key value.

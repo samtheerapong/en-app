@@ -5,6 +5,7 @@ namespace app\modules\engineer\models;
 use app\models\User;
 use Yii;
 use yii\helpers\Html;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "en_technician".
@@ -20,6 +21,10 @@ use yii\helpers\Html;
  */
 class Technician extends \yii\db\ActiveRecord
 {
+
+    public $upload_foler = 'uploads/technician';
+
+
     /**
      * {@inheritdoc}
      */
@@ -35,8 +40,9 @@ class Technician extends \yii\db\ActiveRecord
     {
         return [
             [['active', 'head'], 'integer'],
-            [['photo', 'name'], 'string', 'max' => 255],
-            [['tel'], 'string', 'max' => 45],
+            [['manday'], 'number'],
+            [['photo', 'name', 'code', 'email'], 'string', 'max' => 255],
+            [['tel', 'line'], 'string', 'max' => 45],
         ];
     }
 
@@ -47,9 +53,13 @@ class Technician extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
+            'code' => Yii::t('app', 'รหัสพนักงาน'),
             'name' => Yii::t('app', 'ชื่อ-สกุล'),
             'photo' => Yii::t('app', 'รูปภาพ'),
+            'email' => Yii::t('app', 'อีเมล'),
+            'line' => Yii::t('app', 'ไลน์'),
             'tel' => Yii::t('app', 'เบอร์ติดต่อ'),
+            'manday' => Yii::t('app', 'ค่าแรง'),
             'active' => Yii::t('app', 'สถานะ'),
             'head' => Yii::t('app', 'หัวหน้า'),
         ];
@@ -70,20 +80,40 @@ class Technician extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'head']);
     }
 
-    public function getPhotoUrl()
-    {
-        if (!empty($this->photo)) {
-            return Yii::getAlias('@web/uploads/technician/') . Html::encode($this->photo);
-        } else {
-            return Yii::getAlias('@web/images/avatar.png');
-        }
-    }
-
     public function getActiveStatus()
     {
         $color = $this->active === 1 ? '#1A5D1A' : '#FE0000';
         $statusText = $this->active === 1 ? Yii::t('app', 'Yes') : Yii::t('app', 'No');
 
         return [$color, $statusText];
+    }
+
+    public function upload($model, $attribute)
+    {
+        $photo  = UploadedFile::getInstance($model, $attribute);
+        $path = $this->getUploadPath();
+        if ($this->validate() && $photo !== null) {
+
+            $fileName = md5($photo->baseName . time()) . '.' . $photo->extension;
+            if ($photo->saveAs($path . $fileName)) {
+                return $fileName;
+            }
+        }
+        return $model->isNewRecord ? false : $model->getOldAttribute($attribute);
+    }
+
+    public function getUploadPath()
+    {
+        return Yii::getAlias('@webroot') . '/' . $this->upload_foler . '/';
+    }
+
+    public function getUploadUrl()
+    {
+        return Yii::getAlias('@web') . '/' . $this->upload_foler . '/';
+    }
+
+    public function getPhotoViewer()
+    {
+        return empty($this->photo) ? Yii::getAlias('@web') . '/images/avatar.jpg' : $this->getUploadUrl() . $this->photo;
     }
 }
