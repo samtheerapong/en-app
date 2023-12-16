@@ -81,10 +81,10 @@ use yii\widgets\DetailView;
                                         <?= Yii::t('app', 'Lists') ?>
                                     </div>
                                 </div>
-                                <div class="float-right">
+                                <!-- <div class="float-right">
                                     <button type="button" class="add-item btn btn-primary btn-sm"><i class="fa fa-plus"></i> <?= Yii::t('app', '') ?></button>
                                     <button type="button" class="remove-item btn btn-danger btn-sm"><i class="fa fa-minus"></i> <?= Yii::t('app', '') ?></button>
-                                </div>
+                                </div> -->
                                 <div class="clearfix"></div>
                             </div>
                             <div class="card-body">
@@ -99,23 +99,23 @@ use yii\widgets\DetailView;
                                     <div class="col-md-4">
                                         <?= $form->field($modelitem, '[{$i}]detail_list')->textInput() ?>
                                     </div>
-                                    <div class="col-md-4">
-                                        <?= $form->field($modelitem, '[{$i}]request_date')->textInput() ?>
+                                    <div class="col-md-2">
+                                        <?= $form->field($modelitem, 'request_date')->widget(DatePicker::class, []); ?>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                         <?= $form->field($modelitem, '[{$i}]broken_date')->textInput() ?>
                                     </div>
-                                    <div class="col-md-4">
-                                        <?= $form->field($modelitem, '[{$i}]amount')->textInput(['maxlength' => true, 'type' => 'number', 'step' => '00.01']) ?>
+                                    <div class="col-md-1">
+                                        <?= $form->field($modelitem, '[{$i}]amount')->textInput(['maxlength' => true, 'type' => 'number', 'value' => '1']) ?>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                         <?= $form->field($modelitem, '[{$i}]location')->textInput() ?>
                                     </div>
-                                    <div class="col-md-4">
-                                        <?= $form->field($modelitem, '[{$i}]image')->textInput() ?>
+                                    <div class="col-md-6">
+                                        <?= $form->field($modelitem, '[{$i}]remask')->textInput() ?>
                                     </div>
                                     <div class="col-md-4">
-                                        <?= $form->field($modelitem, '[{$i}]remask')->textInput() ?>
+                                        <?= $form->field($modelitem, '[{$i}]image')->fileInput() ?>
                                     </div>
                                 </div>
 
