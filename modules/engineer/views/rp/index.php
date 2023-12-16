@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div style="display: flex; justify-content: space-between;">
         <p>
-            <?= Html::a('<i class="fa fa-circle-plus"></i> ' . Yii::t('app', 'Request Repair'), ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('<i class="fa fa-circle-plus"></i> ' . Yii::t('app', 'Request Repair'), ['create'], ['class' => 'btn btn-danger']) ?>
         </p>
 
         <p style="text-align: right;">
