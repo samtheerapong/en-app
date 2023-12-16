@@ -148,6 +148,16 @@ class Rp extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'request_by']);
     }
 
+    public function getCreatedBy()
+    {
+        return $this->hasOne(User::class, ['id' => 'created_by']);
+    }
+
+    public function getUpdatedBy()
+    {
+        return $this->hasOne(User::class, ['id' => 'updated_by']);
+    }
+
     
     /**
      * Gets query for [[Wo]].
@@ -164,7 +174,7 @@ class Rp extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getRpApproves()
+    public function getApproves()
     {
         return $this->hasMany(RpApprove::class, ['wo_id' => 'id']);
     }
@@ -174,7 +184,7 @@ class Rp extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getRpLists()
+    public function getLists()
     {
         return $this->hasMany(RpList::class, ['request_id' => 'id']);
     }
