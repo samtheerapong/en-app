@@ -5,6 +5,9 @@ namespace app\modules\engineer\models;
 use app\models\User;
 use app\modules\nfc\models\Department;
 use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\db\BaseActiveRecord;
 
 /**
  * This is the model class for table "en_rp".
@@ -34,6 +37,21 @@ use Yii;
  */
 class Rp extends \yii\db\ActiveRecord
 {
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    self::EVENT_BEFORE_INSERT => ['created_at'],
+                    self::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+                'value' => function () {
+                    return date('Y-m-d H:i:s');
+                },
+            ],
+        ];
+    }
     /**
      * {@inheritdoc}
      */
@@ -93,25 +111,7 @@ class Rp extends \yii\db\ActiveRecord
         return $this->hasOne(Department::class, ['id' => 'department']);
     }
 
-    /**
-     * Gets query for [[EnRpApproves]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRpApproves()
-    {
-        return $this->hasMany(RpApprove::class, ['wo_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[EnRpLists]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRpLists()
-    {
-        return $this->hasMany(RpList::class, ['request_id' => 'id']);
-    }
+    
 
     /**
      * Gets query for [[EnStatus]].
@@ -121,16 +121,6 @@ class Rp extends \yii\db\ActiveRecord
     public function getStatus0()
     {
         return $this->hasOne(Status::class, ['id' => 'en_status_id']);
-    }
-
-    /**
-     * Gets query for [[EnWos]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getWos()
-    {
-        return $this->hasMany(Wo::class, ['rp_id' => 'id']);
     }
 
     /**
@@ -157,4 +147,36 @@ class Rp extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'request_by']);
     }
+
+    
+    /**
+     * Gets query for [[Wo]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getWos()
+    {
+        return $this->hasMany(Wo::class, ['rp_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[EnRpApproves]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRpApproves()
+    {
+        return $this->hasMany(RpApprove::class, ['wo_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[EnRpLists]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRpLists()
+    {
+        return $this->hasMany(RpList::class, ['request_id' => 'id']);
+    }
+
 }

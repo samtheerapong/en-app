@@ -2,13 +2,17 @@
 
 namespace app\modules\engineer\controllers;
 
+use app\models\Model;
 use app\modules\engineer\models\Rp;
+use app\modules\engineer\models\RpList;
 use app\modules\engineer\models\search\RpSearch;
+use Exception;
 use mdm\autonumber\AutoNumber;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 /**
  * RpController implements the CRUD actions for Rp model.
@@ -70,11 +74,39 @@ class RpController extends Controller
     public function actionCreate()
     {
         $model = new Rp();
+        $modelsItem = [new RpList()];
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
                 $model->repair_code = AutoNumber::generate('RP-' . (date('y') + 43) . date('m') . '-????'); // Auto Number
-                $model->save();
+                
+                // List
+                $modelsItem = Model::createMultiple(RpList::class);
+                Model::loadMultiple($modelsItem, Yii::$app->request->post());
+                $valid = $model->validate();
+                $valid = Model::validateMultiple($modelsItem) && $valid;
+                // $model->save();
+                if ($model->save() && $valid) {
+                    $transaction = \Yii::$app->db->beginTransaction();
+                    try {
+                        if ($flag = $model->save(false)) {
+                            foreach ($modelsItem as $modelList) {
+                                $modelList->request_id = $model->id;
+                                if (!($flag = $modelList->save(false))) {
+                                    $transaction->rollBack();
+                                    break;
+                                }
+                            }
+                        }
+                        if ($flag) {
+                            $transaction->commit();
+                            // return $this->redirect(['view', 'id' => $model->id]);
+                            return $this->redirect(['index']);
+                        }
+                    } catch (Exception $e) {
+                        $transaction->rollBack();
+                    }
+                }
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -85,6 +117,53 @@ class RpController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionLists($id)
+    {
+        $model = $this->findModel($id);
+        $modelsItem = $model->rpLists;
+
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $oldIDs = ArrayHelper::map($modelsItem, 'id', 'id');
+            $modelsItem = Model::createMultiple(RpList::class, $modelsItem);
+            Model::loadMultiple($modelsItem, Yii::$app->request->post());
+            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modelsItem, 'id', 'id')));
+
+            $valid = $model->validate();
+            $valid = Model::validateMultiple($modelsItem) && $valid;
+
+            if ($valid) {
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    if ($flag = $model->save(false)) {
+                        if (!empty($deletedIDs)) {
+                            RpList::deleteAll(['id' => $deletedIDs]);
+                        }
+                        foreach ($modelsItem as $ModelList) {
+                            $ModelList->request_id = $model->id;
+                            if (!($flag = $ModelList->save(false))) {
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+                    }
+                    if ($flag) {
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
+        } else {
+            return $this->render('lists', [
+                'model' => $model,
+                'modelsItem' => (empty($modelsItem)) ? [new RpList] : $modelsItem
+            ]);
+        }
+    }
+
 
     /**
      * Updates an existing Rp model.

@@ -64,22 +64,14 @@ class RpList extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * Gets query for [[Location0]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
+    
     public function getLocation0()
     {
         return $this->hasOne(Location::class, ['id' => 'location']);
     }
 
-    /**
-     * Gets query for [[Request]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRequest()
+   
+    public function getRequestList()
     {
         return $this->hasOne(Rp::class, ['id' => 'request_id']);
     }
