@@ -2,6 +2,7 @@
 
 namespace app\modules\engineer\models;
 
+use app\models\User;
 use app\modules\nfc\models\Department;
 use Yii;
 
@@ -97,7 +98,7 @@ class Rp extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEnRpApproves()
+    public function getRpApproves()
     {
         return $this->hasMany(RpApprove::class, ['wo_id' => 'id']);
     }
@@ -107,7 +108,7 @@ class Rp extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEnRpLists()
+    public function getRpLists()
     {
         return $this->hasMany(RpList::class, ['request_id' => 'id']);
     }
@@ -117,7 +118,7 @@ class Rp extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEnStatus()
+    public function getStatus0()
     {
         return $this->hasOne(Status::class, ['id' => 'en_status_id']);
     }
@@ -127,7 +128,7 @@ class Rp extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEnWos()
+    public function getWos()
     {
         return $this->hasMany(Wo::class, ['rp_id' => 'id']);
     }
@@ -150,5 +151,10 @@ class Rp extends \yii\db\ActiveRecord
     public function getUrgency0()
     {
         return $this->hasOne(Urgency::class, ['id' => 'urgency']);
+    }
+
+    public function getRequestBy()
+    {
+        return $this->hasOne(User::class, ['id' => 'request_by']);
     }
 }

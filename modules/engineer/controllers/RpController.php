@@ -4,6 +4,8 @@ namespace app\modules\engineer\controllers;
 
 use app\modules\engineer\models\Rp;
 use app\modules\engineer\models\search\RpSearch;
+use mdm\autonumber\AutoNumber;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -70,7 +72,9 @@ class RpController extends Controller
         $model = new Rp();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())) {
+                $model->repair_code = AutoNumber::generate('RP-' . (date('y') + 43) . date('m') . '-????'); // Auto Number
+                $model->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {

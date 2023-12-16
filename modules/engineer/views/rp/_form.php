@@ -2,6 +2,7 @@
 
 use app\models\User;
 use app\modules\engineer\models\Priority;
+use app\modules\engineer\models\Status;
 use app\modules\engineer\models\Urgency;
 use app\modules\nfc\models\Department;
 use kartik\widgets\DatePicker;
@@ -31,7 +32,6 @@ use yii\widgets\ActiveForm;
                     <?= $form->field($model, 'request_title')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-md-2">
-
                     <?= $form->field($model, 'priority')->widget(Select2::class, [
                         'language' => 'th',
                         'data' => ArrayHelper::map(Priority::find()->all(), 'id', 'name'),
@@ -43,7 +43,6 @@ use yii\widgets\ActiveForm;
                     ?>
                 </div>
                 <div class="col-md-2">
-
                     <?= $form->field($model, 'urgency')->widget(Select2::class, [
                         'language' => 'th',
                         'data' => ArrayHelper::map(Urgency::find()->all(), 'id', 'name'),
@@ -55,7 +54,6 @@ use yii\widgets\ActiveForm;
                     ?>
                 </div>
                 <div class="col-md-4">
-
                     <?= $form->field($model, 'created_date')->widget(
                         DatePicker::class,
                         [
@@ -94,10 +92,20 @@ use yii\widgets\ActiveForm;
                     ]);
                     ?>
                 </div>
-                <div class="col-md-12">
-                    <?= $form->field($model, 'remask')->textarea(['rows' => 2]) ?>
+                <div class="col-md-10">
+                    <?= $form->field($model, 'remask')->textInput() ?>
                 </div>
-                <?= $form->field($model, 'en_status_id')->hiddenInput(['value' => 1])->label(false) ?>
+                <div class="col-md-2">
+                    <?= $form->field($model, 'en_status_id')->widget(Select2::class, [
+                        'language' => 'th',
+                        'data' => ArrayHelper::map(Status::find()->all(), 'id', 'name'),
+                        'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ]);
+                    ?>
+                </div>
             </div>
         </div>
         <div class="card-footer">

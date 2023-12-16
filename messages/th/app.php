@@ -30,6 +30,13 @@ return [
         'Data Files' => 'แฟ้มข้อมูล',
         'Select...' => 'เลือก...',
 
+        // Request
+        'Rps' => 'ระบบแจ้งซ่อม',
+        'Create Rp' => 'ใบแจ้งซ่อม',
+        'Request Repair' => 'แจ้งซ่อม',
+        'Update Rp: {name}' => 'แก้ไข: {name}',
+        'Total : {count} Works' => 'ทั้งหมด : {count} งาน',
+
         //Categories
         'Categories' => 'หมวดหมู่',
         'Create Category' => 'เพิ่มหมวดหมู่',
