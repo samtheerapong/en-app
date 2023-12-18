@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 15, 2023 at 02:56 PM
+-- Generation Time: Dec 18, 2023 at 09:27 AM
 -- Server version: 5.7.39
--- PHP Version: 7.4.33
+-- PHP Version: 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -39,6 +39,7 @@ CREATE TABLE `auto_number` (
 --
 
 INSERT INTO `auto_number` (`group`, `number`, `optimistic_lock`, `update_time`) VALUES
+('RP-6612-????', 3, 1, 1702891602),
 ('SP-6612-????', 6, 1, 1702652085);
 
 -- --------------------------------------------------------
@@ -64,17 +65,17 @@ CREATE TABLE `department` (
 
 INSERT INTO `department` (`id`, `code`, `name`, `detail`, `department_head`, `warehouse_id`, `color`, `active`) VALUES
 (1, 'GR', 'ทั่วไป', NULL, 11, 1, '#379237', 1),
-(2, 'WH', 'แผนกคลังสินค้า (Ware House)', NULL, 22, 9, '#425F57', 1),
-(3, 'QC\n', 'แผนกควบคุมคุณภาพ (Quality Control)', NULL, 20, 10, '#379237', 1),
-(4, 'PC\n', 'แผนกจัดซื้อ (Purchasing)', NULL, 29, 13, '#C21010', 1),
-(5, 'HR\n', 'แผนกบุคคล (Human Resources)', NULL, 27, 4, '#FF8787', 1),
-(6, 'AC', 'แผนกบัญชี (Account)', NULL, 24, 1, '#872341', 1),
-(7, 'QA', 'แผนกประกันคุณภาพ (Quality Assurance)', NULL, 15, 13, '#ED5AB3', 1),
-(8, 'PD', 'ฝ่ายผลิต (Production)', NULL, 4, 9, '#EC8F5E', 1),
-(9, 'RD', 'แผนกวิจัยและพัฒนาผลิตภัณฑ์ (R&D)', NULL, 4, 14, '#F3B664', 1),
-(10, 'EN', 'แผนกวิศวกรรม (Engineer)', NULL, 26, 7, '#2E97A7', 1),
-(11, 'IT', 'แผนกเทคโนโลยีสารสนเทศ (IT)', NULL, 15, 15, '#B0578D', 1),
-(12, 'SL', 'ฝ่ายขาย (Sale)', NULL, 12, 9, '#186F65', 1);
+(2, 'WH', 'แผนกคลังสินค้า', NULL, 22, 9, '#425F57', 1),
+(3, 'QC\n', 'แผนกควบคุมคุณภาพ', NULL, 20, 10, '#379237', 1),
+(4, 'PC\n', 'แผนกจัดซื้อ', NULL, 29, 13, '#C21010', 1),
+(5, 'HR\n', 'แผนกบุคคล', NULL, 27, 4, '#FF8787', 1),
+(6, 'AC', 'แผนกบัญชี', NULL, 24, 1, '#872341', 1),
+(7, 'QA', 'แผนกประกันคุณภาพ', NULL, 15, 13, '#ED5AB3', 1),
+(8, 'PD', 'ฝ่ายผลิต', NULL, 4, 9, '#EC8F5E', 1),
+(9, 'RD', 'แผนกวิจัยและพัฒนาผลิตภัณฑ์', NULL, 4, 14, '#F3B664', 1),
+(10, 'EN', 'แผนกวิศวกรรม', NULL, 26, 7, '#2E97A7', 1),
+(11, 'IT', 'แผนกเทคโนโลยีสารสนเทศ', NULL, 15, 15, '#B0578D', 1),
+(12, 'SL', 'ฝ่ายขาย', NULL, 12, 9, '#186F65', 1);
 
 -- --------------------------------------------------------
 
@@ -506,7 +507,10 @@ CREATE TABLE `en_rp` (
 --
 
 INSERT INTO `en_rp` (`id`, `repair_code`, `priority`, `urgency`, `created_date`, `request_by`, `department`, `request_title`, `remask`, `created_at`, `updated_at`, `created_by`, `updated_by`, `en_status_id`) VALUES
-(1, 'RP-6611-0001', 2, 1, '2023-12-14', 12, 11, 'ทดสอบ', 'ไม่มี', '2023-12-14', '2023-12-14', 11, 11, 1);
+(1, 'RP-6611-0001', 2, 1, '2023-12-14', 12, 11, 'ทดสอบ1', 'ไม่มี', '2023-12-14', '2023-12-18', 11, 1, 1),
+(2, 'RP-6612-0001', 2, 2, '2023-12-18', 3, 3, '2222', '', '2023-12-18', '2023-12-18', 2, 1, 1),
+(3, 'RP-6612-0002', 2, 2, '2023-12-21', 5, 3, 'หลอดไฟเสีย', '', '2023-12-18', '2023-12-18', 1, 1, 2),
+(4, 'RP-6612-0003', 3, 3, '2023-12-05', 3, 5, '888888', '8888', '2023-12-18', NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -539,6 +543,18 @@ CREATE TABLE `en_rp_list` (
   `image` text COMMENT 'รูปภาพ',
   `remask` text COMMENT 'หมายเหตุ'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `en_rp_list`
+--
+
+INSERT INTO `en_rp_list` (`id`, `request_id`, `detail_list`, `request_date`, `broken_date`, `amount`, `location`, `image`, `remask`) VALUES
+(1, 3, 'asdasdas', '2023-12-20', '2023-12-20', 1, 5, '', 'dasdasd'),
+(2, 3, 'wqqwe', '2023-12-20', '2023-12-20', 1, 34, '', ''),
+(3, 3, 'rgerger', '2023-12-20', '2023-12-20', 1, 28, '', 'ddd'),
+(4, 3, '525252', '2023-12-21', '2023-12-29', 1, 31, '', ''),
+(5, 2, 'รายการที่ 1', '2023-12-20', '2023-12-20', 1, 32, '', 'หมายเหตุ'),
+(6, 4, 'รายการแรก', '2023-12-20', '2023-12-08', 1, 29, '', '');
 
 -- --------------------------------------------------------
 
@@ -1667,7 +1683,7 @@ ALTER TABLE `en_priority`
 -- AUTO_INCREMENT for table `en_rp`
 --
 ALTER TABLE `en_rp`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `en_rp_approve`
@@ -1679,7 +1695,7 @@ ALTER TABLE `en_rp_approve`
 -- AUTO_INCREMENT for table `en_rp_list`
 --
 ALTER TABLE `en_rp_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `en_status`

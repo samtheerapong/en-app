@@ -17,75 +17,63 @@ use yii\grid\GridView;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        // 'filterModel' => $searchModel,
+        'summary' => '',
         'columns' => [
             [
                 'class' => 'yii\grid\SerialColumn',
-                'contentOptions' => ['style' => 'width:40px;'],
+                'contentOptions' => ['class' => 'text-center', 'style' => 'width:45px;'], //กำหนด ความกว้างของ #
             ],
 
-            // 'id',
-            // 'request_id',
-            // 'detail_list',
+            
             [
                 'attribute' => 'detail_list',
                 'format' => 'html',
                 'value' => function ($model) {
-                    return $model->detail_list;
+                    $detail = $model->detail_list;
+                    $remask = $model->remask;
+                    $badge = ($remask !== null && $remask !== '') ? '<span class="badge badge-warning">' . $remask . '</span>' : '';
+                    return $detail . '   ' . $badge;
                 },
             ],
-            // 'request_date:date',
+            // 'request_date',
             [
                 'attribute' => 'request_date',
-                'format' => 'date',
-                'contentOptions' => ['style' => 'width:150px;'],
+                'format' => 'html',
+                'headerOptions' => ['style' => 'width:150px;'],
                 'value' => function ($model) {
-                    return $model->request_date;
+                    return $model->request_date ? Yii::$app->formatter->asDate($model->request_date) : 'N/A';
                 },
             ],
-            // 'broken_date:date',
+            // 'broken_date',
             [
                 'attribute' => 'broken_date',
-                'format' => 'date',
-                'contentOptions' => ['style' => 'width:150px;'],
+                'format' => 'html',
+                'headerOptions' => ['style' => 'width:150px;'],
                 'value' => function ($model) {
-                    return $model->broken_date;
+                    return $model->broken_date ? Yii::$app->formatter->asDate($model->broken_date) : 'N/A';
                 },
             ],
             // 'amount',
             [
                 'attribute' => 'amount',
                 'format' => 'html',
-                'contentOptions' => ['style' => 'width:80px;'],
+                'contentOptions' => ['class' => 'text-center','style' => 'width:60px;'],
                 'value' => function ($model) {
-                    return $model->amount;
+                    return $model->amount ? $model->amount : 'N/A';
                 },
             ],
             // 'location',
             [
                 'attribute' => 'location',
                 'format' => 'html',
-                'contentOptions' => ['style' => 'width:200px;'],
+                'headerOptions' => ['style' => 'width:200px;'],
                 'value' => function ($model) {
-                    return $model->location0->name;
+                    return $model->location ? $model->location0->name : 'N/A';
                 },
             ],
             // 'image:ntext',
             // 'remask:ntext',
-            [
-                'attribute' => 'remask',
-                'format' => 'html',
-                'contentOptions' => ['style' => 'width:15%;'],
-                'value' => function ($model) {
-                    return $model->remask;
-                },
-            ],
-            // [
-            //     'class' => ActionColumn::className(),
-            //     'urlCreator' => function ($action, RpList $model, $key, $index, $column) {
-            //         return Url::toRoute([$action, 'id' => $model->id]);
-            //      }
-            // ],
+
         ],
     ]); ?>
 

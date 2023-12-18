@@ -65,7 +65,13 @@ use yii\widgets\DetailView;
             ],
             'remask:ntext',
             'created_at:date',
-            'updated_at:date',
+            [
+                'attribute' => 'updated_at',
+                'format' => 'date',
+                'value' => function ($model) {
+                    return  $model->updated_at ?$model->updated_at : $model->created_at;
+                },
+            ],
             // 'created_by',
 
             [
