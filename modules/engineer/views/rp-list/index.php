@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'broken_date',
             //'amount',
             //'location',
-            //'image:ntext',
+            //'photo:ntext',
             //'remask:ntext',
             [
                 'class' => ActionColumn::className(),

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 18, 2023 at 09:27 AM
+-- Generation Time: Dec 18, 2023 at 02:35 PM
 -- Server version: 5.7.39
--- PHP Version: 7.4.9
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,7 +40,7 @@ CREATE TABLE `auto_number` (
 
 INSERT INTO `auto_number` (`group`, `number`, `optimistic_lock`, `update_time`) VALUES
 ('RP-6612-????', 3, 1, 1702891602),
-('SP-6612-????', 6, 1, 1702652085);
+('SP-6612-????', 7, 1, 1702909054);
 
 -- --------------------------------------------------------
 
@@ -176,7 +176,8 @@ INSERT INTO `en_part` (`id`, `photo`, `code`, `name`, `name_en`, `old_code`, `de
 (2, 'ed71abc53ecf204186ab15901e9c2739.jpg', 'SP-6612-0002', 'โน๊ตบุ้ก', 'Notebook', '', '', 2, 24, 57, 1, 2, '', '60000', 0, '2023-12-15', '', 1, 2, 1, ''),
 (3, 'dc03fe79b4733d4de39681363fcf5c96.jpg', 'SP-6612-0003', 'จอ', 'monitor', '', '', 2, 20, 58, NULL, NULL, '', '2500', 0, '2023-12-16', '', 2, 1, 1, ''),
 (4, 'f8cc2062f6cfc66cca36d380c7a5c296.jpg', 'SP-6612-0004', 'asda', 'asdas', '', '', 1, 2, 3, NULL, NULL, '', '', 0, NULL, '', 2, 1, 1, ''),
-(6, 'b4285efe88c821f29818c9c1a7633c00.png', 'SP-6612-0006', 'โน๊ตบุ้ก', 'asdasd', '', '', 1, 3, 5, NULL, NULL, '', '', 0, NULL, '', 2, 1, 1, '');
+(6, 'b4285efe88c821f29818c9c1a7633c00.png', 'SP-6612-0006', 'โน๊ตบุ้ก', 'asdasd', '', '', 1, 3, 5, NULL, NULL, '', '', 0, NULL, '', 2, 1, 1, ''),
+(7, '', 'SP-6612-0007', 'dasdasd', 'asdasd', '', '', 3, 3, 5, 2, 2, '', '', 0, NULL, '', 2, 1, 1, '');
 
 -- --------------------------------------------------------
 
@@ -507,7 +508,7 @@ CREATE TABLE `en_rp` (
 --
 
 INSERT INTO `en_rp` (`id`, `repair_code`, `priority`, `urgency`, `created_date`, `request_by`, `department`, `request_title`, `remask`, `created_at`, `updated_at`, `created_by`, `updated_by`, `en_status_id`) VALUES
-(1, 'RP-6611-0001', 2, 1, '2023-12-14', 12, 11, 'ทดสอบ1', 'ไม่มี', '2023-12-14', '2023-12-18', 11, 1, 1),
+(1, 'RP-6611-0001', 2, 1, '2023-12-14', 12, 11, 'ทดสอบ1', 'ไม่มี', '2023-12-14', '2023-12-18', 11, 1, 6),
 (2, 'RP-6612-0001', 2, 2, '2023-12-18', 3, 3, '2222', '', '2023-12-18', '2023-12-18', 2, 1, 1),
 (3, 'RP-6612-0002', 2, 2, '2023-12-21', 5, 3, 'หลอดไฟเสีย', '', '2023-12-18', '2023-12-18', 1, 1, 2),
 (4, 'RP-6612-0003', 3, 3, '2023-12-05', 3, 5, '888888', '8888', '2023-12-18', NULL, 1, 1, 1);
@@ -540,7 +541,7 @@ CREATE TABLE `en_rp_list` (
   `broken_date` date DEFAULT NULL COMMENT 'วันที่เสีย',
   `amount` int(11) DEFAULT '1' COMMENT 'จำนวน',
   `location` int(11) DEFAULT NULL COMMENT 'สถานที่',
-  `image` text COMMENT 'รูปภาพ',
+  `photo` varchar(255) DEFAULT NULL COMMENT 'รูปภาพ',
   `remask` text COMMENT 'หมายเหตุ'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -548,13 +549,15 @@ CREATE TABLE `en_rp_list` (
 -- Dumping data for table `en_rp_list`
 --
 
-INSERT INTO `en_rp_list` (`id`, `request_id`, `detail_list`, `request_date`, `broken_date`, `amount`, `location`, `image`, `remask`) VALUES
-(1, 3, 'asdasdas', '2023-12-20', '2023-12-20', 1, 5, '', 'dasdasd'),
+INSERT INTO `en_rp_list` (`id`, `request_id`, `detail_list`, `request_date`, `broken_date`, `amount`, `location`, `photo`, `remask`) VALUES
+(1, NULL, 'asdasdas', '2023-12-20', '2023-12-20', 1, 5, '', 'dasdasd'),
 (2, 3, 'wqqwe', '2023-12-20', '2023-12-20', 1, 34, '', ''),
 (3, 3, 'rgerger', '2023-12-20', '2023-12-20', 1, 28, '', 'ddd'),
 (4, 3, '525252', '2023-12-21', '2023-12-29', 1, 31, '', ''),
-(5, 2, 'รายการที่ 1', '2023-12-20', '2023-12-20', 1, 32, '', 'หมายเหตุ'),
-(6, 4, 'รายการแรก', '2023-12-20', '2023-12-08', 1, 29, '', '');
+(5, 2, 'รายการที่ 1d', '2023-12-20', '2023-12-20', 1, 32, '', 'หมายเหตุ'),
+(6, 4, 'รายการแรก', '2023-12-20', '2023-12-08', 1, 29, '', ''),
+(7, 2, 'sadasd', '2023-12-18', '2023-12-20', 1, 2, '8312241b3926b8ee767d6257c43cad29.jpg', ''),
+(8, 2, 'asdasd', '2023-12-13', '2023-12-07', 1, 3, '7389e723fdc986be8b6bf82aae1973ac.jpg', 'asdas');
 
 -- --------------------------------------------------------
 
@@ -633,7 +636,8 @@ CREATE TABLE `en_technician` (
 INSERT INTO `en_technician` (`id`, `photo`, `code`, `name`, `email`, `tel`, `line`, `manday`, `head`, `active`) VALUES
 (1, 'ea8d1872dfde05875aa5e41e195030e4.png', '0268', 'ธีรพงศ์ ขันตา', 'sam47290800@gmail.com', '0870873830', 'sam-it', '888.00', 11, 0),
 (2, 'aba427ede7a841cba9447d75c4b035ce.png', '0129', 'สราวุฒิ โฆษิตเกียรติคุณ', 'en.nfc2016@gmail.com', '26', 'Line-id', '999.00', 24, 1),
-(3, '2bb3ebaf1c0608ad924010789807d470.png', '0006', 'สุพจน์ ช่างฆ้อง', 'changkhong.8777@gmail.com', '26', '', '888.00', 24, 1);
+(3, '2bb3ebaf1c0608ad924010789807d470.png', '0006', 'สุพจน์ ช่างฆ้อง', 'changkhong.8777@gmail.com', '26', '', '888.00', 24, 1),
+(4, '2f400ed4e634b6d26aa7c27e066d137d.jpg', '0002', 'ทดสอบ', '', '', '', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -1653,7 +1657,7 @@ ALTER TABLE `en_machine`
 -- AUTO_INCREMENT for table `en_part`
 --
 ALTER TABLE `en_part`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `en_part_doc`
@@ -1695,7 +1699,7 @@ ALTER TABLE `en_rp_approve`
 -- AUTO_INCREMENT for table `en_rp_list`
 --
 ALTER TABLE `en_rp_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `en_status`
@@ -1713,7 +1717,7 @@ ALTER TABLE `en_team`
 -- AUTO_INCREMENT for table `en_technician`
 --
 ALTER TABLE `en_technician`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `en_unit`

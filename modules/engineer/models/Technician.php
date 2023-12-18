@@ -41,8 +41,9 @@ class Technician extends \yii\db\ActiveRecord
         return [
             [['active', 'head'], 'integer'],
             [['manday'], 'number'],
-            [['photo', 'name', 'code', 'email'], 'string', 'max' => 255],
+            [['name', 'code', 'email'], 'string', 'max' => 255],
             [['tel', 'line'], 'string', 'max' => 45],
+            [['photo'], 'file', 'skipOnEmpty' => true],
         ];
     }
 
@@ -95,6 +96,7 @@ class Technician extends \yii\db\ActiveRecord
         if ($this->validate() && $photo !== null) {
 
             $fileName = md5($photo->baseName . time()) . '.' . $photo->extension;
+            //$fileName = $photo->baseName . '.' . $photo->extension;
             if ($photo->saveAs($path . $fileName)) {
                 return $fileName;
             }

@@ -4,6 +4,7 @@ namespace app\modules\engineer\models;
 
 use app\modules\nfc\models\Location;
 use Yii;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "en_rp_list".
@@ -23,6 +24,8 @@ use Yii;
  */
 class RpList extends \yii\db\ActiveRecord
 {
+    public $upload_foler = 'uploads/repair';
+
     /**
      * {@inheritdoc}
      */
@@ -39,10 +42,11 @@ class RpList extends \yii\db\ActiveRecord
         return [
             [['request_id', 'amount', 'location'], 'integer'],
             [['request_date', 'broken_date'], 'safe'],
-            [['image', 'remask'], 'string'],
+            [['remask'], 'string'],
             [['detail_list'], 'string', 'max' => 255],
             [['location'], 'exist', 'skipOnError' => true, 'targetClass' => Location::class, 'targetAttribute' => ['location' => 'id']],
             [['request_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rp::class, 'targetAttribute' => ['request_id' => 'id']],
+            [['photo'], 'file', 'skipOnEmpty' => true],
         ];
     }
 
@@ -59,20 +63,50 @@ class RpList extends \yii\db\ActiveRecord
             'broken_date' => Yii::t('app', 'วันที่เสีย'),
             'amount' => Yii::t('app', 'จำนวน'),
             'location' => Yii::t('app', 'สถานที่'),
-            'image' => Yii::t('app', 'รูปภาพ'),
+            'photo' => Yii::t('app', 'รูปภาพ'),
             'remask' => Yii::t('app', 'หมายเหตุ'),
         ];
     }
 
-    
+
     public function getLocation0()
     {
         return $this->hasOne(Location::class, ['id' => 'location']);
     }
 
-   
+
     public function getRequestList()
     {
         return $this->hasOne(Rp::class, ['id' => 'request_id']);
+    }
+
+    public function upload($model, $attribute)
+    {
+        $photo  = UploadedFile::getInstance($model, $attribute);
+        $path = $this->getUploadPath();
+        if ($this->validate() && $photo !== null) {
+
+            $fileName = md5($photo->baseName . time()) . '.' . $photo->extension;
+            //$fileName = $photo->baseName . '.' . $photo->extension;
+            if ($photo->saveAs($path . $fileName)) {
+                return $fileName;
+            }
+        }
+        return $model->isNewRecord ? false : $model->getOldAttribute($attribute);
+    }
+
+    public function getUploadPath()
+    {
+        return Yii::getAlias('@webroot') . '/' . $this->upload_foler . '/';
+    }
+
+    public function getUploadUrl()
+    {
+        return Yii::getAlias('@web') . '/' . $this->upload_foler . '/';
+    }
+
+    public function getPhotoViewer()
+    {
+        return empty($this->photo) ? Yii::getAlias('@web') . '/images/no-img.png' : $this->getUploadUrl() . $this->photo;
     }
 }

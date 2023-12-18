@@ -99,7 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     return $model->location ? $model->location0->name : 'N/A';
                                 },
                             ],
-                            // 'image:ntext',
+                            // 'photo:ntext',
                             // 'remask:ntext',
 
                         ],

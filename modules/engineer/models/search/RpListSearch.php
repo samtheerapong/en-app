@@ -18,7 +18,7 @@ class RpListSearch extends RpList
     {
         return [
             [['id', 'request_id', 'amount', 'location'], 'integer'],
-            [['detail_list', 'request_date', 'broken_date', 'image', 'remask'], 'safe'],
+            [['detail_list', 'request_date', 'broken_date', 'photo', 'remask'], 'safe'],
         ];
     }
 
@@ -67,7 +67,7 @@ class RpListSearch extends RpList
         ]);
 
         $query->andFilterWhere(['like', 'detail_list', $this->detail_list])
-            ->andFilterWhere(['like', 'image', $this->image])
+            ->andFilterWhere(['like', 'photo', $this->photo])
             ->andFilterWhere(['like', 'remask', $this->remask]);
 
         return $dataProvider;

@@ -132,7 +132,7 @@ use yii\widgets\ActiveForm;
                     'broken_date',
                     'amount',
                     'location',
-                    'image',
+                    'photo',
                     'remask',
                 ],
             ]);
@@ -226,7 +226,7 @@ use yii\widgets\ActiveForm;
                                 </div>
 
                                 <div class="col-md-4">
-                                    <?= $form->field($modelList, "[{$i}]image")->widget(FileInput::class, [
+                                    <?= $form->field($modelList, "[{$i}]photo")->widget(FileInput::class, [
                                         'options' => [
                                             'accept' => 'image/*',
                                             'multiple' => false

@@ -57,7 +57,7 @@ class Part extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['photo', 'description', 'remask'], 'string'],
+            [['description', 'remask'], 'string'],
             [['en_part_doc_id'], 'required'],
             [['en_part_doc_id', 'en_part_group_id', 'en_part_type_id', 'unit_lg', 'unit_sm', 'cost', 'active', 'imported', 'status'], 'integer'],
             [['last_date'], 'safe'],
@@ -68,7 +68,8 @@ class Part extends \yii\db\ActiveRecord
             [['en_part_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => PartType::class, 'targetAttribute' => ['en_part_type_id' => 'id']],
             [['unit_lg'], 'exist', 'skipOnError' => true, 'targetClass' => Unit::class, 'targetAttribute' => ['unit_lg' => 'id']],
             [['unit_sm'], 'exist', 'skipOnError' => true, 'targetClass' => Unit::class, 'targetAttribute' => ['unit_sm' => 'id']],
-            [['ref'], 'unique']
+            [['ref'], 'unique'],
+            [['photo'], 'file', 'skipOnEmpty' => true],
         ];
     }
 

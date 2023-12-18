@@ -70,19 +70,15 @@ class TechnicianController extends Controller
     {
         $model = new Technician();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post())) {
-                $model->photo = $model->upload($model, 'photo'); // Upload Photo 
-                $model->save();
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->photo = $model->upload($model, 'photo');
+            $model->save();
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            $model->loadDefaultValues();
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -92,12 +88,20 @@ class TechnicianController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
+    // Update actionUpdate method
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $oldPhoto = $model->photo; // Store the old photo filename
 
-        if ($this->request->isPost && $model->load($this->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->photo = $model->upload($model, 'photo');
+
+            // แทนที่รูปใหม่
+            if ($oldPhoto && $oldPhoto !== $model->photo) {
+                $this->unlinkOldPhoto($oldPhoto, $id);
+            }
+
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -105,6 +109,16 @@ class TechnicianController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    // Update unlinkOldPhoto method
+    private function unlinkOldPhoto($filename, $id)
+    {
+        $model = $this->findModel($id);
+        $path = $model->getUploadPath() . $filename;
+        if (file_exists($path)) {
+            unlink($path);
+        }
     }
 
     /**

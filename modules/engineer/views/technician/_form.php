@@ -31,7 +31,7 @@ use yii\widgets\ActiveForm;
                             'multiple' => false
                         ],
                         'pluginOptions' => [
-                            'initialPreview'=> Html::img($model->getPhotoViewer(), ['class' => 'file-preview-image', 'alt' => $model->id]),
+                            'initialPreview'=> $model->photo ? Html::img($model->getPhotoViewer(), ['class' => 'file-preview-image', 'alt' => $model->id]) : [],
                             'showPreview' => true,
                             'showCaption' => true,
                             'showRemove' => false,

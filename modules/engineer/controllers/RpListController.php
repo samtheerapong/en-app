@@ -4,6 +4,7 @@ namespace app\modules\engineer\controllers;
 
 use app\modules\engineer\models\RpList;
 use app\modules\engineer\models\search\RpListSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -69,18 +70,17 @@ class RpListController extends Controller
     {
         $model = new RpList();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->photo = $model->upload($model, 'photo');
+            $model->save();
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            $model->loadDefaultValues();
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
+
 
     /**
      * Updates an existing RpList model.
@@ -92,14 +92,33 @@ class RpListController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $oldPhoto = $model->photo; // Store the old photo filename
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->photo = $model->upload($model, 'photo');
+
+            // แทนที่รูปใหม่
+            if ($oldPhoto && $oldPhoto !== $model->photo) {
+                $this->unlinkOldPhoto($oldPhoto, $id);
+            }
+
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    // Update unlinkOldPhoto method
+    private function unlinkOldPhoto($filename, $id)
+    {
+        $model = $this->findModel($id);
+        $path = $model->getUploadPath() . $filename;
+        if (file_exists($path)) {
+            unlink($path);
+        }
     }
 
     /**
@@ -111,10 +130,16 @@ class RpListController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $filename  = $model->getUploadPath() . $model->photo;
+
+        if ($model->delete()) {
+            @unlink($filename);
+        }
 
         return $this->redirect(['index']);
     }
+
 
     /**
      * Finds the RpList model based on its primary key value.
