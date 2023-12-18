@@ -78,8 +78,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         'contentOptions' => ['style' => 'width:40px;'],
                     ],
 
-                    // 'id',
-                    // 'repair_code',
                     [
                         'attribute' => 'repair_code',
                         'format' => 'html',
@@ -88,11 +86,20 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::a($model->repair_code, ['view', 'id' => $model->id]);
                         },
                     ],
-                    'request_title',
+                    [
+                        'attribute' => 'request_title',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            $detail = $model->request_title;
+                            $remask = $model->remask;
+                            $badge = ($remask !== null && $remask !== '') ? '<span class="badge badge-warning">' . $remask . '</span>' : '';
+                            return $detail . '   ' . $badge;
+                        },
+                    ],
                     [
                         'attribute' => 'request_by',
                         'format' => 'html',
-                        'contentOptions' => ['style' => 'width:300px;'],
+                        'contentOptions' => ['style' => 'width:230px;'],
                         'value' => function ($model) {
                             return $model->request_by ? $model->requestBy->thai_name : Yii::t('app', 'N/A');
                         },
@@ -107,7 +114,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                         ])
                     ],
-                    // 'priority',
                     [
                         'attribute' => 'priority',
                         'format' => 'html',
@@ -126,7 +132,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                         ])
                     ],
-                    // 'urgency',
                     [
                         'attribute' => 'urgency',
                         'format' => 'html',
@@ -145,15 +150,15 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                         ])
                     ],
-                    // 'created_date',
-                    // 'request_by',
                     //'department',
-                    //'remask:ntext',
-                    //'created_at',
-                    //'updated_at',
-                    //'created_by',
-                    //'updated_by',
-                    // 'en_status_id',
+                    [
+                        'attribute' => 'created_at',
+                        'format' => 'html',
+                        'headerOptions' => ['style' => 'width:150px;'],
+                        'value' => function ($model) {
+                            return $model->created_at ? Yii::$app->formatter->asDate($model->created_at) : 'N/A';
+                        },
+                    ],
                     [
                         'attribute' => 'en_status_id',
                         'format' => 'html',

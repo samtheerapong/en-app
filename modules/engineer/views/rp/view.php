@@ -34,12 +34,12 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="card-body table-responsive">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-12">
                     <?= $this->render('_view', [
                         'model' => $model,
                     ]) ?>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-12">
 
                     <?= GridView::widget([
                         'dataProvider' => new \yii\data\ActiveDataProvider([
