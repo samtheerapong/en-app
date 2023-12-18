@@ -12,33 +12,91 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="rp-list-view">
+    <div style="display: flex; justify-content: space-between;">
+        <p>
+            <?= Html::a('<i class="fas fa-chevron-left"></i> ' . Yii::t('app', 'Go Back'), ['index'], ['class' => 'btn btn-primary']) ?>
+        </p>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+        <p style="text-align: right;">
+            <?= Html::a('<i class="fas fa-edit"></i> ' . Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+            <?= Html::a('<i class="fas fa-trash"></i> ' . Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                    'method' => 'post',
+                ],
+            ]) ?>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'request_id',
-            'detail_list',
-            'request_date',
-            'broken_date',
-            'amount',
-            'location',
-            'photo:ntext',
-            'remask:ntext',
-        ],
-    ]) ?>
+        </p>
+    </div>
+    <div class="card border-secondary">
+        <div class="card-header text-white bg-secondary">
+            <?= Html::encode($this->title) ?>
+        </div>
+        <div class="card-body table-responsive">
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-6">
+                        <?= Html::img($model->getPhotoViewer(), ['class' => 'img-fluid img-thumbnail mx-auto d-block', 'alt' => '...']); ?>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <?= DetailView::widget([
+                                'model' => $model,
+                                'template' => '<tr><th style="width: 200px;">{label}</th><td> {value}</td></tr>',
+                                'attributes' => [
+                                    [
+                                        'attribute' => 'request0.repair_code',
+                                        'format' => 'html',
+                                        'value' => function ($model) {
+                                            return $model->request0 ? $model->request0->repair_code : 'N/A';
+                                        },
+                                    ],
 
-</div>
+                                    [
+                                        'attribute' => 'detail_list',
+                                        'format' => 'html',
+                                        'value' => function ($model) {
+                                            return  $model->detail_list;
+                                        },
+                                    ],
+                                    [
+                                        'attribute' => 'request_date',
+                                        'format' => 'html',
+                                        'value' => function ($model) {
+                                            return $model->request_date ? Yii::$app->formatter->asDate($model->request_date) : 'N/A';
+                                        },
+                                    ],
+                                    [
+                                        'attribute' => 'broken_date',
+                                        'format' => 'html',
+                                        'value' => function ($model) {
+                                            return $model->broken_date ? Yii::$app->formatter->asDate($model->broken_date) : 'N/A';
+                                        },
+                                    ],
+                                    [
+                                        'attribute' => 'amount',
+                                        'format' => 'html',
+                                        'value' => function ($model) {
+                                            return $model->amount ? $model->amount : 'N/A';
+                                        },
+                                    ],
+                                    [
+                                        'attribute' => 'location',
+                                        'format' => 'html',
+                                        'value' => function ($model) {
+                                            return $model->location ? $model->location0->name : 'N/A';
+                                        },
+                                    ],
+                                    [
+                                        'attribute' => 'remask',
+                                        'format' => 'html',
+                                        'value' => function ($model) {
+                                            return $model->remask ? $model->remask : 'N/A';
+                                        },
+                                    ],
+                                ],
+                            ]) ?>
+
+                        </div>

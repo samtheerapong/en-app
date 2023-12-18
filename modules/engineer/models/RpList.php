@@ -75,7 +75,7 @@ class RpList extends \yii\db\ActiveRecord
     }
 
 
-    public function getRequestList()
+    public function getRequest0()
     {
         return $this->hasOne(Rp::class, ['id' => 'request_id']);
     }
