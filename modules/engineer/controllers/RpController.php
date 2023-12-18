@@ -74,23 +74,23 @@ class RpController extends Controller
     public function actionCreate()
     {
         $model = new Rp();
-        $modelsItem = [new RpList()];
+        $modelsList = [new RpList];
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
                 $model->repair_code = AutoNumber::generate('RP-' . (date('y') + 43) . date('m') . '-????'); // Auto Number
                 
                 // List
-                $modelsItem = Model::createMultiple(RpList::class);
-                Model::loadMultiple($modelsItem, Yii::$app->request->post());
+                $modelsList = Model::createMultiple(RpList::class);
+                Model::loadMultiple($modelsList, Yii::$app->request->post());
                 $valid = $model->validate();
-                $valid = Model::validateMultiple($modelsItem) && $valid;
-                // $model->save();
-                if ($model->save() && $valid) {
+                $valid = Model::validateMultiple($modelsList) && $valid;
+                $model->save();
+                if ($valid) {
                     $transaction = \Yii::$app->db->beginTransaction();
                     try {
                         if ($flag = $model->save(false)) {
-                            foreach ($modelsItem as $modelList) {
+                            foreach ($modelsList as $modelList) {
                                 $modelList->request_id = $model->id;
                                 if (!($flag = $modelList->save(false))) {
                                     $transaction->rollBack();
@@ -100,8 +100,8 @@ class RpController extends Controller
                         }
                         if ($flag) {
                             $transaction->commit();
-                            // return $this->redirect(['view', 'id' => $model->id]);
-                            return $this->redirect(['index']);
+                            return $this->redirect(['view', 'id' => $model->id]);
+                            // return $this->redirect(['index']);
                         }
                     } catch (Exception $e) {
                         $transaction->rollBack();
@@ -115,23 +115,22 @@ class RpController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'modelsList' => (empty($modelsList)) ? [new RpList] : $modelsList
         ]);
     }
 
-    public function actionLists($id)
+    public function actionUpdateList($id)
     {
         $model = $this->findModel($id);
-        $modelsItem = $model->rpLists;
-
+        $modelsList = $model->lists;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $oldIDs = ArrayHelper::map($modelsItem, 'id', 'id');
-            $modelsItem = Model::createMultiple(RpList::class, $modelsItem);
-            Model::loadMultiple($modelsItem, Yii::$app->request->post());
-            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modelsItem, 'id', 'id')));
-
+            $oldIDs = ArrayHelper::map($modelsList, 'id', 'id');
+            $modelsList = Model::createMultiple(RpList::class, $modelsList);
+            Model::loadMultiple($modelsList, Yii::$app->request->post());
+            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modelsList, 'id', 'id')));
             $valid = $model->validate();
-            $valid = Model::validateMultiple($modelsItem) && $valid;
+            $valid = Model::validateMultiple($modelsList) && $valid;
 
             if ($valid) {
                 $transaction = \Yii::$app->db->beginTransaction();
@@ -140,9 +139,9 @@ class RpController extends Controller
                         if (!empty($deletedIDs)) {
                             RpList::deleteAll(['id' => $deletedIDs]);
                         }
-                        foreach ($modelsItem as $ModelList) {
-                            $ModelList->request_id = $model->id;
-                            if (!($flag = $ModelList->save(false))) {
+                        foreach ($modelsList as $modelList) {
+                            $modelList->request_id = $model->id;
+                            if (!($flag = $modelList->save(false))) {
                                 $transaction->rollBack();
                                 break;
                             }
@@ -157,13 +156,12 @@ class RpController extends Controller
                 }
             }
         } else {
-            return $this->render('lists', [
+            return $this->render('update-list', [
                 'model' => $model,
-                'modelsItem' => (empty($modelsItem)) ? [new RpList] : $modelsItem
+                'modelsList' => (empty($modelsList)) ? [new RpList] : $modelsList
             ]);
         }
     }
-
 
     /**
      * Updates an existing Rp model.

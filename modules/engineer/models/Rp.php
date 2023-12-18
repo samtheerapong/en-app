@@ -86,12 +86,12 @@ class Rp extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'repair_code' => Yii::t('app', 'เลขที่เอกสาร'),
+            'request_title' => Yii::t('app', 'หัวเรื่อง'),
             'priority' => Yii::t('app', 'ความสำคัญ'),
             'urgency' => Yii::t('app', 'ความเร่งด่วน'),
             'created_date' => Yii::t('app', 'วันที่แจ้ง'),
             'request_by' => Yii::t('app', 'ผู้ร้องขอ'),
             'department' => Yii::t('app', 'แผนก'),
-            'request_title' => Yii::t('app', 'หัวเรื่อง'),
             'remask' => Yii::t('app', 'หมายเหตุ'),
             'created_at' => Yii::t('app', 'จัดทำเมื่อ'),
             'updated_at' => Yii::t('app', 'ปรับปรุงเมื่อ'),
@@ -101,43 +101,21 @@ class Rp extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * Gets query for [[Department0]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getDepartment0()
+     public function getDepartment0()
     {
         return $this->hasOne(Department::class, ['id' => 'department']);
     }
-
-    
-
-    /**
-     * Gets query for [[EnStatus]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
+ 
     public function getStatus0()
     {
         return $this->hasOne(Status::class, ['id' => 'en_status_id']);
     }
 
-    /**
-     * Gets query for [[Priority0]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getPriority0()
     {
         return $this->hasOne(Priority::class, ['id' => 'priority']);
     }
 
-    /**
-     * Gets query for [[Urgency0]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getUrgency0()
     {
         return $this->hasOne(Urgency::class, ['id' => 'urgency']);
@@ -158,32 +136,17 @@ class Rp extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'updated_by']);
     }
 
-    
-    /**
-     * Gets query for [[Wo]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
+   
     public function getWos()
     {
         return $this->hasMany(Wo::class, ['rp_id' => 'id']);
     }
 
-    /**
-     * Gets query for [[EnRpApproves]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getApproves()
     {
         return $this->hasMany(RpApprove::class, ['wo_id' => 'id']);
     }
 
-    /**
-     * Gets query for [[EnRpLists]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getLists()
     {
         return $this->hasMany(RpList::class, ['request_id' => 'id']);
