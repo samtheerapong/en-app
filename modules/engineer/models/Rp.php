@@ -50,6 +50,13 @@ class Rp extends \yii\db\ActiveRecord
                     return date('Y-m-d H:i:s');
                 },
             ],
+            [
+                'class' => BlameableBehavior::class,
+                'attributes' => [
+                    BaseActiveRecord::EVENT_BEFORE_INSERT => ['created_by', 'updated_by'],
+                    BaseActiveRecord::EVENT_BEFORE_UPDATE => ['updated_by'],
+                ],
+            ],
         ];
     }
     /**
@@ -101,11 +108,11 @@ class Rp extends \yii\db\ActiveRecord
         ];
     }
 
-     public function getDepartment0()
+    public function getDepartment0()
     {
         return $this->hasOne(Department::class, ['id' => 'department']);
     }
- 
+
     public function getStatus0()
     {
         return $this->hasOne(Status::class, ['id' => 'en_status_id']);
@@ -136,7 +143,7 @@ class Rp extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'updated_by']);
     }
 
-   
+
     public function getWos()
     {
         return $this->hasMany(Wo::class, ['rp_id' => 'id']);
@@ -151,5 +158,4 @@ class Rp extends \yii\db\ActiveRecord
     {
         return $this->hasMany(RpList::class, ['request_id' => 'id']);
     }
-
 }

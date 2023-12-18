@@ -73,12 +73,15 @@ use yii\widgets\ActiveForm;
                                         ?>
                                         <div class="row">
                                             <?= $form->field($modelList, "[{$i}]request_id")->hiddenInput()->label(false) ?>
+
                                             <div class="col-md-4">
                                                 <?= $form->field($modelList, "[{$i}]detail_list")->textInput(['required' => true,]) ?>
                                             </div>
+
                                             <div class="col-md-2">
                                                 <?= $form->field($modelList, "[{$i}]amount")->textInput(['maxlength' => true, 'type' => 'number', 'value' => '1']) ?>
                                             </div>
+
                                             <div class="col-md-3">
                                                 <?= $form->field($modelList, "[{$i}]request_date")->widget(
                                                     DatePicker::class,
@@ -96,6 +99,7 @@ use yii\widgets\ActiveForm;
                                                     ]
                                                 ); ?>
                                             </div>
+
                                             <div class="col-md-3">
                                                 <?= $form->field($modelList, "[{$i}]broken_date")->widget(
                                                     DatePicker::class,
@@ -118,19 +122,22 @@ use yii\widgets\ActiveForm;
                                                 <?= $form->field($modelList, "[{$i}]location")->widget(Select2::class, [
                                                     'language' => 'th',
                                                     'data' => ArrayHelper::map(Location::find()->all(), 'id', 'name'),
-                                                    'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                                    'options' => [
+                                                        'class' => 'form-control',
+                                                        'placeholder' => Yii::t('app', 'Select...'),
+                                                        'required' => true,
+                                                    ],
                                                     'pluginOptions' => [
                                                         'initialize' => true,
-                                                        'placeholder' => 'Select...',
                                                     ],
-                                                 
-                                                ]);
-                                                ?>
+                                                ]) ?>
                                             </div>
-                                            <div class="col-md-8">
+
+                                            <div class="col-md-4">
                                                 <?= $form->field($modelList, "[{$i}]remask")->textInput() ?>
                                             </div>
-                                            <div class="col-md-12">
+
+                                            <div class="col-md-4">
                                                 <?= $form->field($modelList, "[{$i}]image")->widget(FileInput::class, [
                                                     'options' => [
                                                         'accept' => 'image/*',

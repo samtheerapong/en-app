@@ -8,15 +8,26 @@ use yii\widgets\DetailView;
         'model' => $model,
         'template' => '<tr><th style="width: 200px;">{label}</th><td> {value}</td></tr>',
         'attributes' => [
-            // 'id',
-            'repair_code',
-            'request_title',
+            [
+                'attribute' => 'repair_code',
+                'format' => 'html',
+                'value' => function ($model) {
+                    return $model->repair_code ? $model->repair_code : 'N/A';
+                },
+            ],
+            [
+                'attribute' => 'request_title',
+                'format' => 'html',
+                'value' => function ($model) {
+                    return $model->request_title ? $model->request_title : 'N/A';
+                },
+            ],
             // 'priority',
             [
                 'attribute' => 'priority',
                 'format' => 'html',
                 'value' => function ($model) {
-                    return '<span class="badge" style="background-color:' . $model->priority0->color . ';"><b>' . $model->priority0->name . '</b></span>';
+                    return $model->priority ? '<span class="badge" style="background-color:' . $model->priority0->color . ';"><b>' . $model->priority0->name . '</b></span>' : 'N/A';
                 },
             ],
             // 'urgency',
@@ -24,7 +35,7 @@ use yii\widgets\DetailView;
                 'attribute' => 'urgency',
                 'format' => 'html',
                 'value' => function ($model) {
-                    return '<span class="badge" style="background-color:' . $model->urgency0->color . ';"><b>' . $model->urgency0->name . '</b></span>';
+                    return $model->urgency ? '<span class="badge" style="background-color:' . $model->urgency0->color . ';"><b>' . $model->urgency0->name . '</b></span>' : 'N/A';
                 },
 
             ],
@@ -34,7 +45,7 @@ use yii\widgets\DetailView;
                 'attribute' => 'request_by',
                 'format' => 'html',
                 'value' => function ($model) {
-                    return  $model->requestBy->thai_name;
+                    return $model->request_by ? $model->requestBy->thai_name : 'N/A';
                 },
             ],
             // 'department',
@@ -42,7 +53,7 @@ use yii\widgets\DetailView;
                 'attribute' => 'department',
                 'format' => 'html',
                 'value' => function ($model) {
-                    return  $model->department0->name;
+                    return  $model->department ? $model->department0->name : 'N/A';
                 },
             ],
             [
@@ -61,7 +72,7 @@ use yii\widgets\DetailView;
                 'attribute' => 'created_by',
                 'format' => 'html',
                 'value' => function ($model) {
-                    return  $model->createdBy->thai_name;
+                    return  $model->created_by ? $model->createdBy->thai_name : 'N/A';
                 },
             ],
             // 'updated_by',
@@ -69,7 +80,7 @@ use yii\widgets\DetailView;
                 'attribute' => 'updated_by',
                 'format' => 'html',
                 'value' => function ($model) {
-                    return  $model->updatedBy->thai_name;
+                    return $model->updated_by ? $model->updatedBy->thai_name : 'N/A';
                 },
             ],
             // 'en_status_id',

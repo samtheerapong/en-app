@@ -13,6 +13,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 /**
  * RpController implements the CRUD actions for Rp model.
@@ -78,13 +80,25 @@ class RpController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
+
                 $model->repair_code = AutoNumber::generate('RP-' . (date('y') + 43) . date('m') . '-????'); // Auto Number
-                
+
                 // List
                 $modelsList = Model::createMultiple(RpList::class);
                 Model::loadMultiple($modelsList, Yii::$app->request->post());
+
+                // ajax validation
+                if (Yii::$app->request->isAjax) {
+                    Yii::$app->response->format = Response::FORMAT_JSON;
+                    return ArrayHelper::merge(
+                        ActiveForm::validateMultiple($modelsList),
+                        ActiveForm::validate($model)
+                    );
+                }
+
                 $valid = $model->validate();
                 $valid = Model::validateMultiple($modelsList) && $valid;
+
                 $model->save();
                 if ($valid) {
                     $transaction = \Yii::$app->db->beginTransaction();
@@ -119,49 +133,61 @@ class RpController extends Controller
         ]);
     }
 
-    public function actionUpdateList($id)
-    {
-        $model = $this->findModel($id);
-        $modelsList = $model->lists;
+    // public function actionUpdateList($id)
+    // {
+    //     $model = $this->findModel($id);
+    //     $modelsList = $model->lists;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $oldIDs = ArrayHelper::map($modelsList, 'id', 'id');
-            $modelsList = Model::createMultiple(RpList::class, $modelsList);
-            Model::loadMultiple($modelsList, Yii::$app->request->post());
-            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modelsList, 'id', 'id')));
-            $valid = $model->validate();
-            $valid = Model::validateMultiple($modelsList) && $valid;
+    //     if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    //         $oldIDs = ArrayHelper::map($modelsList, 'id', 'id');
+    //         $modelsList = Model::createMultiple(RpList::class, $modelsList);
+    //         Model::loadMultiple($modelsList, Yii::$app->request->post());
+    //         $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modelsList, 'id', 'id')));
 
-            if ($valid) {
-                $transaction = \Yii::$app->db->beginTransaction();
-                try {
-                    if ($flag = $model->save(false)) {
-                        if (!empty($deletedIDs)) {
-                            RpList::deleteAll(['id' => $deletedIDs]);
-                        }
-                        foreach ($modelsList as $modelList) {
-                            $modelList->request_id = $model->id;
-                            if (!($flag = $modelList->save(false))) {
-                                $transaction->rollBack();
-                                break;
-                            }
-                        }
-                    }
-                    if ($flag) {
-                        $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id]);
-                    }
-                } catch (Exception $e) {
-                    $transaction->rollBack();
-                }
-            }
-        } else {
-            return $this->render('update-list', [
-                'model' => $model,
-                'modelsList' => (empty($modelsList)) ? [new RpList] : $modelsList
-            ]);
-        }
-    }
+    //         // ajax validation
+    //         if (Yii::$app->request->isAjax) {
+    //             Yii::$app->response->format = Response::FORMAT_JSON;
+    //             return ArrayHelper::merge(
+    //                 ActiveForm::validateMultiple($modelsList),
+    //                 ActiveForm::validate($model)
+    //             );
+    //         }
+
+    //         $valid = $model->validate();
+    //         $valid = Model::validateMultiple($modelsList) && $valid;
+    //         // $model->save();
+
+    //         if ($valid) {
+    //             $transaction = \Yii::$app->db->beginTransaction();
+    //             try {
+    //                 if ($flag = $model->save(false)) {
+    //                     if (!empty($deletedIDs)) {
+    //                         RpList::deleteAll(['id' => $deletedIDs]);
+    //                     }
+    //                     foreach ($modelsList as $modelList) {
+    //                         $modelList->request_id = $model->id;
+    //                         if (!($flag = $modelList->save(false))) {
+    //                             $transaction->rollBack();
+    //                             break;
+    //                         }
+    //                     }
+    //                 }
+    //                 if ($flag) {
+    //                     $transaction->commit();
+    //                     // return $this->redirect(['view', 'id' => $model->id]);
+    //                     return $this->redirect(['index']);
+    //                 }
+    //             } catch (Exception $e) {
+    //                 $transaction->rollBack();
+    //             }
+    //         }
+    //     } else {
+    //         return $this->render('update-list', [
+    //             'model' => $model,
+    //             'modelsList' => (empty($modelsList)) ? [new RpList] : $modelsList
+    //         ]);
+    //     }
+    // }
 
     /**
      * Updates an existing Rp model.
@@ -180,6 +206,7 @@ class RpController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'modelsList' => (empty($modelsList)) ? [new RpList] : $modelsList
         ]);
     }
 
