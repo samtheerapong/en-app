@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     return Html::img($model->getPhotoViewer(), ['class' => 'img-fluid img-thumbnail mx-auto d-block', 'alt' => '...']);
                                 },
                             ],
-                            
+
                             [
                                 'attribute' => 'detail_list',
                                 'format' => 'html',
@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     $detail = $model->detail_list;
                                     $remask = $model->remask;
                                     $badge = ($remask !== null && $remask !== '') ? '<span class="badge badge-warning">' . $remask . '</span>' : '';
-                                    return Html::a($detail . '   ' . $badge , ['/engineer/rp-list/view', 'id' => $model->id]);
+                                    return Html::a($detail . '   ' . $badge, ['/engineer/rp-list/view', 'id' => $model->id]);
                                 },
                             ],
                             // 'request_date',
@@ -94,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             [
                                 'attribute' => 'amount',
                                 'format' => 'html',
-                                'contentOptions' => ['class' => 'text-center','style' => 'width:60px;'],
+                                'contentOptions' => ['class' => 'text-center', 'style' => 'width:60px;'],
                                 'value' => function ($model) {
                                     return $model->amount ? $model->amount : 'N/A';
                                 },
@@ -140,6 +140,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                     ]); ?>
                 </div>
-               
+
             </div>
         </div>
+    </div>
+</div>
