@@ -143,7 +143,7 @@ use yii\widgets\ActiveForm;
                         <div class="card-header text-white bg-warning">
                             <div class="card-title float-left">
                                 <div class="float-left">
-                                    <?= Yii::t('app', 'Lists') ?>
+                                    <?= Yii::t('app', 'Repair Lists') ?>
                                 </div>
                             </div>
                             <div class="float-right">

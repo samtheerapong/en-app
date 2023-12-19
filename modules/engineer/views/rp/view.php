@@ -34,14 +34,15 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::encode($this->title) . ' | ' . $model->request_title ?>
         </div>
         <div class="card-body table-responsive">
-            <div class="row">
-                <div class="col-md-12">
-                    <?= $this->render('_view', [
-                        'model' => $model,
-                    ]) ?>
-                </div>
-                <div class="col-md-12">
+            <?= $this->render('_view', [
+                'model' => $model,
+            ]) ?>
 
+            <div class="card border-warning">
+                <div class="card-header text-white bg-warning">
+                    <?= Yii::t('app', 'Repair Lists') ?>
+                </div>
+                <div class="card-body table-responsive">
                     <?= GridView::widget([
                         'dataProvider' => new \yii\data\ActiveDataProvider([
                             'query' => $model->getLists(),
