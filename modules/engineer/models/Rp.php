@@ -8,6 +8,7 @@ use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\BaseActiveRecord;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "en_rp".
@@ -158,4 +159,5 @@ class Rp extends \yii\db\ActiveRecord
     {
         return $this->hasMany(RpList::class, ['request_id' => 'id']);
     }
+
 }

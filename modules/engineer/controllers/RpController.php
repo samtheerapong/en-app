@@ -104,11 +104,11 @@ class RpController extends Controller
                     $transaction = \Yii::$app->db->beginTransaction();
                     try {
                         if ($flag = $model->save(false)) {
-                            foreach ($modelsList as $modelList) {
+                            foreach ($modelsList as $i => $modelList) {
                                 $modelList->request_id = $model->id;
 
-                                $modelList->photo = $modelList->upload($modelList, 'photo'); // uploaded file
-                                
+                                $modelList->photo = $modelList->upload($modelList, "[{$i}]photo"); // uploaded file
+
                                 if (!($flag = $modelList->save(false))) {
                                     $transaction->rollBack();
                                     break;
@@ -136,8 +136,6 @@ class RpController extends Controller
         ]);
     }
 
-
-
     /**
      * Updates an existing Rp model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -150,7 +148,7 @@ class RpController extends Controller
         $model = $this->findModel($id);
         $modelsList = $model->lists;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
             $oldIDs = ArrayHelper::map($modelsList, 'id', 'id');
             $modelsList = Model::createMultiple(RpList::class, $modelsList);
             Model::loadMultiple($modelsList, Yii::$app->request->post());
@@ -172,10 +170,13 @@ class RpController extends Controller
                 $transaction = \Yii::$app->db->beginTransaction();
                 try {
                     if ($flag = $model->save(false)) {
-                        foreach ($modelsList as $modelList) {
+                        if (!empty($deletedIDs)) {
+                            RpList::deleteAll(['id' => $deletedIDs]);
+                        }
+                        foreach ($modelsList as $i => $modelList) {
                             $modelList->request_id = $model->id;
 
-                            $modelList->photo = $modelList->upload($modelList, 'photo'); // uploaded file
+                            $modelList->photo = $modelList->upload($modelList, "[{$i}]photo"); // uploaded file
 
                             if (!($flag = $modelList->save(false))) {
                                 $transaction->rollBack();
@@ -186,20 +187,27 @@ class RpController extends Controller
                     if ($flag) {
                         $transaction->commit();
                         return $this->redirect(['view', 'id' => $model->id]);
-                        // return $this->redirect(['index']);
                     }
                 } catch (Exception $e) {
                     $transaction->rollBack();
                 }
             }
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-                'modelsList' => (empty($modelsList)) ? [new RpList] : $modelsList
-            ]);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+            'modelsList' => (empty($modelsList)) ? [new RpList] : $modelsList
+        ]);
     }
 
+
+    /**
+     * Deletes an existing Rp model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param int $id ID
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     /**
      * Deletes an existing Rp model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -209,10 +217,28 @@ class RpController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+
+        // Delete related RpList photos and records
+        $rpListRecords = RpList::findAll(['request_id' => $id]);
+
+        foreach ($rpListRecords as $rpListRecord) {
+            // Unlink photo
+            $photoPath = $rpListRecord->getUploadPath() . $rpListRecord->photo;
+            if (file_exists($photoPath)) {
+                unlink($photoPath);
+            }
+
+            // Delete RpList record
+            $rpListRecord->delete();
+        }
+
+        // Delete Rp record
+        $model->delete();
 
         return $this->redirect(['index']);
     }
+
 
     /**
      * Finds the Rp model based on its primary key value.

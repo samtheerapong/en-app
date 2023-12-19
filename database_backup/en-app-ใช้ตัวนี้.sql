@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 18, 2023 at 03:31 PM
+-- Generation Time: Dec 19, 2023 at 09:54 AM
 -- Server version: 5.7.39
--- PHP Version: 7.4.33
+-- PHP Version: 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -39,7 +39,7 @@ CREATE TABLE `auto_number` (
 --
 
 INSERT INTO `auto_number` (`group`, `number`, `optimistic_lock`, `update_time`) VALUES
-('RP-6612-????', 3, 1, 1702891602),
+('RP-6612-????', 20, 1, 1702977658),
 ('SP-6612-????', 7, 1, 1702909054);
 
 -- --------------------------------------------------------
@@ -508,10 +508,9 @@ CREATE TABLE `en_rp` (
 --
 
 INSERT INTO `en_rp` (`id`, `repair_code`, `priority`, `urgency`, `created_date`, `request_by`, `department`, `request_title`, `remask`, `created_at`, `updated_at`, `created_by`, `updated_by`, `en_status_id`) VALUES
-(1, 'RP-6611-0001', 2, 1, '2023-12-14', 12, 11, 'ทดสอบ1', 'ไม่มี', '2023-12-14', '2023-12-18', 11, 1, 6),
-(2, 'RP-6612-0001', 2, 2, '2023-12-18', 3, 3, '2222', '', '2023-12-18', '2023-12-18', 2, 1, 1),
-(3, 'RP-6612-0002', 2, 2, '2023-12-21', 5, 3, 'หลอดไฟเสีย', '', '2023-12-18', '2023-12-18', 1, 1, 2),
-(4, 'RP-6612-0003', 3, 3, '2023-12-05', 3, 5, '888888', '8888', '2023-12-18', NULL, 1, 1, 1);
+(7, 'RP-6612-0006', 1, 2, '2023-12-22', 3, 3, 'asdasdasd', '', '2023-12-19', '2023-12-19', 1, 1, 1),
+(8, 'RP-6612-0007', 2, 3, '2023-12-21', 3, 2, '22222', '', '2023-12-19', '2023-12-19', 1, 1, 1),
+(9, 'RP-6612-0020', 3, 2, '2023-12-07', 2, 3, 'asdasd', '', '2023-12-19', NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -550,14 +549,10 @@ CREATE TABLE `en_rp_list` (
 --
 
 INSERT INTO `en_rp_list` (`id`, `request_id`, `detail_list`, `request_date`, `broken_date`, `amount`, `location`, `photo`, `remask`) VALUES
-(1, NULL, 'asdasdas', '2023-12-20', '2023-12-20', 1, 5, '', 'dasdasd'),
-(2, 3, 'wqqwe', '2023-12-20', '2023-12-20', 1, 34, '', ''),
-(3, NULL, 'rgerger', '2023-12-20', '2023-12-20', 1, 28, '43aaeb85e89f453bb50c4e2c6199155d.jpg', 'ddd'),
-(4, 3, '525252', '2023-12-21', '2023-12-29', 1, 31, '', ''),
-(5, 2, 'รายการที่ 1d', '2023-12-20', '2023-12-20', 1, 32, '06537b269d0c2478ec792a3a972b5629.jpg', 'หมายเหตุ'),
-(6, 4, 'รายการแรก', '2023-12-20', '2023-12-08', 1, 29, '', ''),
-(7, 2, 'sadasd', '2023-12-18', '2023-12-20', 1, 2, '1c0df5256144286fe5d0d5aa591ab526.jpg', ''),
-(8, 2, 'asdasd', '2023-12-13', '2023-12-07', 1, 3, '1fb74b4376b9a8aa06a5fedfc3e81784.jpg', 'asdas');
+(25, 7, 'asdasd', '2023-12-06', '2023-12-11', 1, 4, '19f7b6d0dd36c144d811a8bc8818ea21.jpg', ''),
+(26, 8, '3333', '2023-12-20', '2023-12-19', 1, 3, '', ''),
+(27, 7, 'กหฟหกฟ', '2023-12-07', '2023-12-14', 1, 3, NULL, ''),
+(28, 9, 'asdasdas', '2024-01-03', '2023-12-21', 1, 20, '6fca6fe07772f02757a169eedb301b07.jpg', '');
 
 -- --------------------------------------------------------
 
@@ -762,13 +757,6 @@ CREATE TABLE `en_wo` (
   `frequency` int(11) DEFAULT NULL COMMENT 'ความถี่',
   `remask` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `en_wo`
---
-
-INSERT INTO `en_wo` (`id`, `rp_id`, `title`, `description`, `work_code`, `work_date`, `machine_id`, `location`, `work_type_id`, `work_start`, `work_end`, `ref`, `category_id`, `workclass_id`, `work_method`, `service_date`, `frequency`, `remask`) VALUES
-(1, 1, 'ทดสอบ ใบสั่งซ่อม', 'ไม่มี', 'WO-6612-0001', '2023-12-15', 1, '1', 3, '2023-12-15', '2023-12-18', NULL, 1, 2, 'ซ่อมทั่วๆไป', '2023-12-18', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1687,7 +1675,7 @@ ALTER TABLE `en_priority`
 -- AUTO_INCREMENT for table `en_rp`
 --
 ALTER TABLE `en_rp`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `en_rp_approve`
@@ -1699,7 +1687,7 @@ ALTER TABLE `en_rp_approve`
 -- AUTO_INCREMENT for table `en_rp_list`
 --
 ALTER TABLE `en_rp_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `en_status`

@@ -22,7 +22,16 @@ use yii\widgets\ActiveForm;
 <div class="rp-form">
 
 
-    <?php $form = ActiveForm::begin(['id' => 'dynamic-form',]); ?>
+    <?php $form = ActiveForm::begin([
+        'enableClientValidation' => false,
+        'enableAjaxValidation' => true,
+        'validateOnChange' => true,
+        'validateOnBlur' => false,
+        'options' => [
+            'enctype' => 'multipart/form-data',
+            'id' => 'dynamic-form'
+        ]
+    ]); ?>
     <div class="card border-secondary">
         <div class="card-header text-white bg-secondary">
             <?= Html::encode($this->title) ?>
@@ -236,7 +245,7 @@ use yii\widgets\ActiveForm;
                                             'multiple' => false
                                         ],
                                         'pluginOptions' => [
-                                            'initialPreview' => Html::img($modelList->getPhotoViewer(), ['class' => 'file-preview-image', 'alt' => $modelList->id]),
+                                            'initialPreview' => $modelList->photo ? Html::img($modelList->getPhotoViewer(), ['class' => 'file-preview-image', 'alt' => $modelList->photo]) : [],
                                             'showPreview' => true,
                                             'showCaption' => true,
                                             'showRemove' => false,

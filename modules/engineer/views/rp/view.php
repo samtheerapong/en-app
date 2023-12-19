@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
 
         <p style="text-align: right;">
-            <?= Html::a('<i class="fas fa-edit"></i> ' . Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
+            <?= Html::a('<i class="fas fa-edit"></i> ' . Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
 
             <?= Html::a('<i class="fas fa-trash"></i> ' . Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     $detail = $model->detail_list;
                                     $remask = $model->remask;
                                     $badge = ($remask !== null && $remask !== '') ? '<span class="badge badge-warning">' . $remask . '</span>' : '';
-                                    return Html::a($detail . '   ' . $badge, ['/engineer/rp-list/view', 'id' => $model->id]);
+                                    return Html::a($detail . '   ' . $badge, ['/engineer/rp-list/update', 'id' => $model->id]);
                                 },
                             ],
                             // 'request_date',
@@ -116,23 +116,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'contentOptions' => ['style' => 'width:250px;'],
                                 'contentOptions' => ['class' => 'text-center'],
                                 'buttonOptions' => ['class' => 'btn btn-outline-dark btn-sm'],
-                                'template' => '<div class="btn-group btn-group-xs" role="group">{view} {update} {delete}</div>',
+                                // 'template' => '<div class="btn-group btn-group-xs" role="group">{view} {update} {delete}</div>',
+                                'template' => '<div class="btn-group btn-group-xs" role="group">{update}</div>',
                                 'buttons' => [
-                                    'view' => function ($url, $model, $key) {
-                                        return Html::a('<i class="fa fa-eye"></i>', ['/engineer/rp-list/view', 'id' => $model->id], [
-                                            'title' => Yii::t('app', 'View'),
-                                            'class' => 'btn btn-outline-dark btn-sm',
-                                        ]);
-                                    },
                                     'update' => function ($url, $model, $key) {
                                         return Html::a('<i class="fa fa-pencil"></i>', ['/engineer/rp-list/update', 'id' => $model->id], [
                                             'title' => Yii::t('app', 'Update'),
-                                            'class' => 'btn btn-outline-dark btn-sm',
-                                        ]);
-                                    },
-                                    'delete' => function ($url, $model, $key) {
-                                        return Html::a('<i class="fa fa-trash-can"></i>', ['/engineer/rp-list/delete', 'id' => $model->id], [
-                                            'title' => Yii::t('app', 'Delete'),
                                             'class' => 'btn btn-outline-dark btn-sm',
                                         ]);
                                     },

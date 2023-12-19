@@ -95,6 +95,7 @@ class RpListController extends Controller
         $oldPhoto = $model->photo; // Store the old photo filename
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            
             $model->photo = $model->upload($model, 'photo');
 
             // แทนที่รูปใหม่
