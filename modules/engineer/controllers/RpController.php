@@ -14,6 +14,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
+use yii\web\UploadedFile;
 use yii\widgets\ActiveForm;
 
 /**
@@ -176,7 +177,16 @@ class RpController extends Controller
                         foreach ($modelsList as $i => $modelList) {
                             $modelList->request_id = $model->id;
 
-                            $modelList->photo = $modelList->upload($modelList, "[{$i}]photo"); // uploaded file
+                            // Check if a new file is uploaded
+                            $uploadedPhoto = UploadedFile::getInstance($modelList, "[{$i}]photo");
+
+                            if ($uploadedPhoto !== null) {
+                                // If a new file is uploaded, save it and update the 'photo' attribute
+                                $modelList->photo = $modelList->upload($modelList, "[{$i}]photo");
+                            } else {
+                                // If no new file is uploaded, keep the existing value in the database
+                                $modelList->photo = $modelList->getOldAttribute("[{$i}]photo");
+                            }
 
                             if (!($flag = $modelList->save(false))) {
                                 $transaction->rollBack();
