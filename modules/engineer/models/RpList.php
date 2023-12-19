@@ -107,7 +107,8 @@ class RpList extends \yii\db\ActiveRecord
 
     public function getPhotoViewer()
     {
-        return empty($this->photo) ? Yii::getAlias('@web') . '/images/no-img.png' : $this->getUploadUrl() . $this->photo;
+        return empty($this->photo) ? Yii::getAlias('@web') . '/images/nopic.jpg' : $this->getUploadUrl() . $this->photo;
+        // return empty($this->photo) ? 'https://www.northernfoodcomplex.com/wp-content/uploads/2018/10/logo.png' : $this->getUploadUrl() . $this->photo;
     }
 
 }

@@ -24,7 +24,24 @@ use yii\grid\GridView;
                 'contentOptions' => ['class' => 'text-center', 'style' => 'width:45px;'], //กำหนด ความกว้างของ #
             ],
 
-            
+            [
+                'attribute' => 'photo',
+                'format' => 'html',
+                'headerOptions' => ['style' => 'width:150px;'],
+                'value' => function ($model) {
+                    $imageUrl = $model->getPhotoViewer();
+                    return Html::a(
+                        Html::img($imageUrl, [
+                            'class' => 'img-fluid img-thumbnail mx-auto d-block',
+                            'alt' => '...',
+                        ]),
+                        $imageUrl,
+                        ['target' => '_blank']
+                    );
+                },
+            ],
+
+
             [
                 'attribute' => 'detail_list',
                 'format' => 'html',
@@ -57,7 +74,7 @@ use yii\grid\GridView;
             [
                 'attribute' => 'amount',
                 'format' => 'html',
-                'contentOptions' => ['class' => 'text-center','style' => 'width:60px;'],
+                'contentOptions' => ['class' => 'text-center', 'style' => 'width:60px;'],
                 'value' => function ($model) {
                     return $model->amount ? $model->amount : 'N/A';
                 },
