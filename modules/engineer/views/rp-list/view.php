@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var app\modules\engineer\models\RpList $model */
 
-$this->title = $model->id;
+$this->title = $model->detail_list;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Rp Lists'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -38,7 +38,15 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card mb-3">
                 <div class="row g-0">
                     <div class="col-md-6">
-                        <?= Html::img($model->getPhotoViewer(), ['class' => 'img-fluid img-thumbnail mx-auto d-block', 'alt' => '...']); ?>
+                        <?php
+                        $imageUrl = $model->getPhotoViewer(); // Assuming this method returns the image URL
+
+                        echo Html::a(Html::img($imageUrl, [
+                            'class' => 'img-fluid img-thumbnail mx-auto d-block',
+                            'alt' => '...',
+                        ]), $imageUrl, ['target' => '_blank']); // 'target' => '_blank' opens the link in a new tab
+                        ?>
+
                     </div>
                     <div class="col-md-6">
                         <div class="card-body">

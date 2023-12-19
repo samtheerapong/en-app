@@ -106,6 +106,9 @@ class RpController extends Controller
                         if ($flag = $model->save(false)) {
                             foreach ($modelsList as $modelList) {
                                 $modelList->request_id = $model->id;
+
+                                $modelList->photo = $modelList->upload($modelList, 'photo'); // uploaded file
+                                
                                 if (!($flag = $modelList->save(false))) {
                                     $transaction->rollBack();
                                     break;
@@ -171,6 +174,9 @@ class RpController extends Controller
                     if ($flag = $model->save(false)) {
                         foreach ($modelsList as $modelList) {
                             $modelList->request_id = $model->id;
+
+                            $modelList->photo = $modelList->upload($modelList, 'photo'); // uploaded file
+
                             if (!($flag = $modelList->save(false))) {
                                 $transaction->rollBack();
                                 break;

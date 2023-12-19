@@ -160,69 +160,73 @@ use yii\widgets\ActiveForm;
                             }
                             ?>
                             <div class="row">
-                                <?= $form->field($modelList, "[{$i}]request_id")->hiddenInput()->label(false) ?>
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <?= $form->field($modelList, "[{$i}]request_id")->hiddenInput()->label(false) ?>
+                                            <?= $form->field($modelList, "[{$i}]detail_list")->textInput(['required' => true,]) ?>
+                                        </div>
+                                    </div>
 
-                                <div class="col-md-4">
-                                    <?= $form->field($modelList, "[{$i}]detail_list")->textInput(['required' => true,]) ?>
-                                </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <?= $form->field($modelList, "[{$i}]amount")->textInput(['maxlength' => true, 'type' => 'number', 'value' => '1']) ?>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <?= $form->field($modelList, "[{$i}]request_date")->widget(
+                                                DatePicker::class,
+                                                [
+                                                    'language' => 'th',
+                                                    'options' => [
+                                                        'placeholder' => Yii::t('app', 'Select...'),
+                                                        'required' => true,
+                                                    ],
+                                                    'pluginOptions' => [
+                                                        'format' => 'yyyy-mm-dd',
+                                                        'todayHighlight' => true,
+                                                        'autoclose' => true,
+                                                    ]
+                                                ]
+                                            ); ?>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <?= $form->field($modelList, "[{$i}]broken_date")->widget(
+                                                DatePicker::class,
+                                                [
+                                                    'language' => 'th',
+                                                    'options' => [
+                                                        'placeholder' => Yii::t('app', 'Select...'),
+                                                        'required' => true,
+                                                    ],
+                                                    'pluginOptions' => [
+                                                        'format' => 'yyyy-mm-dd',
+                                                        'todayHighlight' => true,
+                                                        'autoclose' => true,
+                                                    ]
+                                                ]
+                                            ); ?>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <?= $form->field($modelList, "[{$i}]location")->widget(Select2::class, [
+                                                'language' => 'th',
+                                                'data' => ArrayHelper::map(Location::find()->all(), 'id', 'name'),
+                                                'options' => [
+                                                    'class' => 'form-control',
+                                                    'placeholder' => Yii::t('app', 'Select...'),
+                                                    'required' => true,
+                                                ],
+                                                'pluginOptions' => [
+                                                    'initialize' => true,
+                                                ],
+                                            ]) ?>
+                                        </div>
+                                    </div>
 
-                                <div class="col-md-2">
-                                    <?= $form->field($modelList, "[{$i}]amount")->textInput(['maxlength' => true, 'type' => 'number', 'value' => '1']) ?>
-                                </div>
-
-                                <div class="col-md-3">
-                                    <?= $form->field($modelList, "[{$i}]request_date")->widget(
-                                        DatePicker::class,
-                                        [
-                                            'language' => 'th',
-                                            'options' => [
-                                                'placeholder' => Yii::t('app', 'Select...'),
-                                                'required' => true,
-                                            ],
-                                            'pluginOptions' => [
-                                                'format' => 'yyyy-mm-dd',
-                                                'todayHighlight' => true,
-                                                'autoclose' => true,
-                                            ]
-                                        ]
-                                    ); ?>
-                                </div>
-
-                                <div class="col-md-3">
-                                    <?= $form->field($modelList, "[{$i}]broken_date")->widget(
-                                        DatePicker::class,
-                                        [
-                                            'language' => 'th',
-                                            'options' => [
-                                                'placeholder' => Yii::t('app', 'Select...'),
-                                                'required' => true,
-                                            ],
-                                            'pluginOptions' => [
-                                                'format' => 'yyyy-mm-dd',
-                                                'todayHighlight' => true,
-                                                'autoclose' => true,
-                                            ]
-                                        ]
-                                    ); ?>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <?= $form->field($modelList, "[{$i}]location")->widget(Select2::class, [
-                                        'language' => 'th',
-                                        'data' => ArrayHelper::map(Location::find()->all(), 'id', 'name'),
-                                        'options' => [
-                                            'class' => 'form-control',
-                                            'placeholder' => Yii::t('app', 'Select...'),
-                                            'required' => true,
-                                        ],
-                                        'pluginOptions' => [
-                                            'initialize' => true,
-                                        ],
-                                    ]) ?>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <?= $form->field($modelList, "[{$i}]remask")->textInput() ?>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <?= $form->field($modelList, "[{$i}]remask")->textInput() ?>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-4">
@@ -232,12 +236,15 @@ use yii\widgets\ActiveForm;
                                             'multiple' => false
                                         ],
                                         'pluginOptions' => [
-                                            // 'initialPreview' => Html::img($model->getPhotoViewer(), ['class' => 'file-preview-image', 'alt' => $model->id]),
-                                            'showPreview' => false,
+                                            'initialPreview' => Html::img($modelList->getPhotoViewer(), ['class' => 'file-preview-image', 'alt' => $modelList->id]),
+                                            'showPreview' => true,
+                                            'showCaption' => true,
+                                            'showRemove' => false,
                                             'showUpload' => false,
-                                            'showCancel' => false,
+                                            'overwriteInitial' => false,
                                         ],
                                     ]); ?>
+
                                 </div>
                             </div>
                         </div>

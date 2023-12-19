@@ -109,4 +109,5 @@ class RpList extends \yii\db\ActiveRecord
     {
         return empty($this->photo) ? Yii::getAlias('@web') . '/images/no-img.png' : $this->getUploadUrl() . $this->photo;
     }
+
 }

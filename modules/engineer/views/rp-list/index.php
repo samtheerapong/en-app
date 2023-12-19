@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
 
         <p style="text-align: right;">
-            <?= Html::a('<i class="fa-solid fa-list"></i> ' . Yii::t('app', 'Repair Lists'), ['/engineer/rp-list/index'], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('<i class="fa-solid fa-circle-play"></i> ' . Yii::t('app', 'Repair'), ['/engineer/rp/index'], ['class' => 'btn btn-primary']) ?>
             <?= Html::a('<i class="fa fa-screwdriver-wrench"></i> ' . Yii::t('app', 'Configs'), ['/engineer/default/setings-menu'], ['class' => 'btn btn-warning']) ?>
         </p>
     </div>
@@ -66,12 +66,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'request_id',
                         'format' => 'html',
-                        'contentOptions' => ['style' => 'width:230px;'],
                         'value' => function ($model) {
-                            return $model->request_id ?
+                             $rpValule = $model->request_id ?
                                 $model->request0->repair_code . '  ' .
                                 $model->request0->request_title :
                                 Yii::t('app', 'N/A');
+
+                                return  Html::a($rpValule , ['/engineer/rp/view', 'id' => $model->request_id]);
                         },
                         'filter' => Select2::widget([
                             'model' => $searchModel,

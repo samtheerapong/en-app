@@ -2,6 +2,7 @@
 
 use kartik\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->title = $model->repair_code;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Rps'), 'url' => ['index']];
@@ -52,6 +53,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'contentOptions' => ['class' => 'text-center', 'style' => 'width:45px;'], //กำหนด ความกว้างของ #
                             ],
 
+                            [
+                                'attribute' => 'photo',
+                                'format' => 'html',
+                                'headerOptions' => ['style' => 'width:150px;'],
+                                'value' => function ($model) {
+                                    return Html::img($model->getPhotoViewer(), ['class' => 'img-fluid img-thumbnail mx-auto d-block', 'alt' => '...']);
+                                },
+                            ],
                             
                             [
                                 'attribute' => 'detail_list',
@@ -60,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     $detail = $model->detail_list;
                                     $remask = $model->remask;
                                     $badge = ($remask !== null && $remask !== '') ? '<span class="badge badge-warning">' . $remask . '</span>' : '';
-                                    return $detail . '   ' . $badge;
+                                    return Html::a($detail . '   ' . $badge , ['/engineer/rp-list/view', 'id' => $model->id]);
                                 },
                             ],
                             // 'request_date',
@@ -101,9 +110,36 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             // 'photo:ntext',
                             // 'remask:ntext',
-
+                            [
+                                'class' => 'kartik\grid\ActionColumn',
+                                'contentOptions' => ['style' => 'width:250px;'],
+                                'contentOptions' => ['class' => 'text-center'],
+                                'buttonOptions' => ['class' => 'btn btn-outline-dark btn-sm'],
+                                'template' => '<div class="btn-group btn-group-xs" role="group">{view} {update} {delete}</div>',
+                                'buttons' => [
+                                    'view' => function ($url, $model, $key) {
+                                        return Html::a('<i class="fa fa-eye"></i>', ['/engineer/rp-list/view', 'id' => $model->id], [
+                                            'title' => Yii::t('app', 'View'),
+                                            'class' => 'btn btn-outline-dark btn-sm',
+                                        ]);
+                                    },
+                                    'update' => function ($url, $model, $key) {
+                                        return Html::a('<i class="fa fa-pencil"></i>', ['/engineer/rp-list/update', 'id' => $model->id], [
+                                            'title' => Yii::t('app', 'Update'),
+                                            'class' => 'btn btn-outline-dark btn-sm',
+                                        ]);
+                                    },
+                                    'delete' => function ($url, $model, $key) {
+                                        return Html::a('<i class="fa fa-trash-can"></i>', ['/engineer/rp-list/delete', 'id' => $model->id], [
+                                            'title' => Yii::t('app', 'Delete'),
+                                            'class' => 'btn btn-outline-dark btn-sm',
+                                        ]);
+                                    },
+                                ],
+                            ],
                         ],
                     ]); ?>
                 </div>
+               
             </div>
         </div>

@@ -122,4 +122,8 @@ return [
         'Departments' => 'แผนก',
         'Create Department' => 'เพิ่มแผนก',
         'Update Department: {name}' => 'แก้ไข: {name}',
+
+         //  Rp Lists
+         'Rp Lists' => 'รายการแจ้งซ่อม',
+         'Repair Lists' => 'รายการแจ้งซ่อม',
 ];
