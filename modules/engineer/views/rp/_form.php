@@ -162,12 +162,7 @@ use yii\widgets\ActiveForm;
                             <div class="clearfix"></div>
                         </div>
                         <div class="card-body">
-                            <?php
-                            // necessary for update action.
-                            if (!$modelList->isNewRecord) {
-                                echo Html::activeHiddenInput($modelList, "[{$i}]id");
-                            }
-                            ?>
+                            <?php if (!$modelList->isNewRecord) {echo Html::activeHiddenInput($modelList, "[{$i}]id");}?>
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="row">

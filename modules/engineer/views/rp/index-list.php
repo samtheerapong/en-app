@@ -25,30 +25,12 @@ use yii\grid\GridView;
             ],
 
             [
-                'attribute' => 'photo',
-                'format' => 'html',
-                'headerOptions' => ['style' => 'width:150px;'],
-                'value' => function ($model) {
-                    $imageUrl = $model->getPhotoViewer();
-                    return Html::a(
-                        Html::img($imageUrl, [
-                            'class' => 'img-fluid img-thumbnail mx-auto d-block',
-                            'alt' => '...',
-                        ]),
-                        $imageUrl,
-                        ['target' => '_blank']
-                    );
-                },
-            ],
-
-
-            [
                 'attribute' => 'detail_list',
                 'format' => 'html',
                 'value' => function ($model) {
                     $detail = $model->detail_list;
                     $remask = $model->remask;
-                    $badge = ($remask !== null && $remask !== '') ? '<span class="badge badge-warning">' . $remask . '</span>' : '';
+                    $badge = ($remask !== null && $remask !== '') ? '<br><span class="badge badge-warning">' . $remask . '</span>' : '';
                     return $detail . '   ' . $badge;
                 },
             ],
@@ -86,6 +68,23 @@ use yii\grid\GridView;
                 'headerOptions' => ['style' => 'width:200px;'],
                 'value' => function ($model) {
                     return $model->location ? $model->location0->name : 'N/A';
+                },
+            ],
+
+            [
+                'attribute' => 'photo',
+                'format' => 'html',
+                'headerOptions' => ['style' => 'width:150px;'],
+                'value' => function ($model) {
+                    $imageUrl = $model->getPhotoViewer();
+                    return Html::a(
+                        Html::img($imageUrl, [
+                            'class' => 'img-fluid img-thumbnail mx-auto d-block',
+                            'alt' => '...',
+                        ]),
+                        $imageUrl,
+                        ['target' => '_blank']
+                    );
                 },
             ],
             // 'image:ntext',

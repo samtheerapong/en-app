@@ -21,6 +21,9 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'modules' => [
+        'ex' => [
+            'class' => 'app\modules\ex\Module',
+        ],
         'nfc' => [
             'class' => 'app\modules\nfc\Module',
         ],

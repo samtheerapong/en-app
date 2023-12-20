@@ -107,8 +107,8 @@ class RpController extends Controller
                         if ($flag = $model->save(false)) {
                             foreach ($modelsList as $i => $modelList) {
                                 $modelList->request_id = $model->id;
-
                                 $modelList->photo = $modelList->upload($modelList, "[{$i}]photo"); // uploaded file
+                                // $modelList->photo = UploadedFile::getInstance($modelList, "[{$i}]photo");
 
                                 if (!($flag = $modelList->save(false))) {
                                     $transaction->rollBack();
@@ -177,16 +177,7 @@ class RpController extends Controller
                         foreach ($modelsList as $i => $modelList) {
                             $modelList->request_id = $model->id;
 
-                            // Check if a new file is uploaded
-                            $uploadedPhoto = UploadedFile::getInstance($modelList, "[{$i}]photo");
-
-                            if ($uploadedPhoto !== null) {
-                                // If a new file is uploaded, save it and update the 'photo' attribute
-                                $modelList->photo = $modelList->upload($modelList, "[{$i}]photo");
-                            } else {
-                                // If no new file is uploaded, keep the existing value in the database
-                                $modelList->photo = $modelList->getOldAttribute("[{$i}]photo");
-                            }
+                            $modelList->photo = $modelList->uploadUpdate($modelList, "[{$i}]photo");
 
                             if (!($flag = $modelList->save(false))) {
                                 $transaction->rollBack();

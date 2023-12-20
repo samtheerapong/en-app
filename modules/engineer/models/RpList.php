@@ -87,12 +87,25 @@ class RpList extends \yii\db\ActiveRecord
         if ($this->validate() && $photo !== null) {
 
             $fileName = md5($photo->baseName . time()) . '.' . $photo->extension;
-            //$fileName = $photo->baseName . '.' . $photo->extension;
             if ($photo->saveAs($path . $fileName)) {
                 return $fileName;
             }
         }
         return $model->isNewRecord ? false : $model->getOldAttribute($attribute);
+    }
+
+    public function uploadUpdate($modelList, $attribute)
+    {
+        $photo  = UploadedFile::getInstance($modelList, $attribute);
+        $path = $this->getUploadPath();
+        if ($this->validate() && $photo !== null) {
+
+            $fileName = md5($photo->baseName . time()) . '.' . $photo->extension;
+            if ($photo->saveAs($path . $fileName)) {
+                return $fileName;
+            }
+        }
+        return $modelList->isNewRecord ? true : $modelList->getOldAttribute($attribute);
     }
 
     public function getUploadPath()
@@ -108,7 +121,5 @@ class RpList extends \yii\db\ActiveRecord
     public function getPhotoViewer()
     {
         return empty($this->photo) ? Yii::getAlias('@web') . '/images/nopic.jpg' : $this->getUploadUrl() . $this->photo;
-        // return empty($this->photo) ? 'https://www.northernfoodcomplex.com/wp-content/uploads/2018/10/logo.png' : $this->getUploadUrl() . $this->photo;
     }
-
 }
